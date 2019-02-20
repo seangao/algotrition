@@ -1,5 +1,4 @@
 var express = require('express');
-var boostrap = require('bootstrap');
 var router = express.Router();
 
 const indexControllers = require('../controllers/index.js');

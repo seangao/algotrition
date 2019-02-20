@@ -1,5 +1,4 @@
 var express = require('express');
-var boostrap = require('bootstrap');
 var router = express.Router();
 
 /* GET users listing. */
