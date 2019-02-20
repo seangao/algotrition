@@ -1,5 +1,5 @@
 function generator(req, res, next) {
-  res.render('planGenerator', { title: 'generator' });
+  res.render('planGenerator', { title: 'Plan Generator' });
 }
 
 module.exports = {
