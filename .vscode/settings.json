@@ -1,3 +1,4 @@
 {
-    "svn.path": "c:\\Program Files\\SlikSvn\\bin\\svn.exe"
+    "svn.path": "c:\\Program Files\\SlikSvn\\bin\\svn.exe",
+    "python.linting.pylintEnabled": true
 }
