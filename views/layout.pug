@@ -10,17 +10,18 @@ html
     link(rel='stylesheet', href='/stylesheets/style.css')
     meta(name='viewport', content='width=device-width, initial-scale=1')
   body
-    a(href='/') Home
-    |
-    |
-    a(href='/profile') My profile
-    |
-    |
-    a(href='/generator') Meal plan generator
-    |
-    |
-    a(href='/calendar') Calendar
-    |
-    |
-    a(href='/recipes') My recipes
+    if header_menu != false
+      a(href='/') Home
+      |
+      |
+      a(href='/profile') My profile
+      |
+      |
+      a(href='/generator') Meal plan generator
+      |
+      |
+      a(href='/calendar') Calendar
+      |
+      |
+      a(href='/recipes') My recipes
     block content
