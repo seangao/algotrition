@@ -50,4 +50,14 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
+app.get('/register', function (req, res) {
+    res.render('register');
+});
+
+app.post('/registerprocess', urlencodedParser, function (req, res) {
+    console.log("Now handling registration!");
+    res.render('register');
+}
+
+
 module.exports = app;
