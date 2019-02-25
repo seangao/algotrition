@@ -1,5 +1,77 @@
 extends layout
 
 block content
-  h1= title
-  p wow generator
+  div(class='dropdown-menu login-menu')
+    form(method='POST', class='px-3 py-3', action='')
+      div(class='form-group input-group')
+        div(class='input-group-prepend')
+          span(class='input-group-text input-group-icon')
+            i(class='fas fa-hamburger')
+        input#calories.form-control(type='number', placeholder='Calories',
+          name='calories', value=2000)
+        div(class='input-group-append')
+          div(class='input-group-append')
+            span(class='input-group-text') cal
+      div(class='form-group input-group')
+        div(class='input-group-prepend')
+          span(class='input-group-text input-group-icon')
+            i(class='fas fa-allergies')
+        select#allergens(class='selectpicker select-allergens form-control', 
+          multiple, data-mobile=true, data-none-selected-text='Allergens', 
+          data-width:'auto')
+          option(value='gluten') Gluten
+          option(value='peanut') Peanut
+          option(value='seafood') Seafood
+          option(value='sesame') Sesame
+          option(value='soy') Soy
+          option(value='dairy') Dairy
+          option(value='egg') Egg
+          option(value='sulfite') Sulfite
+          option(value='tree_nut') Tree Nuts
+          option(value='wheat') Wheat
+      div(class='form-group input-group')
+        div(class='input-group-prepend')
+          span(class='input-group-text input-group-icon')
+            i(class='fas fa-carrot')
+        select#diet(class='custom-select')
+          option(selected value='none') No dietary restrictions
+          option(value='vegetarian') Vegetarian
+          option(value='vegan') Vegan
+          option(value='ketogenic') Ketogenic
+      div(class='form-group input-group')
+        div(class='input-group-prepend')
+          span(class='input-group-text input-group-icon')
+            i(class='fas fa-utensils')
+        select#meals(class='custom-select')
+          option(value='1') 1
+          option(value='2') 2
+          option(value='3' selected) 3
+        div(class='input-group-append')
+          div(class='input-group-append')
+            span(class='input-group-text') daily meals
+      div(class='form-group input-group')
+        div(class='input-group-prepend')
+          span(class='input-group-text input-group-icon')
+            i(class='fas fa-stopwatch')
+        select#cooking_time(class='custom-select')
+          option(selected disabled) Cooking time
+          option(value='15') 15
+          option(value='30') 30
+          option(value='45') 45
+          option(value='60') 60
+        div(class='input-group-append')
+          div(class='input-group-append')
+            span(class='input-group-text') min
+      div(class='form-group btn-group btn-group-toggle d-flex', data-toggle='buttons')
+        div(class='input-group-prepend')
+          span(class='input-group-text input-group-icon')
+            i(class='fas fa-money-bill')
+        label(class='btn btn-primary active w-100') $
+          input#cost1(type='radio', name='cost', autocomplete='off', checked)
+        label(class='btn btn-primary w-100') $$
+          input#cost1(type='radio', name='cost', autocomplete='off')
+        label(class='btn btn-primary w-100') $$$
+          input#cost1(type='radio', name='cost', autocomplete='off')
+      div(class='text-center')
+        button#generate(type='button' class='btn btn-outline-primary',
+          name='generate') Generate Meal Plan
