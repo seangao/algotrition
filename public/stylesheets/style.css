@@ -18,7 +18,7 @@ h1 {
 }
 
 .input-group-icon {
-  width: 40px;
+  width: 46px;
   display: block;
   text-align: center;
 }
@@ -76,4 +76,8 @@ h1 {
     display: block;
     background-color: pink;
     color: white;
+}
+
+.select-allergens {
+  width: 100%;
 }
