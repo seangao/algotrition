@@ -7,6 +7,10 @@ a {
   color: #00B7FF;
 }
 
+h1 {
+    display: block;
+}
+
 .login-menu {
   position: static;
   display: block;
@@ -17,4 +21,59 @@ a {
   width: 40px;
   display: block;
   text-align: center;
+}
+
+.header_bar {
+  padding: 5px;
+  text-align: left;
+  background-image: url('http://localhost:3000/images/header_background.jpg');
+  color: white;
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.menu_bar {
+    padding: 5px;
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+#header_logo {
+  max-width: 100%;
+  height: auto;
+}
+
+#main_menu {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+#main_menu li {
+    display: block;
+    float: left;
+}
+
+#main_menu li a {
+    display: block;
+    color: pink;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+.dropdown {
+    display: none;
+}
+
+#mobile_menu {
+    display: block;
+}
+
+#dropbtn {
+    display: block;
+    background-color: pink;
+    color: white;
 }
