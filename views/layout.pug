@@ -15,27 +15,28 @@ html
     div(class='header_bar')
       a(href='/')
         img#header_logo(src='http://localhost:3000/images/algo_logo_small.png')
-    div(class='menu_bar')
-      ul(id='main_menu')
-        li: a(href='/') Home
-        |
-        |
-        li: a(href='/profile') My profile
-        |
-        |
-        li: a(href='/generator') Meal plan generator
-        |
-        |
-        li: a(href='/calendar') Calendar
-        |
-        |
-        li: a(href='/recipes') My recipes
-    div(class='dropdown')
-      button(id='dropbtn') Menu
-        div(id='mobile_menu')
-          a(href='/') Home
-          a(href='/profile') My Profile
-          a(href='/generator') Meal Plan generator
-          a(href='/calendar') Calendar
-          a(href='/recipes') My recipes
+    if header_menu != false
+      div(class='menu_bar')
+        ul(id='main_menu')
+          li: a(href='/') Home
+          |
+          |
+          li: a(href='/profile') My profile
+          |
+          |
+          li: a(href='/generator') Meal plan generator
+          |
+          |
+          li: a(href='/calendar') Calendar
+          |
+          |
+          li: a(href='/recipes') My recipes
+      div(class='dropdown')
+        button(id='dropbtn') Menu
+          div(id='mobile_menu')
+            a(href='/') Home
+            a(href='/profile') My Profile
+            a(href='/generator') Meal Plan generator
+            a(href='/calendar') Calendar
+            a(href='/recipes') My recipes
     block content

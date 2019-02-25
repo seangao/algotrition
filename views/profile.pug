@@ -2,6 +2,32 @@ extends layout
 
 block content
   h1= title
-  p My id: #{user_id}
-  p My name is #{user_info.name}
-  p Calorie count: #{user_info.calories}
+<<<<<<< HEAD
+  p My id: #{user.age}
+  p My name is #{user.username}
+  p Calorie count: #{user.password}
+=======
+  
+  div
+    h3 General
+    p Name: #{user_info.name}
+    p Email: john.doe@gmail.com
+    p Current meal plan
+  hr
+  
+  div 
+    h3 Nutritional Preferences
+    p Allergens
+    p Diet Profile
+    p Calorie count: #{user_info.calories}
+  hr
+  
+  div
+    h3 History
+    p Previous meal plans
+    p Statistics
+  hr
+
+//- Notes
+  • The user should not be able to see their user id
+>>>>>>> origin/master
