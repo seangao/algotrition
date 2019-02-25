@@ -4,6 +4,7 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
+
 //routers import
 var indexRouter = require('./routes/index');
 var loginRouter = require('./routes/login');
@@ -21,7 +22,6 @@ app.set('view engine', 'pug');
 
 app.use(logger('dev'));
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -50,14 +50,8 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-app.get('/register', function (req, res) {
-    res.render('register');
-});
+app.listen(8888);
 
-app.post('/registerprocess', urlencodedParser, function (req, res) {
-    console.log("Now handling registration!");
-    res.render('register');
-}
-
-
+//Just use for local debugging purpose; port number can be changed
+console.log("Express running at port 8888");
 module.exports = app;

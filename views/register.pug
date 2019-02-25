@@ -2,7 +2,7 @@ extends layout
 
 block content
   div(class='dropdown-menu login-menu')
-    form(method='POST', class='px-3 py-3', action='/registerprocess')
+    form(method='POST', class='px-3 py-3', action='/register/registerprocess')
       div(class='form-group input-group')
         div(class='input-group-prepend')
           span(class='input-group-text input-group-icon')
@@ -69,5 +69,5 @@ block content
         input#weight.form-control(type='number', placeholder='Weight (lbs)',
           name='weight')
       div(class='text-center')
-        button#register(type='button' class='btn btn-outline-primary',
+        button#register(type='submit' class='btn btn-outline-primary',
           name='register') Register
