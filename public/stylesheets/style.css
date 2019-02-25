@@ -14,7 +14,11 @@ a {
 }
 
 .input-group-icon {
-  width: 40px;
+  width: 46px;
   display: block;
   text-align: center;
+}
+
+.select-allergens {
+  width: 100%;
 }
