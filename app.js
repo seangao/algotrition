@@ -50,8 +50,6 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-app.listen(8888);
-
 //Just use for local debugging purpose; port number can be changed
 console.log("Express running at port 8888");
 module.exports = app;
