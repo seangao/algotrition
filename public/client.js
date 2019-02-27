@@ -1,6 +1,10 @@
 window.onload=function() {
-    const mobile_menu_button = document.getElementById('dropbtn');
-    mobile_menu_button.addEventListener('click', function(e) {
-      document.getElementById("mobile_menu").style.display = "block";
+    const mobile_menu = document.getElementById("mobile_menu");
+    document.getElementById("dropbtn").addEventListener('click', function(e) {
+      if (mobile_menu.style.display == "block") {
+        mobile_menu.style.display = "none";
+      } else {
+        mobile_menu.style.display = "block";
+      }
     });
 }

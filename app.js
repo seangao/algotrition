@@ -51,5 +51,6 @@ app.use(function(err, req, res, next) {
 });
 
 //Just use for local debugging purpose; port number can be changed
-console.log("Express running at port 8888");
+console.log("Express running at port 3000");
+app.listen(3000);
 module.exports = app;

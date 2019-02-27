@@ -3,9 +3,6 @@ var router = express.Router();
 var bodyParser = require('body-parser')
 var urlencodedParser = bodyParser.urlencoded({ extended: false });
 
-router.get('/', function(req, res, next) {
-  res.render('register', { title: 'Express' });
-});
 const registerControllers = require('../controllers/register.js');
 
 router.get('/', registerControllers.register);
