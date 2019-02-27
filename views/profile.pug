@@ -1,14 +1,9 @@
 extends layout
 
 block content
-  h1= title
-  p My id: #{user.age}
-  p My name is #{user.username}
-  p Calorie count: #{user.password}
-  
   div
     h3 General
-    p Name: #{user_info.name}
+    p Name: #{user.username}
     p Email: john.doe@gmail.com
     p Current meal plan
   hr
@@ -17,7 +12,7 @@ block content
     h3 Nutritional Preferences
     p Allergens
     p Diet Profile
-    p Calorie count: #{user_info.calories}
+    p Calorie count: #{user.password}
   hr
   
   div
