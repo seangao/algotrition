@@ -1,25 +1,48 @@
 extends layout
 
 block content
-  div
-    h3 General
-    p Name: #{user.username}
-    p Email: john.doe@gmail.com
-    p Current meal plan
-  hr
+  br
+  h1= title
   
-  div 
-    h3 Nutritional Preferences
-    p Allergens
-    p Diet Profile
-    p Calorie count: #{user.password}
-  hr
-  
-  div
-    h3 History
-    p Previous meal plans
-    p Statistics
-  hr
+  .container
+    #accordion.panel-group
+      .panel.panel-default
+        .panel-heading
+          h3.panel-title
+            a.accordion-toggle(data-toggle='collapse',
+            href='#collapseGeneral')
+              | General
+          #collapseGeneral.panel-collapse.collapse.in
+            .panel-body
+              | Group 1 content.
+              br
+              | Name: #{user_name}
+        .panel.panel-default
+          .panel-heading
+            h3.panel-title
+              a.accordion-toggle(data-toggle='collapse',
+              href='#collapsePref')
+                | Nutritional Preferences
+            #collapsePref.panel-collapse.collapse.in
+              .panel-body
+                | Allergens
+                br
+                | Diet profile
+                br
+                | Calorie count: 
+        .panel.panel-default
+          .panel-heading
+            h3.panel-title
+              a.accordion-toggle(data-toggle='collapse',
+              href='#collapseHistory')
+                | History
+            #collapseHistory.panel-collapse.collapse.in
+              .panel-body
+                | History
+                br
+                | Previous meal plans
+                br
+                | Statistics
 
 //- Notes
   • The user should not be able to see their user id
