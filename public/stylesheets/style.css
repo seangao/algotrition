@@ -81,3 +81,7 @@ h1 {
 .select-allergens {
   width: 100%;
 }
+
+#add-nutr-reqs {
+  display: none;
+}
