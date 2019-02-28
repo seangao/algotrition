@@ -1,5 +1,13 @@
 extends layout
 
 block content
-  h1= title
-  p CaLeNdArHeRe
+  br
+  each day in week
+    a(class="btn btn-primary" data-toggle="collapse" href="#day"+day.id role="button" aria-expanded="false" aria-controls="day"+day.id)= day.name
+    div(class="collapse" id="day"+day.id)
+      div(class="card card-body")
+        each recipe in day.recipes
+          p= recipe.name
+          ul
+          each ingredient in recipe.ingredients
+            li= ingredient
