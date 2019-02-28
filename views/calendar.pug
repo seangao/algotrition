@@ -1,11 +1,11 @@
 extends layout
 
 block content
-  div(id="accordion")
-    each day in week
-      div(class= "card")
-      div(class="card-body")
-        h5(class="card-title")= day.name
+  br
+  each day in week
+    a(class="btn btn-primary" data-toggle="collapse" href="#day"+day.id role="button" aria-expanded="false" aria-controls="day"+day.id)= day.name
+    div(class="collapse" id="day"+day.id)
+      div(class="card card-body")
         each recipe in day.recipes
           p= recipe.name
           ul
