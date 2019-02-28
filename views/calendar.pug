@@ -1,5 +1,13 @@
 extends layout
 
 block content
-  h1= title
-  p CaLeNdArHeRe
+  div(id="accordion")
+    each day in week
+      div(class= "card")
+      div(class="card-body")
+        h5(class="card-title")= day.name
+        each recipe in day.recipes
+          p= recipe.name
+          ul
+          each ingredient in recipe.ingredients
+            li= ingredient
