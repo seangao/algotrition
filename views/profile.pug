@@ -1,9 +1,11 @@
 extends layout
 
 block content
+  h1= title
+  
   div
     h3 General
-    p Name: #{user.username}
+    p Name: John
     p Email: john.doe@gmail.com
     p Current meal plan
   hr
@@ -12,7 +14,7 @@ block content
     h3 Nutritional Preferences
     p Allergens
     p Diet Profile
-    p Calorie count: #{user.password}
+    p Calorie count: 2000
   hr
   
   div
@@ -20,6 +22,18 @@ block content
     p Previous meal plans
     p Statistics
   hr
+    
+  .container
+    #accordion.panel-group
+      .panel.panel-default
+        .panel-heading
+          h4.panel-title
+            a.accordion-toggle(data-toggle='collapse',
+            href='#collapseOne')
+              | Collapsible Group Item #1
+          #collapseOne.panel-collapse.collapse.in
+            .panel-body
+              | Group 1 content.
 
 //- Notes
   • The user should not be able to see their user id
