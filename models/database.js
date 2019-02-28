@@ -1,8 +1,20 @@
 const pg = require('pg');
-const connectionString = process.env.DATABASE_URL || 'postgres://localhost:5960/todo';
 
-const client = new pg.Client(connectionString);
+const client = new pg.Client({
+  user: 'postgres',
+  host: 'localhost',
+  database: 'postgres',
+  password: '',
+  port: 5432,
+});
+
 client.connect();
-const query = client.query(
-  'CREATE TABLE items(id SERIAL PRIMARY KEY, text VARCHAR(40) not null, complete BOOLEAN)');
-query.on('end', () => { client.end(); });
+
+client.query('SELECT * from public."Users"', (err, res) => {
+  if (err) {
+    console.log(err.stack);
+  } else {
+    console.log(res.rows[0]);
+    client.end();
+  }
+})
