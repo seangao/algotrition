@@ -95,3 +95,6 @@ h1 {
     /* symbol for "collapsed" panels */
     content: "\e080";    /* adjust as needed, taken from bootstrap.css */
 }
+
+#add-nutr-reqs {
+  display: none;
