@@ -1,15 +1,45 @@
 extends layout
 
 block content
-  .panel-group.px-3.py-3
-  each day in week
-    .panel.panel-default
-      h3.panel-heading
-        a(data-toggle="collapse" href="#day"+day.id role="button" aria-expanded="false" aria-controls="day"+day.id)= day.name
-      .panel-body.collapse(id="day"+day.id)
-        .card
-        each recipe in day.recipes
-          h4.card-title= recipe.name
-          ul.card-text.list-group
-          each ingredient in recipe.ingredients
-            li.list-group-item=ingredient
+  br
+  br
+  .container
+    each day in week
+      h3= day.name
+      each meal in day.meals
+        if meal.eaten
+          h4.text-secondary= meal.name
+          .row.align-items-start
+            each recipe in meal.recipes
+              .col-md-3
+                .card.border-secondary.my-1
+                  h5.card-header
+                    a.text-secondary(data-toggle="collapse" href="#meal"+recipe.id)= recipe.name
+                  .card-text.collapse(id="meal"+recipe.id)
+                    ul.list-group
+                    each ingredient in recipe.ingredients
+                      li.list-group-item=ingredient
+        else if meal.active
+          h4.text-primary= meal.name
+          .row.align-items-start
+            each recipe in meal.recipes
+              .col-md-3
+                .card.bg-primary.my-1
+                  h5.card-header
+                    a.text-white(data-toggle="collapse" href="#meal"+recipe.id)= recipe.name
+                  .card-text.collapse.show(id="meal"+recipe.id)
+                    ul.list-group
+                    each ingredient in recipe.ingredients
+                      li.list-group-item=ingredient
+        else
+          h4= meal.name
+          .row.align-items-start
+            each recipe in meal.recipes
+              .col-md-3
+                .card.bg-dark.my-1
+                  h5.card-header
+                    a.text-white(data-toggle="collapse" href="#meal"+recipe.id)= recipe.name
+                  .card-text.collapse(id="meal"+recipe.id)
+                    ul.list-group
+                    each ingredient in recipe.ingredients
+                      li.list-group-item=ingredient
