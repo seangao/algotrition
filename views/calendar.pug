@@ -1,13 +1,15 @@
 extends layout
 
 block content
-  br
+  .panel-group.px-3.py-3
   each day in week
-    a(class="btn btn-primary" data-toggle="collapse" href="#day"+day.id role="button" aria-expanded="false" aria-controls="day"+day.id)= day.name
-    div(class="collapse" id="day"+day.id)
-      div(class="card card-body")
+    .panel.panel-default
+      h3.panel-heading
+        a(data-toggle="collapse" href="#day"+day.id role="button" aria-expanded="false" aria-controls="day"+day.id)= day.name
+      .panel-body.collapse(id="day"+day.id)
+        .card
         each recipe in day.recipes
-          p= recipe.name
-          ul
+          h4.card-title= recipe.name
+          ul.card-text.list-group
           each ingredient in recipe.ingredients
-            li= ingredient
+            li.list-group-item=ingredient
