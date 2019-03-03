@@ -27,8 +27,9 @@ block content
                       li.text-secondary.list-group-item.d-flex
                         .mr-auto= ingredient.name
                         .text-nowrap= ingredient.qty
-                    li.list-group-item.bg-light
-                      a.text-secondary(href="https://www.gimmesomeoven.com/everyday-salad-recipe/", target="_blank") See recipe...
+                    if recipe.link
+                      li.list-group-item.bg-light
+                        a.text-secondary(href=recipe.link, target="_blank") See recipe...
                     //- li.list-group-item.bg-light
                     //-   a.text-secondary(href="#") More options...
         else if meal.active
@@ -55,8 +56,9 @@ block content
                       li.list-group-item.d-flex
                         .mr-auto= ingredient.name
                         .text-nowrap= ingredient.qty
-                    li.list-group-item.bg-primary
-                      a.text-white(href="https://www.gimmesomeoven.com/everyday-salad-recipe/", target="_blank") See recipe...
+                    if recipe.link
+                      li.list-group-item.bg-primary
+                        a.text-white(href=recipe.link, target="_blank") See recipe...
                     //- li.list-group-item.bg-primary
                     //-   a.text-white(href="#") More options...
         else
@@ -79,7 +81,8 @@ block content
                       li.list-group-item.d-flex
                         .mr-auto= ingredient.name
                         .text-nowrap= ingredient.qty
-                    li.list-group-item.bg-dark
-                      a.text-white(href="https://www.gimmesomeoven.com/everyday-salad-recipe/", target="_blank") See recipe...
+                    if recipe.link
+                      li.list-group-item.bg-dark
+                        a.text-white(href=recipe.link, target="_blank") See recipe...
                     //- li.list-group-item.bg-dark
                     //-   a.text-white(href="#") More options...

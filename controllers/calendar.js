@@ -13,6 +13,7 @@ function calendar(req, res, next) {
             {
               id:1,
               name: "Banana-strawberry smoothie",
+              link: "https://www.gimmesomeoven.com/strawberry-banana-smoothie-recipe/",
               ingredients: [
                 {
                   name: "Banana",
@@ -58,6 +59,7 @@ function calendar(req, res, next) {
             {
               id:4,
               name: "Omelette",
+              link: "https://www.gimmesomeoven.com/everyday-salad-recipe/",
               ingredients: [
                 {
                   name: "Eggs",
@@ -97,14 +99,15 @@ function calendar(req, res, next) {
             {
               id: 6,
               name: "Salad",
+              link: "https://www.gimmesomeoven.com/everyday-salad-recipe/",
               ingredients: [
                 {
                   name: "Tomato",
                   qty: "2"
                 },
                 {
-                  name: "Lettuce",
-                  qty: "3oz"
+                  name: "Cucumber",
+                  qty: "1/2"
                 },
                 {
                   name: "Olive oil",
@@ -115,6 +118,7 @@ function calendar(req, res, next) {
             {
               id: 7,
               name: "Pasta with chicken",
+              link: "https://www.gimmesomeoven.com/everyday-salad-recipe/",
               ingredients: [
                 {
                   name: "Pasta",
@@ -169,6 +173,7 @@ function calendar(req, res, next) {
             {
               id:10,
               name: "Banana-strawberry smoothie",
+              link: "https://www.gimmesomeoven.com/strawberry-banana-smoothie-recipe/",
               ingredients: [
                 {
                   name: "Banana",
