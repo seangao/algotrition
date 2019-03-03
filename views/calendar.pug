@@ -36,8 +36,11 @@ block content
           h4.text-primary= meal.name
             |
             |
-            a.btn.btn-success.text-light(href="/calendar?eaten="+meal.id)
-              i.fas.fa-check
+            .btn-group(role="group")
+              a.btn.btn-success(href="/calendar?eaten="+meal.id)
+                i.fas.fa-check
+              a.btn.btn-secondary(href="#")
+                i.fas.fa-plus
           .row.align-items-start
             each recipe in meal.recipes
               .col-md-3
