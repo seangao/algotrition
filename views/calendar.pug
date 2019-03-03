@@ -13,8 +13,14 @@ block content
             each recipe in meal.recipes
               .col-md-3
                 .card.border-secondary.my-1
-                  h5.card-header
-                    a.text-secondary(data-toggle="collapse" href="#meal"+recipe.id)= recipe.name
+                  h5.card-header.d-flex
+                    a.mr-auto.text-secondary(data-toggle="collapse" href="#meal"+recipe.id)= recipe.name
+                    .drop-down
+                      a.text-secondary(data-toggle="dropdown" href="#")
+                        i.fas.fa-ellipsis-h
+                      .dropdown-menu.dropdown-menu-right
+                        a.dropdown-item(href="#") Change date...
+                        a.dropdown-item(href="#") Delete...
                   .card-text.collapse(id="meal"+recipe.id)
                     ul.list-group
                     each ingredient in recipe.ingredients
@@ -22,20 +28,27 @@ block content
                         .mr-auto= ingredient.name
                         .text-nowrap= ingredient.qty
                     li.list-group-item.bg-light
-                      a.text-secondary(href="#") See recipe...
-                    li.list-group-item.bg-light
-                      a.text-secondary(href="#") More options...
+                      a.text-secondary(href="https://www.gimmesomeoven.com/everyday-salad-recipe/", target="_blank") See recipe...
+                    //- li.list-group-item.bg-light
+                    //-   a.text-secondary(href="#") More options...
         else if meal.active
           h4.text-primary= meal.name
+            |
+            |
+            a.btn.btn-success.text-light(href="/calendar?eaten="+meal.id)
+              i.fas.fa-check
           .row.align-items-start
             each recipe in meal.recipes
               .col-md-3
                 .card.bg-primary.my-1
-                  h5.card-header
-                    .d-flex
-                      a.mr-auto.text-white(data-toggle="collapse" href="#meal"+recipe.id)= recipe.name
-                      a.text-success(href="#")
-                        i.fas.fa-check
+                  h5.card-header.d-flex
+                    a.mr-auto.text-white(data-toggle="collapse" href="#meal"+recipe.id)= recipe.name
+                    .drop-down
+                      a.text-white(data-toggle="dropdown" href="#")
+                        i.fas.fa-ellipsis-h
+                      .dropdown-menu.dropdown-menu-right
+                        a.dropdown-item(href="#") Change date...
+                        a.dropdown-item(href="#") Delete...
                   .card-text.collapse.show(id="meal"+recipe.id)
                     ul.list-group
                     each ingredient in recipe.ingredients
@@ -43,17 +56,23 @@ block content
                         .mr-auto= ingredient.name
                         .text-nowrap= ingredient.qty
                     li.list-group-item.bg-primary
-                      a.text-white(href="#") See recipe...
-                    li.list-group-item.bg-primary
-                      a.text-white(href="#") More options...
+                      a.text-white(href="https://www.gimmesomeoven.com/everyday-salad-recipe/", target="_blank") See recipe...
+                    //- li.list-group-item.bg-primary
+                    //-   a.text-white(href="#") More options...
         else
           h4= meal.name
           .row.align-items-start
             each recipe in meal.recipes
               .col-md-3
                 .card.bg-dark.my-1
-                  h5.card-header
-                    a.text-white(data-toggle="collapse" href="#meal"+recipe.id)= recipe.name
+                  h5.card-header.d-flex
+                    a.mr-auto.text-white(data-toggle="collapse" href="#meal"+recipe.id)= recipe.name
+                    .drop-down
+                      a.text-white(data-toggle="dropdown" href="#")
+                        i.fas.fa-ellipsis-h
+                      .dropdown-menu.dropdown-menu-right
+                        a.dropdown-item(href="#") Change date...
+                        a.dropdown-item(href="#") Delete...
                   .card-text.collapse(id="meal"+recipe.id)
                     ul.list-group
                     each ingredient in recipe.ingredients
@@ -61,6 +80,6 @@ block content
                         .mr-auto= ingredient.name
                         .text-nowrap= ingredient.qty
                     li.list-group-item.bg-dark
-                      a.text-white(href="#") See recipe...
-                    li.list-group-item.bg-dark
-                      a.text-white(href="#") More options...
+                      a.text-white(href="https://www.gimmesomeoven.com/everyday-salad-recipe/", target="_blank") See recipe...
+                    //- li.list-group-item.bg-dark
+                    //-   a.text-white(href="#") More options...

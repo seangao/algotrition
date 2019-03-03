@@ -1,3 +1,5 @@
+var url = require('url');
+
 function calendar(req, res, next) {
   var week = [
     {
@@ -193,6 +195,11 @@ function calendar(req, res, next) {
       ]
     }
   ]
+  var queryData = url.parse(req.url, true).query;
+  if (queryData.eaten) {
+    week[0].meals[2].eaten = true;
+    week[1].meals[0].active = true;
+  }
   res.render('calendar', { title: 'Calendar', week: week });
 }
 
