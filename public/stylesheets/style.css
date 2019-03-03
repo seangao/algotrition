@@ -35,7 +35,6 @@ h1 {
 }
 
 .menu_bar {
-    padding: 5px;
     width: 100%;
     height: auto;
     display: block;
@@ -67,16 +66,6 @@ h1 {
 
 .dropdown {
     display: none;
-}
-
-#mobile_menu {
-    display: block;
-}
-
-#dropbtn {
-    display: block;
-    background-color: pink;
-    color: white;
 }
 
 .select-allergens {

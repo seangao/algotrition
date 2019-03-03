@@ -11,7 +11,6 @@ html
     link(rel='stylesheet', href='https://use.fontawesome.com/releases/v5.7.2/css/all.css')
     link(rel='stylesheet', href='https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css')
     link(rel='stylesheet', href='/stylesheets/style.css')
-    link(rel='stylesheet', href='/stylesheets/mobile_style.css')
     link(rel='stylesheet', href='https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.2/css/bootstrap-select.min.css')
     meta(name='viewport', content='width=device-width, initial-scale=1')
   body
@@ -19,27 +18,22 @@ html
       a(href='/')
         img#header_logo
     if header_menu != false
-      div(class='menu_bar px-3 py-3')
-        ul(id='main_menu')
-          li: a(href='/') Home
+    nav(class='navbar navbar-expand-md navbar-dark bg-dark' id='navbar_container')
+      button(class='navbar-toggler' type='button' data-toggle='collapse' data-target='#collapsibleNavbar')
+        span(class='navbar-toggler-icon')
+      div(id='collapsibleNavbar' class='menu_bar collapse navbar-collapse')
+        ul(id='main_menu' class='navbar-nav mr-auto')
+          li(class='nav-item active'): a(class='nav-link' href='/') Home
           |
           |
-          li: a(href='/profile') My profile
+          li(class='nav-item active'): a(class='nav-link' href='/profile') My profile
           |
           |
-          li: a(href='/generator') Meal plan generator
+          li(class='nav-item active'): a(class='nav-link' href='/generator') Meal plan generator
           |
           |
-          li: a(href='/calendar') Calendar
+          li(class='nav-item active'): a(class='nav-link' href='/calendar') Calendar
           |
           |
-          li: a(href='/recipes') My recipes
-      div(class='dropdown')
-        button(id='dropbtn') Menu
-          div(id='mobile_menu')
-            a(href='/') Home
-            a(href='/profile') My Profile
-            a(href='/generator') Meal Plan generator
-            a(href='/calendar') Calendar
-            a(href='/recipes') My recipes
+          li(class='nav-item active'): a(class='nav-link' href='/recipes') My recipes
     block content
