@@ -18,7 +18,13 @@ block content
                   .card-text.collapse(id="meal"+recipe.id)
                     ul.list-group
                     each ingredient in recipe.ingredients
-                      li.list-group-item=ingredient
+                      li.text-secondary.list-group-item.d-flex
+                        .mr-auto= ingredient.name
+                        .text-nowrap= ingredient.qty
+                    li.list-group-item.bg-light
+                      a.text-secondary(href="#") See recipe...
+                    li.list-group-item.bg-light
+                      a.text-secondary(href="#") More options...
         else if meal.active
           h4.text-primary= meal.name
           .row.align-items-start
@@ -26,11 +32,20 @@ block content
               .col-md-3
                 .card.bg-primary.my-1
                   h5.card-header
-                    a.text-white(data-toggle="collapse" href="#meal"+recipe.id)= recipe.name
+                    .d-flex
+                      a.mr-auto.text-white(data-toggle="collapse" href="#meal"+recipe.id)= recipe.name
+                      a.text-success(href="#")
+                        i.fas.fa-check
                   .card-text.collapse.show(id="meal"+recipe.id)
                     ul.list-group
                     each ingredient in recipe.ingredients
-                      li.list-group-item=ingredient
+                      li.list-group-item.d-flex
+                        .mr-auto= ingredient.name
+                        .text-nowrap= ingredient.qty
+                    li.list-group-item.bg-primary
+                      a.text-white(href="#") See recipe...
+                    li.list-group-item.bg-primary
+                      a.text-white(href="#") More options...
         else
           h4= meal.name
           .row.align-items-start
@@ -42,4 +57,10 @@ block content
                   .card-text.collapse(id="meal"+recipe.id)
                     ul.list-group
                     each ingredient in recipe.ingredients
-                      li.list-group-item=ingredient
+                      li.list-group-item.d-flex
+                        .mr-auto= ingredient.name
+                        .text-nowrap= ingredient.qty
+                    li.list-group-item.bg-dark
+                      a.text-white(href="#") See recipe...
+                    li.list-group-item.bg-dark
+                      a.text-white(href="#") More options...

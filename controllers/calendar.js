@@ -11,17 +11,40 @@ function calendar(req, res, next) {
             {
               id:1,
               name: "Banana-strawberry smoothie",
-              ingredients: ["Banana", "Strawberry"]
+              ingredients: [
+                {
+                  name: "Banana",
+                  qty: "1"
+                },
+                {
+                  name: "Strawberry",
+                  qty: "5"
+                }
+              ]
             },
             {
               id:2,
               name: "Plain yoghurt",
-              ingredients: ["Yoghurt"]
+              ingredients: [
+                {
+                  name: "Yoghurt",
+                  qty: "1oz"
+                }
+              ]
             },
             {
               id:3,
               name: "Coffee with sugar",
-              ingredients: ["Coffee", "Sugar"]
+              ingredients: [
+                {
+                  name: "Coffee",
+                  qty: "1 cup"
+                },
+                {
+                  name: "Sugar",
+                  qty: "1 tbsp"
+                }
+              ]
             }
           ],
           eaten: true
@@ -33,12 +56,34 @@ function calendar(req, res, next) {
             {
               id:4,
               name: "Omelette",
-              ingredients: ["Eggs", "Salt", "Oil", "Pepper"]
+              ingredients: [
+                {
+                  name: "Eggs",
+                  qty: "3"
+                },
+                {
+                  name: "Salt",
+                  qty: "1tbsp"
+                },
+                {
+                  name: "Oil",
+                  qty: "1tbsp"
+                },
+                {
+                  name: "Pepper",
+                  qty: "1tbsp"
+                }
+              ]
             },
             {
               id:5,
               name: "Plain yoghurt",
-              ingredients: ["Yoghurt"]
+              ingredients: [
+                {
+                  name: "Yoghurt",
+                  qty: "1oz"
+                }
+              ]
             }
           ],
           eaten: true
@@ -50,22 +95,61 @@ function calendar(req, res, next) {
             {
               id: 6,
               name: "Salad",
-              ingredients: ["Tomato", "Lettuce", "Olive oil"]
+              ingredients: [
+                {
+                  name: "Tomato",
+                  qty: "2"
+                },
+                {
+                  name: "Lettuce",
+                  qty: "3oz"
+                },
+                {
+                  name: "Olive oil",
+                  qty: "1tbsp"
+                }
+              ]
             },
             {
               id: 7,
               name: "Pasta with chicken",
-              ingredients: ["Pasta", "Chicken", "Oil", "Parmesan"]
+              ingredients: [
+                {
+                  name: "Pasta",
+                  qty: "4oz"
+                },
+                {
+                  name: "Chicken",
+                  qty: "3oz"
+                },
+                {
+                  name: "Oil",
+                  qty: "1tbsp"
+                },
+                {
+                  name: "Parmesan",
+                  qty: "1oz"
+                }
+              ]
             },
             {
               id: 8,
               name: "Apple",
-              ingredients: ["Apple"]
+              ingredients: [
+                {
+                  name: "Apple",
+                  qty: "1"
+                }]
             },
             {
               id: 9,
               name: "Banana",
-              ingredients: ["Banana"]
+              ingredients: [
+                {
+                    name: "Banana",
+                    qty: "1"
+                }
+              ]
             }
           ],
           active: true
@@ -83,12 +167,26 @@ function calendar(req, res, next) {
             {
               id:10,
               name: "Banana-strawberry smoothie",
-              ingredients: ["Banana", "Strawberry"]
+              ingredients: [
+                {
+                  name: "Banana",
+                  qty: "1"
+                },
+                {
+                  name: "Strawberry",
+                  qty: "2oz"
+                }
+              ]
             },
             {
               id:11,
               name: "Plain yoghurt",
-              ingredients: ["Yoghurt"]
+              ingredients: [
+                {
+                  name: "Yoghurt",
+                  qty: "1oz"
+                }
+              ]
             }
           ]
         }
