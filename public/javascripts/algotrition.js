@@ -1,14 +1,29 @@
-function toggleAddNutrReqs() {
-  $('#add-nutr-reqs').toggle();
-  if ($('#add-nutr-reqs').is(':hidden')) {
-    $('#add-nutr-reqs-link').text('More options');
+function updateNutrOption(i, obj) {
+  const id = $(obj).attr('id');
+  const inputId = id.slice(0, -7);
+  const inputIdTag = `#${inputId}`;
+  if ($(obj).is('.active')) {
+    $(inputIdTag).show();
   } else {
-    $('#add-nutr-reqs-link').text('Less options');
+    $(inputIdTag).hide();
   }
 }
 
-$(document).ready( function() {
-     $('#add-nutr-reqs-link').click(function() {
-       toggleAddNutrReqs();
-     });
- });
+function updateNutrOptions() {
+  $('.generator-options-item').each(updateNutrOption);
+}
+
+function toggleNutrOptions() {
+  if ($(this).is('.active')) {
+    $(this).removeClass('active');
+  } else {
+    $(this).addClass('active');
+  }
+}
+
+function main() {
+  $('.generator-options-item').click(toggleNutrOptions);
+  $('#generator-button-next').click(updateNutrOptions);
+}
+
+$(document).ready(main);

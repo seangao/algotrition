@@ -1,286 +1,120 @@
 extends layout
 
 block content
-  div(class='dropdown-menu login-menu')
-    form(method='POST', class='px-3 py-3', action='')
-      div(class='form-group input-group')
-        div(class='input-group-prepend')
-          span(class='input-group-text input-group-icon')
-            i(class='fas fa-hamburger')
-        input#calories-min.form-control(type='number', placeholder='Calories',
-          name='calories-min', value=1800)
-        div(class='input-group-append input-group-prepend')
-          div(class='input-group-append input-group-prepend')
-            span(class='input-group-text') -
-        input#calories-max.form-control(type='number', placeholder='Calories',
-          name='calories-max', value=2200)
-        div(class='input-group-append')
-          div(class='input-group-append')
-            span(class='input-group-text') cal
-      div(class='form-group input-group')
-        div(class='input-group-prepend')
-          span(class='input-group-text input-group-icon')
-            i(class='fas fa-allergies')
-        select#allergens(class='selectpicker select-allergens form-control', 
-          multiple, data-mobile=true, data-none-selected-text='Allergens', 
-          data-width:'auto')
-          option(value='gluten') Gluten
-          option(value='peanut') Peanut
-          option(value='seafood') Seafood
-          option(value='sesame') Sesame
-          option(value='soy') Soy
-          option(value='dairy') Dairy
-          option(value='egg') Egg
-          option(value='sulfite') Sulfite
-          option(value='tree_nut') Tree Nuts
-          option(value='wheat') Wheat
-      div(class='form-group input-group')
-        div(class='input-group-prepend')
-          span(class='input-group-text input-group-icon')
-            i(class='fas fa-carrot')
-        select#diet(class='custom-select')
-          option(selected value='none') No dietary restrictions
-          option(value='vegetarian') Vegetarian
-          option(value='vegan') Vegan
-          option(value='ketogenic') Ketogenic
-      div(class='form-group input-group')
-        div(class='input-group-prepend')
-          span(class='input-group-text input-group-icon')
-            i(class='fas fa-utensils')
-        select#meals(class='custom-select')
-          option(value='1') 1
-          option(value='2') 2
-          option(value='3' selected) 3
-        div(class='input-group-append')
-          div(class='input-group-append')
-            span(class='input-group-text') daily meals
-      div(class='form-group input-group')
-        div(class='input-group-prepend')
-          span(class='input-group-text input-group-icon')
-            i(class='fas fa-stopwatch')
-        input#cook-time-min.form-control(type='number', placeholder='Cook time',
-          name='cook-time-min', value=1800)
-        div(class='input-group-append input-group-prepend')
-          div(class='input-group-append input-group-prepend')
-            span(class='input-group-text') -
-        input#cook-time-max.form-control(type='number', placeholder='Cook time',
-          name='cook-time-max', value=2200)
-        div(class='input-group-append')
-          div(class='input-group-append')
-            span(class='input-group-text') min
-      div(class='form-group input-group')
-        div(class='input-group-prepend')
-          span(class='input-group-text input-group-icon')
-            i(class='fas fa-money-bill')
-        input#cost-min.form-control(type='number', placeholder='Cost',
-          name='cost-min', value=10)
-        div(class='input-group-append input-group-prepend')
-          div(class='input-group-append input-group-prepend')
-            span(class='input-group-text') -
-        input#cost-max.form-control(type='number', placeholder='Cost',
-          name='cost-max', value=20)
-        div(class='input-group-append')
-          div(class='input-group-append')
-            span(class='input-group-text') ($)
-      div#add-nutr-reqs-link(class='dropdown-item py-2', href='#') More options
-      div#add-nutr-reqs
-        div(class='dropdown-divider')
-        div(class='form-group input-group pt-2')
-          div(class='input-group-prepend')
-            span(class='input-group-text') Potassium
-          input#potassium-min.form-control(type='number', placeholder='K',
-            name='potassium-min', value=10)
-          div(class='input-group-append input-group-prepend')
-            div(class='input-group-append input-group-prepend')
-              span(class='input-group-text') -
-          input#potassium-max.form-control(type='number', placeholder='K',
-            name='potassium-max', value=20)
-          div(class='input-group-append')
-            div(class='input-group-append')
-              span(class='input-group-text') g
-        div(class='form-group input-group')
-          div(class='input-group-prepend')
-            span(class='input-group-text') Sodium
-          input#sodium-min.form-control(type='number', placeholder='Sodium',
-            name='sodium-min', value=10)
-          div(class='input-group-append input-group-prepend')
-            div(class='input-group-append input-group-prepend')
-              span(class='input-group-text') -
-          input#sodium-max.form-control(type='number', placeholder='Sodium',
-            name='sodium-max', value=20)
-          div(class='input-group-append')
-            div(class='input-group-append')
-              span(class='input-group-text') g
-        div(class='form-group input-group')
-          div(class='input-group-prepend')
-            span(class='input-group-text') Fiber
-          input#fiber-min.form-control(type='number', placeholder='Fiber',
-            name='fiber-min', value=10)
-          div(class='input-group-append input-group-prepend')
-            div(class='input-group-append input-group-prepend')
-              span(class='input-group-text') -
-          input#fiber-max.form-control(type='number', placeholder='Fiber',
-            name='fiber-max', value=20)
-          div(class='input-group-append')
-            div(class='input-group-append')
-              span(class='input-group-text') g
-        div(class='form-group input-group')
-          div(class='input-group-prepend')
-            span(class='input-group-text') Cholesterol
-          input#chol-min.form-control(type='number', placeholder='Cholesterol',
-            name='chol-min', value=10)
-          div(class='input-group-append input-group-prepend')
-            div(class='input-group-append input-group-prepend')
-              span(class='input-group-text') -
-          input#chol-max.form-control(type='number', placeholder='Cholesterol',
-            name='chol-max', value=20)
-          div(class='input-group-append')
-            div(class='input-group-append')
-              span(class='input-group-text') g
-        div(class='form-group input-group')
-          div(class='input-group-prepend')
-            span(class='input-group-text') Trans Fat
-          input#fat-trans-min.form-control(type='number', placeholder='Trans Fat',
-            name='fat-trans-min', value=10)
-          div(class='input-group-append input-group-prepend')
-            div(class='input-group-append input-group-prepend')
-              span(class='input-group-text') -
-          input#fat-trans-max.form-control(type='number', placeholder='Trans Fat',
-            name='fat-trans-max', value=20)
-          div(class='input-group-append')
-            div(class='input-group-append')
-              span(class='input-group-text') g
-        div(class='form-group input-group')
-          div(class='input-group-prepend')
-            span(class='input-group-text') Sat Fat
-          input#fat-sat-min.form-control(type='number', placeholder='Sat Fat',
-            name='fat-sat-min', value=10)
-          div(class='input-group-append input-group-prepend')
-            div(class='input-group-append input-group-prepend')
-              span(class='input-group-text') -
-          input#fat-sat-max.form-control(type='number', placeholder='Sat Fat',
-            name='fat-sat-max', value=20)
-          div(class='input-group-append')
-            div(class='input-group-append')
-              span(class='input-group-text') g
-        div(class='form-group input-group')
-          div(class='input-group-prepend')
-            span(class='input-group-text') Carbs
-          input#carbs-min.form-control(type='number', placeholder='Carbs',
-            name='carbs-min', value=10)
-          div(class='input-group-append input-group-prepend')
-            div(class='input-group-append input-group-prepend')
-              span(class='input-group-text') -
-          input#carbs-max.form-control(type='number', placeholder='Carbs',
-            name='carbs-max', value=20)
-          div(class='input-group-append')
-            div(class='input-group-append')
-              span(class='input-group-text') g
-        div(class='form-group input-group')
-          div(class='input-group-prepend')
-            span(class='input-group-text') Protein
-          input#protein-min.form-control(type='number', placeholder='Protein',
-            name='protein-min', value=10)
-          div(class='input-group-append input-group-prepend')
-            div(class='input-group-append input-group-prepend')
-              span(class='input-group-text') -
-          input#protein-max.form-control(type='number', placeholder='Protein',
-            name='protein-max', value=20)
-          div(class='input-group-append')
-            div(class='input-group-append')
-              span(class='input-group-text') g
-        div(class='form-group input-group')
-          div(class='input-group-prepend')
-            span(class='input-group-text') Calcium
-          input#calcium-min.form-control(type='number', placeholder='Ca',
-            name='calcium-min', value=10)
-          div(class='input-group-append input-group-prepend')
-            div(class='input-group-append input-group-prepend')
-              span(class='input-group-text') -
-          input#calcium-max.form-control(type='number', placeholder='Ca',
-            name='calcium-max', value=20)
-          div(class='input-group-append')
-            div(class='input-group-append')
-              span(class='input-group-text') g
-        div(class='form-group input-group')
-          div(class='input-group-prepend')
-            span(class='input-group-text') Iron
-          input#iron-min.form-control(type='number', placeholder='Fe',
-            name='iron-min', value=10)
-          div(class='input-group-append input-group-prepend')
-            div(class='input-group-append input-group-prepend')
-              span(class='input-group-text') -
-          input#iron-max.form-control(type='number', placeholder='Fe',
-            name='iron-max', value=20)
-          div(class='input-group-append')
-            div(class='input-group-append')
-              span(class='input-group-text') g
-        div(class='form-group input-group')
-          div(class='input-group-prepend')
-            span(class='input-group-text') Sugar
-          input#sugar-min.form-control(type='number', placeholder='Sugar',
-            name='sugar-min', value=10)
-          div(class='input-group-append input-group-prepend')
-            div(class='input-group-append input-group-prepend')
-              span(class='input-group-text') -
-          input#sugar-max.form-control(type='number', placeholder='Sugar',
-            name='sugar-max', value=20)
-          div(class='input-group-append')
-            div(class='input-group-append')
-              span(class='input-group-text') g
-        div(class='form-group input-group')
-          div(class='input-group-prepend')
-            span(class='input-group-text') Energy
-          input#energy-min.form-control(type='number', placeholder='Energy',
-            name='energy-min', value=10)
-          div(class='input-group-append input-group-prepend')
-            div(class='input-group-append input-group-prepend')
-              span(class='input-group-text') -
-          input#energy-max.form-control(type='number', placeholder='Energy',
-            name='energy-max', value=20)
-          div(class='input-group-append')
-            div(class='input-group-append')
-              span(class='input-group-text') kcal
-        div(class='form-group input-group')
-          div(class='input-group-prepend')
-            span(class='input-group-text') Fat
-          input#fat-min.form-control(type='number', placeholder='Fat',
-            name='fat-min', value=10)
-          div(class='input-group-append input-group-prepend')
-            div(class='input-group-append input-group-prepend')
-              span(class='input-group-text') -
-          input#fat-max.form-control(type='number', placeholder='Fat',
-            name='fat-max', value=20)
-          div(class='input-group-append')
-            div(class='input-group-append')
-              span(class='input-group-text') g
-        div(class='form-group input-group')
-          div(class='input-group-prepend')
-            span(class='input-group-text') Vitamin A
-          input#vita-min.form-control(type='number', placeholder='Vitamin A',
-            name='vita-min', value=10)
-          div(class='input-group-append input-group-prepend')
-            div(class='input-group-append input-group-prepend')
-              span(class='input-group-text') -
-          input#vita-max.form-control(type='number', placeholder='Vitamin A',
-            name='vita-max', value=20)
-          div(class='input-group-append')
-            div(class='input-group-append')
-              span(class='input-group-text') IU
-        div(class='form-group input-group')
-          div(class='input-group-prepend')
-            span(class='input-group-text') Vitamin C
-          input#vitc-min.form-control(type='number', placeholder='Vitamin C',
-            name='vitc-min', value=10)
-          div(class='input-group-append input-group-prepend')
-            div(class='input-group-append input-group-prepend')
-              span(class='input-group-text') -
-          input#vitc-max.form-control(type='number', placeholder='Vitamin C',
-            name='vitc-max', value=20)
-          div(class='input-group-append')
-            div(class='input-group-append')
-              span(class='input-group-text') g
-      div(class='dropdown-divider')
-      div(class='text-center pt-3')
-        button#generate(type='button' class='btn btn-outline-primary',
-          name='generate') Generate Meal Plan
+  div#generator-carousel.carousel.slide(data-ride='carousel', data-interval='false')
+    div.carousel-inner
+      div.carousel-item.active
+        div.dropdown-menu.login-menu
+          div.dropdown-item.pb-2 What nutritional requirements do you need?
+          div#generator-options.list-group.list-group-flush.login-menu
+            each nutr in nutrients
+              button.list-group-item.list-group-item-action.generator-options-item.py-2(id=nutr.id + '-toggle',
+                type='button') #{nutr.name}
+          div.text-center.pt-2
+            a#generator-button-next.btn.btn-outline-primary(href='#generator-carousel', role='button',
+              data-slide='next') Next
+              
+      div.carousel-item
+        div#generator-form(class='dropdown-menu login-menu')
+          form(method='POST', class='px-3 py-3', action='')
+            div(class='form-group input-group')
+              div(class='input-group-prepend')
+                span(class='input-group-text input-group-icon')
+                  i(class='fas fa-hamburger')
+              input#calories-min.form-control(type='number', placeholder='Calories',
+                name='calories-min', value=1800)
+              div(class='input-group-append input-group-prepend')
+                div(class='input-group-append input-group-prepend')
+                  span(class='input-group-text') -
+              input#calories-max.form-control(type='number', placeholder='Calories',
+                name='calories-max', value=2200)
+              div(class='input-group-append')
+                div(class='input-group-append')
+                  span(class='input-group-text') cal
+                  
+            div(class='form-group input-group')
+              div(class='input-group-prepend')
+                span(class='input-group-text input-group-icon')
+                  i(class='fas fa-allergies')
+              select#allergens-web(class='selectpicker select-allergens form-control d-none', 
+                multiple, data-mobile=true, data-none-selected-text='Allergens', 
+                data-width:'auto', disabled)
+                each allergen in allergens
+                    option(value=allergen.toLowerCase()) #{allergen}
+              select#allergens-mobile(class='custom-select form-control', 
+                multiple, data-mobile=true, data-none-selected-text='Allergens', 
+                data-width:'auto')
+                option(disabled) Allergens
+                each allergen in allergens
+                    option(value=allergen.toLowerCase()) #{allergen}
+                    
+            div(class='form-group input-group')
+              div(class='input-group-prepend')
+                span(class='input-group-text input-group-icon')
+                  i(class='fas fa-carrot')
+              select#diet(class='custom-select')
+                option(selected disabled) No dietary restrictions
+                each diet in diets
+                    option(value=diet.toLowerCase()) #{diet}
+                    
+            div(class='form-group input-group')
+              div(class='input-group-prepend')
+                span(class='input-group-text input-group-icon')
+                  i(class='fas fa-utensils')
+              select#meals(class='custom-select')
+                option(value='1') 1
+                option(value='2') 2
+                option(value='3' selected) 3
+              div(class='input-group-append')
+                div(class='input-group-append')
+                  span(class='input-group-text') daily meals
+                  
+            div(class='form-group input-group')
+              div(class='input-group-prepend')
+                span(class='input-group-text input-group-icon')
+                  i(class='fas fa-stopwatch')
+              input#cook-time-min.form-control(type='number', placeholder='Cook time',
+                name='cook-time-min', value=1800)
+              div(class='input-group-append input-group-prepend')
+                div(class='input-group-append input-group-prepend')
+                  span(class='input-group-text') -
+              input#cook-time-max.form-control(type='number', placeholder='Cook time',
+                name='cook-time-max', value=2200)
+              div(class='input-group-append')
+                div(class='input-group-append')
+                  span(class='input-group-text') min
+                  
+            div(class='form-group input-group')
+              div(class='input-group-prepend')
+                span(class='input-group-text input-group-icon')
+                  i(class='fas fa-money-bill')
+              input#cost-min.form-control(type='number', placeholder='Cost',
+                name='cost-min', value=10)
+              div(class='input-group-append input-group-prepend')
+                div(class='input-group-append input-group-prepend')
+                  span(class='input-group-text') -
+              input#cost-max.form-control(type='number', placeholder='Cost',
+                name='cost-max', value=20)
+              div(class='input-group-append')
+                div(class='input-group-append')
+                  span(class='input-group-text') ($)
+            
+            each nutr in nutrients
+              div.form-group.input-group(id=nutr.id)
+                div.input-group-prepend
+                  span.input-group-text #{nutr.short}
+                input.form-control(id=nutr.id + '-min', type='number', 
+                  placeholder=nutr.short, name=nutr.id + '-min', value=10)
+                div.input-group-append.input-group-prepend
+                  div.input-group-append.input-group-prepend
+                    span.input-group-text -
+                input.form-control(id=nutr.id + '-max', type='number', 
+                  placeholder=nutr.short, name=nutr.id + '-max', value=20)
+                div(class='input-group-append')
+                  div(class='input-group-append')
+                    span(class='input-group-text') #{nutr.units}
+                    
+            div.dropdown-divider
+            div.text-center.pt-3
+              button#generate.btn.btn-outline-primary(type='button',
+                name='generate') Generate Meal Plan
