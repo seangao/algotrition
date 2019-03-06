@@ -1,5 +1,5 @@
 function generator(req, res, next) {
-  var allergens = [
+  const allergens = [
     'Dairy',
     'Egg',
     'Gluten',
@@ -9,16 +9,16 @@ function generator(req, res, next) {
     'Soy',
     'Sulfite',
     'Tree Nuts',
-    'Wheat'
+    'Wheat',
   ];
 
-  var diets = [
+  const diets = [
     'Vegetarian',
     'Vegan',
-    'Ketogenic'
+    'Ketogenic',
   ];
 
-  var nutrients = [
+  const nutrients = [
     {
       name: 'Potassium',
       short: 'K',
@@ -29,90 +29,90 @@ function generator(req, res, next) {
       name: 'Sodium',
       short: 'Na',
       id: 'sodium',
-      units: 'g'
+      units: 'g',
     },
     {
       name: 'Calcium',
       short: 'Ca',
       id: 'calcium',
-      units: 'g'
+      units: 'g',
     },
     {
       name: 'Iron',
       short: 'Fe',
       id: 'iron',
-      units: 'g'
+      units: 'g',
     },
     {
       name: 'Total Saturated Fat',
       short: 'Sat Fat',
       id: 'satfat',
-      units: 'g'
+      units: 'g',
     },
     {
       name: 'Total Trans Fat',
       short: 'Trans Fat',
       id: 'transfat',
-      units: 'g'
+      units: 'g',
     },
     {
       name: 'Total Sugars',
       short: 'Sugar',
       id: 'sugar',
-      units: 'g'
+      units: 'g',
     },
     {
       name: 'Carbohydrate (by difference)',
       short: 'Carbs',
       id: 'carbs',
-      units: 'g'
+      units: 'g',
     },
     {
       name: 'Fiber',
       short: 'Fiber',
       id: 'fiber',
-      units: 'g'
+      units: 'g',
     },
     {
       name: 'Protein',
       short: 'Protein',
       id: 'protein',
-      units: 'g'
+      units: 'g',
     },
     {
       name: 'Vitamin A',
       short: 'Vit A',
       id: 'vita',
-      units: 'IU'
+      units: 'IU',
     },
     {
       name: 'Vitamin C',
       short: 'Vit C',
       id: 'vitc',
-      units: 'g'
+      units: 'g',
     },
     {
       name: 'Energy',
       short: 'Energy',
       id: 'energy',
-      units: 'kcal'
+      units: 'kcal',
     },
     {
       name: 'Total Lipid (Fat)',
       short: 'Fat',
       id: 'fat',
-      units: 'g'
+      units: 'g',
     },
   ];
 
   res.render('planGenerator', {
     title: 'Plan Generator',
-    allergens:  allergens,
-    diets: diets,
-    nutrients: nutrients,
+    allergens,
+    diets,
+    nutrients,
   });
 }
 
 module.exports = {
-    generator
+  generator,
 };
