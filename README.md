@@ -11,5 +11,5 @@
 To avoid reloading the app each time you make changes, run `DEBUG=algotrition:* npm run dev`
 
 ## Testing
-`npm run lint` for linter
+`npm run lint` for linter  
 Run `npm test`
