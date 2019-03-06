@@ -10,6 +10,8 @@
 ## Running app in dev mode
 To avoid reloading the app each time you make changes, run `DEBUG=algotrition:* npm run dev`
 
+## Linter
+`npm run lint`
+
 ## Testing
-`npm run lint` for linter  
 Run `npm test`
