@@ -65,6 +65,10 @@ h1 {
     text-decoration: none;
 }
 
+#main_menu li a:hover {
+    color: white;
+}
+
 .dropdown {
     display: none;
 }
