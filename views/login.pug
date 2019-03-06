@@ -9,15 +9,17 @@ block content
             i(class='fas fa-user')
         input#username.form-control(type='text', placeholder='Username',
           name='username')
+        div.invalid-feedback Invalid username
       div(class='form-group input-group')
         div(class='input-group-prepend')
           span(class='input-group-text input-group-icon')
             i(class='fas fa-lock')
         input#password.form-control(type='password', placeholder='Password',
           name='password')
+        div.invalid-feedback Wrong password
       div(class='text-center')
         button#login(type='button', class='btn btn-outline-primary',
           name='login') Login
     div(class='dropdown-divider')
-    a(class='dropdown-item py-2', href='#') Don't have an account? Register
+    a(class='dropdown-item py-2', href='/register') Don't have an account? Register
     a(class='dropdown-item py-2', href='#') Forgot password?
