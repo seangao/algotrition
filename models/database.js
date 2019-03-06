@@ -1,5 +1,6 @@
 const pg = require('pg');
 
+//local postgres database configuration
 const client = new pg.Client({
   user: 'postgres',
   host: 'localhost',
@@ -8,13 +9,5 @@ const client = new pg.Client({
   port: 5432,
 });
 
-client.connect();
+module.exports = client;
 
-client.query('SELECT * from public."Users"', (err, res) => {
-  if (err) {
-    console.log(err.stack);
-  } else {
-    console.log(res.rows[0]);
-    client.end();
-  }
-})

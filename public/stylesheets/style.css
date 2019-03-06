@@ -29,13 +29,13 @@ h1 {
   text-align: left;
   background-image: url('http://rocomenty.com/wp-content/uploads/2019/02/header_background.jpg');
   color: white;
-  width: 100%;
-  height: auto;
+  background-repeat:no-repeat;
+  background-size:contain;
+  background-position:center;
   display: block;
 }
 
 .menu_bar {
-    padding: 5px;
     width: 100%;
     height: auto;
     display: block;
@@ -67,16 +67,6 @@ h1 {
 
 .dropdown {
     display: none;
-}
-
-#mobile_menu {
-    display: block;
-}
-
-#dropbtn {
-    display: block;
-    background-color: pink;
-    color: white;
 }
 
 .select-allergens {
