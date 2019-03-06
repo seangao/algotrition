@@ -1,20 +1,18 @@
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
+const createError = require('http-errors');
+const express = require('express');
+const path = require('path');
+const cookieParser = require('cookie-parser');
+const logger = require('morgan');
 
+const app = express();
 
-//routers import
-var indexRouter = require('./routes/index');
-var loginRouter = require('./routes/login');
-var registerRouter = require('./routes/register');
-var profileRouter = require('./routes/profile');
-var planGeneratorRouter = require('./routes/planGenerator');
-var calendarRouter = require('./routes/calendar');
-var recipesRouter = require('./routes/recipes');
-
-var app = express();
+// routers import
+const loginRouter = require('./routes/login');
+const registerRouter = require('./routes/register');
+const profileRouter = require('./routes/profile');
+const planGeneratorRouter = require('./routes/planGenerator');
+const calendarRouter = require('./routes/calendar');
+const recipesRouter = require('./routes/recipes');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -25,8 +23,8 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-//routers loading
-app.use('/', indexRouter);
+// routers loading
+app.use('/', loginRouter);
 app.use('/login', loginRouter);
 app.use('/register', registerRouter);
 app.use('/profile', profileRouter);
@@ -50,6 +48,6 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-//Just use for local debugging purpose; port number can be changed
-console.log("Express running at port 3000");
+// Just use for local debugging purpose; port number can be changed
+console.log('Express running at port 3000');
 module.exports = app;
