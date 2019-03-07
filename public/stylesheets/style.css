@@ -24,6 +24,24 @@ h1 {
   text-align: center;
 }
 
+.nutr-options-append-primary {
+  width: 55px;
+  display: block;
+  text-align: center;
+}
+
+.nutr-options-additional-prepend-primary {
+  width: 98px;
+  display: block;
+  text-align: center;
+}
+
+.nutr-options-additional-append-primary {
+  width: 56px;
+  display: block;
+  text-align: center;
+}
+
 .header_bar {
   padding: 5px;
   text-align: left;

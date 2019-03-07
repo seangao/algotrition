@@ -5,7 +5,7 @@ block content
     div.carousel-inner
       div.carousel-item.active
         div.dropdown-menu.login-menu
-          div.dropdown-item.pb-2 What nutritional requirements do you need?
+          div.dropdown-item.pb-2 Desired Nutritional Requirements
           div#generator-options.list-group.list-group-flush.login-menu
             each nutr in nutrients
               button.list-group-item.list-group-item-action.generator-options-item.py-2(id=nutr.id + '-toggle',
@@ -30,7 +30,37 @@ block content
                 name='calories-max', value=2200)
               div(class='input-group-append')
                 div(class='input-group-append')
-                  span(class='input-group-text') cal
+                  span(class='input-group-text nutr-options-append-primary') cal  
+                  
+            div(class='form-group input-group')
+              div(class='input-group-prepend')
+                span(class='input-group-text input-group-icon')
+                  i(class='fas fa-stopwatch')
+              input#cook-time-min.form-control(type='number', placeholder='Cook time',
+                name='cook-time-min', value=1800)
+              div(class='input-group-append input-group-prepend')
+                div(class='input-group-append input-group-prepend')
+                  span(class='input-group-text') -
+              input#cook-time-max.form-control(type='number', placeholder='Cook time',
+                name='cook-time-max', value=2200)
+              div(class='input-group-append')
+                div(class='input-group-append')
+                  span(class='input-group-text nutr-options-append-primary') min
+                  
+            div(class='form-group input-group')
+              div(class='input-group-prepend')
+                span(class='input-group-text input-group-icon')
+                  i(class='fas fa-money-bill')
+              input#cost-min.form-control(type='number', placeholder='Cost',
+                name='cost-min', value=10)
+              div(class='input-group-append input-group-prepend')
+                div(class='input-group-append input-group-prepend')
+                  span(class='input-group-text') -
+              input#cost-max.form-control(type='number', placeholder='Cost',
+                name='cost-max', value=20)
+              div(class='input-group-append')
+                div(class='input-group-append')
+                  span(class='input-group-text nutr-options-append-primary') ($)
                   
             div(class='form-group input-group')
               div(class='input-group-prepend')
@@ -56,7 +86,7 @@ block content
                 option(selected disabled) No dietary restrictions
                 each diet in diets
                     option(value=diet.toLowerCase()) #{diet}
-                    
+            
             div(class='form-group input-group')
               div(class='input-group-prepend')
                 span(class='input-group-text input-group-icon')
@@ -68,41 +98,13 @@ block content
               div(class='input-group-append')
                 div(class='input-group-append')
                   span(class='input-group-text') daily meals
-                  
-            div(class='form-group input-group')
-              div(class='input-group-prepend')
-                span(class='input-group-text input-group-icon')
-                  i(class='fas fa-stopwatch')
-              input#cook-time-min.form-control(type='number', placeholder='Cook time',
-                name='cook-time-min', value=1800)
-              div(class='input-group-append input-group-prepend')
-                div(class='input-group-append input-group-prepend')
-                  span(class='input-group-text') -
-              input#cook-time-max.form-control(type='number', placeholder='Cook time',
-                name='cook-time-max', value=2200)
-              div(class='input-group-append')
-                div(class='input-group-append')
-                  span(class='input-group-text') min
-                  
-            div(class='form-group input-group')
-              div(class='input-group-prepend')
-                span(class='input-group-text input-group-icon')
-                  i(class='fas fa-money-bill')
-              input#cost-min.form-control(type='number', placeholder='Cost',
-                name='cost-min', value=10)
-              div(class='input-group-append input-group-prepend')
-                div(class='input-group-append input-group-prepend')
-                  span(class='input-group-text') -
-              input#cost-max.form-control(type='number', placeholder='Cost',
-                name='cost-max', value=20)
-              div(class='input-group-append')
-                div(class='input-group-append')
-                  span(class='input-group-text') ($)
+            
+            div.dropdown-divider.pb-2
             
             each nutr in nutrients
               div.form-group.input-group(id=nutr.id)
                 div.input-group-prepend
-                  span.input-group-text #{nutr.short}
+                  span.input-group-text.nutr-options-additional-prepend-primary #{nutr.short}
                 input.form-control(id=nutr.id + '-min', type='number', 
                   placeholder=nutr.short, name=nutr.id + '-min', value=10)
                 div.input-group-append.input-group-prepend
@@ -112,7 +114,7 @@ block content
                   placeholder=nutr.short, name=nutr.id + '-max', value=20)
                 div(class='input-group-append')
                   div(class='input-group-append')
-                    span(class='input-group-text') #{nutr.units}
+                    span.nutr-options-additional-append-primary(class='input-group-text') #{nutr.units}
                     
             div.dropdown-divider
             div.text-center.pt-3
