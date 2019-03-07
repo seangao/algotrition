@@ -3,6 +3,7 @@ const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
+const pgp = require('pg-promise')();
 
 const app = express();
 
@@ -48,6 +49,10 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-// Just use for local debugging purpose; port number can be changed
+// add database to app's local prototype. Available to all controllers
+const config = require('./config')
+app.locals.db = pgp(config.databaseURL);
+
+// port number can be changed for testing purpose
 console.log('Express running at port 3000');
 module.exports = app;
