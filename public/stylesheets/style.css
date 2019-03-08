@@ -24,6 +24,24 @@ h1 {
   text-align: center;
 }
 
+.nutr-options-append-primary {
+  width: 55px;
+  display: block;
+  text-align: center;
+}
+
+.nutr-options-additional-prepend-primary {
+  width: 98px;
+  display: block;
+  text-align: center;
+}
+
+.nutr-options-additional-append-primary {
+  width: 56px;
+  display: block;
+  text-align: center;
+}
+
 .header_bar {
   padding: 5px;
   text-align: left;
@@ -63,6 +81,10 @@ h1 {
     text-align: center;
     padding: 14px 16px;
     text-decoration: none;
+}
+
+#main_menu li a:hover {
+    color: white;
 }
 
 .dropdown {

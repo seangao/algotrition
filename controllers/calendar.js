@@ -1,17 +1,17 @@
-var url = require('url');
+const url = require('url');
 
 function calendar(req, res, next) {
-  var week = [
+  const week = [
     {
       name: 'Monday',
       id: 1,
       meals: [
         {
-          name: "Breakfast",
+          name: 'Breakfast',
           id: 1,
           recipes: [
             {
-              id:1,
+              id: 1,
               name: "Banana-strawberry smoothie",
               link: "https://www.gimmesomeoven.com/strawberry-banana-smoothie-recipe/",
               ingredients: [
