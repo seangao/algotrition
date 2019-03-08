@@ -83,7 +83,7 @@ function generateProfile(req, res, next) {
         },
         {
           name: "Age",
-          value: req.weight
+          value: req.age
         },
         {
           name: "Gender",

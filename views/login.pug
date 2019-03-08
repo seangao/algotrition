@@ -2,7 +2,7 @@ extends layout
 
 block content
   div(class='dropdown-menu login-menu')
-    form(method='POST', class='px-3 py-3', action='')
+    form(method='POST', class='px-3 py-3', action='/loginprocess')
       div(class='form-group input-group')
         div(class='input-group-prepend')
           span(class='input-group-text input-group-icon')
@@ -18,7 +18,7 @@ block content
           name='password')
         div.invalid-feedback Wrong password
       div(class='text-center')
-        button#login(type='button', class='btn btn-outline-primary',
+        button#login(type='submit', class='btn btn-outline-primary',
           name='login') Login
     div(class='dropdown-divider')
     a(class='dropdown-item py-2', href='/register') Don't have an account? Register

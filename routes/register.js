@@ -5,7 +5,6 @@ var urlencodedParser = bodyParser.urlencoded({ extended: false });
 
 const registerControllers = require('../controllers/register');
 
-
 /* render registration page */
 router.get('/', registerControllers.register);
 
