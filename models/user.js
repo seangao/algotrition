@@ -1,7 +1,7 @@
 function get_info(id) {
-  return {name: "John", calories: 2000};
+    return {name: "John", calories: 2000};
 }
 
 module.exports = {
-  get_info
-};
+    get_info
+}

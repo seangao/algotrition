@@ -1,6 +1,4 @@
-var user = require('../models/user');
-
-function profile(req, res, next) {
+function generateProfileDummy(req, res, next) {
   // var user_id = 42;
   // var user_info = user.get_info(user_id);
   // var user_calories;
@@ -13,15 +11,15 @@ function profile(req, res, next) {
       items: [
         {
           name: "Name",
-          value: "John"
+          value: "John Doe"
         },
         {
           name: "Weight",
-          value: "180 pounds"
+          value: "160 pounds"
         },
         {
           name: "Age",
-          value: "22"
+          value: 22
         },
         {
           name: "Gender",
@@ -55,12 +53,73 @@ function profile(req, res, next) {
     }
   ]
 
-  res.render(
-    'profile',
-    { title: 'My profile', user: user}
-  );
+  return user;
 }
 
 module.exports = {
-    profile
+    generateProfile
+};
+
+
+
+function generateProfile(req, res, next) {
+  // var user_id = 42;
+  // var user_info = user.get_info(user_id);
+  // var user_calories;
+  // var user_name = "John";
+
+  var user = [
+    {
+      name: "General",
+      id: 0,
+      items: [
+        {
+          name: "Name",
+          value: req.username
+        },
+        {
+          name: "Weight",
+          value: req.weight + " pounds"
+        },
+        {
+          name: "Age",
+          value: req.weight
+        },
+        {
+          name: "Gender",
+          value: "male"
+        }
+      ]
+    },
+    {
+      name: "Nutritional Information",
+      id: 1,
+      items: [
+        {
+          name: "Allergens",
+          value: "peanuts and soy"
+        },
+        {
+          name: "Calorie Preference",
+          value: "2000"
+        }
+      ]
+    },
+    {
+      name: "History",
+      id: 2,
+      items: [
+        {
+          name: "Previous plans",
+          value: "Link to plans"
+        }
+      ]
+    }
+  ]
+
+  return user;
+}
+
+module.exports = {
+    generateProfile, generateProfileDummy
 };
