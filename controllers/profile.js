@@ -53,13 +53,8 @@ function generateProfileDummy(req, res, next) {
     }
   ]
 
-  return user;
+  res.render('profile', {user : user});
 }
-
-module.exports = {
-    generateProfile
-};
-
 
 
 function generateProfile(req, res, next) {

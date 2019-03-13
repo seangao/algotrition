@@ -9,7 +9,7 @@ async function loginProcess(req, res, next) {
   var user_ans = await loginModels.searchUser(req.app.locals.db, req.body);
   if (user_ans == null) {
     console.log("User not exist");
-    res.render('login', { title: 'Login', header_menu: false });
+    res.render('login', { title: 'Login', header_menu: false , err : "User does not exist!"});
   } else {
     console.log(user_ans);
     var profile = await profileControllers.generateProfile(user_ans);

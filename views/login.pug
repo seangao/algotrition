@@ -1,6 +1,9 @@
 extends layout
 
 block content
+  if (locals.err)
+    br
+    p= locals.err
   div(class='dropdown-menu login-menu')
     form(method='POST', class='px-3 py-3', action='/loginprocess')
       div(class='form-group input-group')
