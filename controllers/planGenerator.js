@@ -113,6 +113,11 @@ function generator(req, res, next) {
   });
 }
 
+function displayGeneratedMeal(req, res, next) {
+  console.log(req);
+  res.render('error',{message: req, error: {status: "working on it"}})
+}
+
 module.exports = {
-  generator,
+  generator, displayGeneratedMeal
 };
