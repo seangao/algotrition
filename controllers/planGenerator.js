@@ -113,12 +113,12 @@ function generator(req, res, next) {
   });
 }
 
-function displayGeneratedMeal(req, res, next) {
+function saveGeneratorRequest(req, res, next) {
   //req.body contains the POST request in a JSON format
   console.log(req.body);
   res.render('error',{message: 'We\'re working on that', error: {status: 'working on it'}})
 }
 
 module.exports = {
-  generator, displayGeneratedMeal
+  generator, saveGeneratorRequest
 };
