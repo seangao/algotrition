@@ -68,12 +68,12 @@ block content
                   i(class='fas fa-allergies')
               select#allergens-web(class='selectpicker select-allergens form-control d-none', 
                 multiple, data-mobile=true, data-none-selected-text='Allergens', 
-                data-width:'auto', disabled)
+                data-width:'auto', name='allergens' disabled)
                 each allergen in allergens
                     option(value=allergen.toLowerCase()) #{allergen}
               select#allergens-mobile(class='custom-select form-control', 
                 multiple, data-mobile=true, data-none-selected-text='Allergens', 
-                data-width:'auto')
+                data-width:'auto', name='allergens')
                 option(disabled) Allergens
                 each allergen in allergens
                     option(value=allergen.toLowerCase()) #{allergen}
@@ -82,7 +82,7 @@ block content
               div(class='input-group-prepend')
                 span(class='input-group-text input-group-icon')
                   i(class='fas fa-carrot')
-              select#diet(class='custom-select')
+              select#diet(class='custom-select', name='diet')
                 option(selected disabled) No dietary restrictions
                 each diet in diets
                     option(value=diet.toLowerCase()) #{diet}
