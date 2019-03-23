@@ -1,4 +1,4 @@
-function generator(req, res, next) {
+  function generator(req, res, next) {
   const allergens = [
     'Dairy',
     'Egg',
@@ -117,9 +117,22 @@ var optimizer = require('../models/optimizer.js');
 
 function saveGeneratorRequest(req, res, next) {
   //req.body contains the POST request in a JSON format
-  console.log(req.body);
-  optimizer.optimization();
-  res.render('error',{message: 'We\'re working on that', error: {status: 'working on it'}})
+  //console.log(req.body);
+
+  [model,results] = optimizer.optimization(req.body);
+  
+  if(results['feasible']){
+
+    var calendar = optimizer.return_calendar(model,results);
+    optimizer.write_calendar_file('./saved_plans/recipe1.txt',calendar);
+    res.redirect('/calendar')
+
+  } else {
+
+    res.render('error',{message: 'Solution not found. Please try again.', error: {status: 'No Solution'}})
+  
+  }
+  
 }
 
 module.exports = {
