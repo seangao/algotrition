@@ -1,6 +1,7 @@
 const url = require('url');
 
 function calendar(req, res, next) {
+  /*
   const week = [
     {
       name: 'Monday',
@@ -200,6 +201,14 @@ function calendar(req, res, next) {
       ]
     }
   ]
+
+  */
+
+  //Code to read in the saved meal plan from a text file
+  var fs = require("fs");
+  var week_string = fs.readFileSync("./saved_plans/recipe1.txt").toString('utf-8');
+  var week = JSON.parse(week_string);
+
   var queryData = url.parse(req.url, true).query;
   if (queryData.eaten) {
     week[0].meals[2].eaten = true;
