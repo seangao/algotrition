@@ -24,9 +24,9 @@ function optimization(input_constraints){
 	model["ints"] = populate_ints(model["variables"]);
 
 	var results = solver.Solve(model);
-	console.log(results);
+	//console.log(results);
 
-	//return model;
+	return [model,results];
 }
 
 
@@ -208,6 +208,9 @@ function populate_recipe_variables(constraints){
 		tempObj["dinner"] = recipe["dinner"];
 		tempObj["dinner2"] = recipe["dinner"];
 		tempObj["total_time_seconds"] = recipe["total_time_seconds"];
+		tempObj["ingredients"] = recipe["ingredients"];
+		tempObj["recipe_name"] = recipe["recipe_name"];
+		tempObj["source_recipe_url"] = recipe["source_recipe_url"];
 
 		if(all_constraints_available){
 			variables[recipe["yummly_id"]] = tempObj;
@@ -254,6 +257,67 @@ function populate_ints(variables){
 }
 
 
-module.exports = {optimization};
+function return_calendar(model,results){
+
+	var keys = Object.keys(results);
+	var i;
+
+	var meals = [];
+
+	for(i=0;i<keys.length;i++){
+		if(keys[i] != 'feasible' && keys[i] != 'result' && keys[i] != 'bounded' && results[keys[i]] > 0){
+
+			var ingredient_string_array = model["variables"][keys[i]]["ingredients"].split('%&%&');
+			var ingredient_obj_array = [];
+
+			var j;
+			for(j=0;j<ingredient_string_array.length;j++){
+				ingredient_obj_array.push({'name':ingredient_string_array[j],'qty':1});
+			}
 
 
+			
+			var single_recipe = {
+				'id': 1,
+				'name': model["variables"][keys[i]]["recipe_name"],
+				'link': model["variables"][keys[i]]["source_recipe_url"],
+				'ingredients':ingredient_obj_array
+			}
+
+			if (model["variables"][keys[i]]["breakfast"] == 1){
+				var meal = {'name':'Breakfast', 'id':1,'recipes':[single_recipe]};
+				meals[0] = meal;
+			}
+			if (model["variables"][keys[i]]["lunch"] == 1){
+				var meal = {'name':'Lunch', 'id':2,'recipes':[single_recipe]};
+				meals[1] = meal;
+			}
+			if (model["variables"][keys[i]]["dinner"] == 1){
+				var meal = {'name':'Dinner', 'id':3,'recipes':[single_recipe]};
+				meals[2] = meal;
+			}
+			
+
+
+		}
+	}
+
+	var week = [{'name':'Day 1','id':1,'meals':meals}];
+
+	return week;
+	
+
+}
+
+function write_calendar_file(path,calendar){
+	var fs = require("fs");
+	fs.writeFile(path,JSON.stringify(calendar),(err) => {
+		if(err) throw err;
+	})
+}
+
+
+
+
+
+module.exports = {optimization,return_calendar,write_calendar_file};
