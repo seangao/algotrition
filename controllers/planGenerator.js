@@ -113,9 +113,12 @@ function generator(req, res, next) {
   });
 }
 
+var optimizer = require('../models/optimizer.js');
+
 function saveGeneratorRequest(req, res, next) {
   //req.body contains the POST request in a JSON format
   console.log(req.body);
+  optimizer.optimization();
   res.render('error',{message: 'We\'re working on that', error: {status: 'working on it'}})
 }
 
