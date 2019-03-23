@@ -20,7 +20,7 @@ function optimization(input_constraints){
 	}
 
 	model["constraints"] = populate_constraints(input_constraints);
-	model["variables"] = populate_recipe_variables('temp',model["constraints"]);
+	model["variables"] = populate_recipe_variables(model["constraints"]);
 	model["ints"] = populate_ints(model["variables"]);
 
 	var results = solver.Solve(model);
@@ -162,18 +162,30 @@ function populate_constraints(input_constraints){
 //Returns an array where each element is an object describing a single recipe
 //Currently reads from local files. Will be replaced by a database call
 //Note that database query should only return allergen-approprate recipes
-//Currently checks for existence of nutrition data - can be moved to query
-function populate_recipe_variables(allergen_list,constraints){
-
-	var variables = {};
-
+function get_recipe_array(allergen_list){
+	var recipe_array = [];
 	var fs = require("fs");
 	var files = fs.readdirSync("./recipes_for_testing");
-	
 	var i;
-	for(i=0;i<files.length;i++){
+	for(i=0; i<files.length;i++){
 		var text = fs.readFileSync("./recipes_for_testing/" + files[i]).toString('utf-8');
 		var recipe = JSON.parse(text);
+		recipe_array.push(recipe);
+	}
+
+	return recipe_array;
+}
+
+
+//Creates the variables object within the solver object
+function populate_recipe_variables(constraints){
+
+	var variables = {};
+	var recipe_array = get_recipe_array('abc');
+
+	var i;
+	for(i=0; i<recipe_array.length;i++){
+		var recipe = recipe_array[i];
 
 		var tempObj = {};
 		var constraint_list = Object.keys(constraints);
@@ -200,13 +212,12 @@ function populate_recipe_variables(allergen_list,constraints){
 		if(all_constraints_available){
 			variables[recipe["yummly_id"]] = tempObj;
 		}
-	}		
-
-
+	}
 
 	return variables;
-
 }
+
+
 
 //Updates a single field in tempObj with data from the recipe that corresponds to the constraint
 function single_constraint(constraint_name,recipe,tempObj){
@@ -228,7 +239,7 @@ function single_constraint(constraint_name,recipe,tempObj){
 	}
 }
 
-
+//Creates ints object within the solver object 
 function populate_ints(variables){
 
 	var ints = {};
