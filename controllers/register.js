@@ -7,7 +7,7 @@ function register(req, res, next) {
 
 async function registerProcess(req, res, next) {
     var user_ans = await registerModels.insertNewUser(req.app.locals.db,
-      req.body, req.app.locals.dbName);
+      req.body);
     var profile = await profileControllers.generateProfile(user_ans);
     res.render('profile', {title: "My Profile", user : profile});
 }
