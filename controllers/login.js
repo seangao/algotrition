@@ -1,4 +1,4 @@
-const loginModels = require('../Models/login')
+const loginModels = require('../models/login')
 const profileControllers = require('./profile');
 
 function login(req, res, next) {
