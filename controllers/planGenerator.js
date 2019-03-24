@@ -117,10 +117,10 @@ var optimizer = require('../models/optimizer.js');
 
 function saveGeneratorRequest(req, res, next) {
   //req.body contains the POST request in a JSON format
-  //console.log(req.body);
+  // console.log(req.body);
 
   [model,results] = optimizer.optimization(req.body);
-  
+
   if(results['feasible']){
 
     var calendar = optimizer.return_calendar(model,results);
@@ -130,9 +130,9 @@ function saveGeneratorRequest(req, res, next) {
   } else {
 
     res.render('error',{message: 'Solution not found. Please try again.', error: {status: 'No Solution'}})
-  
+
   }
-  
+
 }
 
 module.exports = {
