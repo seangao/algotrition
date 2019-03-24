@@ -35,7 +35,7 @@ function populate_constraints(input_constraints){
 
 
 
-
+	
 	if('calories-min' in input_constraints){
 		output["energy"] = {"min":input_constraints["calories-min"]};
 	}
@@ -184,7 +184,7 @@ function populate_recipe_variables(constraints, input_constraints){
 		//loop over constraint list calling single_constraint
 		var all_constraints_available = true;
 		var j;
-		for(j=0;j<constraint_list.length;j++){
+		for(j=0;j<constraint_list.length;j++){	
 
 			//single_constraint(constraint_list[j],recipe,tempObj)
 			if(! single_constraint(constraint_list[j],recipe,tempObj)){
@@ -209,6 +209,8 @@ function populate_recipe_variables(constraints, input_constraints){
 		if('allergens' in input_constraints){
 			var allergens = input_constraints["allergens"];
 			var j;
+
+
 			for(j=0; j<allergens.length;j++){
 				if(allergens[j] == 'tree nuts'){
 					allergens[j] = 'tree_nut';
@@ -216,12 +218,23 @@ function populate_recipe_variables(constraints, input_constraints){
 
 			}
 
-			for(j=0; j<allergens.length;j++){
-				if (recipe[allergens[j]] == false){
+
+			if(typeof(allergens)=='string'){
+
+				if (recipe[allergens] == false){
 					restriction_friendly = false;
 				}
-			}
 
+			} else {
+
+				for(j=0; j<allergens.length;j++){
+					if (recipe[allergens[j]] == false){
+					restriction_friendly = false;
+				}
+				
+				}
+			
+			}
 
 		}
 
@@ -252,7 +265,7 @@ function single_constraint(constraint_name,recipe,tempObj){
 			return true;
 		}
 	} else if (constraint_name.substr(0,constraint_name.length-1) in recipe){
-
+		
 		if(recipe[constraint_name.substr(0,constraint_name.length-1)] != 'NaN'){
 			tempObj[constraint_name] = recipe[constraint_name.substr(0,constraint_name.length-1)]
 			return true;
@@ -263,7 +276,7 @@ function single_constraint(constraint_name,recipe,tempObj){
 	}
 }
 
-//Creates ints object within the solver object
+//Creates ints object within the solver object 
 function populate_ints(variables){
 
 	var ints = {};
@@ -297,7 +310,7 @@ function return_calendar(model,results){
 			}
 
 
-
+			
 			var single_recipe = {
 				'id': 1,
 				'name': model["variables"][keys[i]]["recipe_name"],
@@ -317,7 +330,7 @@ function return_calendar(model,results){
 				var meal = {'name':'Dinner', 'id':3,'recipes':[single_recipe]};
 				meals[2] = meal;
 			}
-
+			
 
 
 		}
@@ -325,11 +338,8 @@ function return_calendar(model,results){
 
 	var week = [{'name':'Day 1','id':1,'meals':meals}];
 
-	//Initiate the first meal of the first day as the active one
-	week[0].meals[0].active = true;
-	
 	return week;
-
+	
 
 }
 
@@ -340,21 +350,8 @@ function write_calendar_file(path,calendar){
 	})
 }
 
-function increment_active_meal(path, calendar, eaten_day, eaten_meal){
-	var fs = require("fs");
-	calendar[eaten_day].meals[eaten_meal].eaten = true;
-	if (calendar[eaten_day].meals[++eaten_meal]) {
-		calendar[eaten_day].meals[eaten_meal].active = true;
-	}
-	else if (calendar[++eaten_day]) {
-		calendar[eaten_day].meals[0].active = true;
-	}
-	fs.writeFile(path,JSON.stringify(calendar),(err) => {
-		if(err) throw err;
-	})
-}
 
 
 
-module.exports = {
-	optimization,return_calendar,write_calendar_file,increment_active_meal};
+
+module.exports = {optimization,return_calendar,write_calendar_file};
