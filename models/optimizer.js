@@ -12,7 +12,7 @@ function optimization(input_constraints){
 	}
 
 	model["constraints"] = populate_constraints(input_constraints);
-	model["variables"] = populate_recipe_variables(model["constraints"]);
+	model["variables"] = populate_recipe_variables(model["constraints"],input_constraints);
 	model["ints"] = populate_ints(model["variables"]);
 
 	var results = solver.Solve(model);
@@ -35,7 +35,7 @@ function populate_constraints(input_constraints){
 
 
 
-
+	
 	if('calories-min' in input_constraints){
 		output["energy"] = {"min":input_constraints["calories-min"]};
 	}
@@ -170,7 +170,7 @@ function get_recipe_array(allergen_list){
 
 
 //Creates the variables object within the solver object
-function populate_recipe_variables(constraints){
+function populate_recipe_variables(constraints, input_constraints){
 
 	var variables = {};
 	var recipe_array = get_recipe_array('abc');
@@ -184,7 +184,7 @@ function populate_recipe_variables(constraints){
 		//loop over constraint list calling single_constraint
 		var all_constraints_available = true;
 		var j;
-		for(j=0;j<constraint_list.length;j++){
+		for(j=0;j<constraint_list.length;j++){	
 
 			//single_constraint(constraint_list[j],recipe,tempObj)
 			if(! single_constraint(constraint_list[j],recipe,tempObj)){
@@ -204,7 +204,36 @@ function populate_recipe_variables(constraints){
 		tempObj["recipe_name"] = recipe["recipe_name"];
 		tempObj["source_recipe_url"] = recipe["source_recipe_url"];
 
-		if(all_constraints_available){
+
+		var restriction_friendly = true;
+		if('allergens' in input_constraints){
+			var allergens = input_constraints["allergens"];
+			var j;
+			for(j=0; j<allergens.length;j++){
+				if(allergens[j] == 'tree nuts'){
+					allergens[j] = 'tree_nut';
+				}
+
+			}
+
+			for(j=0; j<allergens.length;j++){
+				if (recipe[allergens[j]] == false){
+					restriction_friendly = false;
+				}
+			}
+
+
+		}
+
+		if('diet' in input_constraints){
+			if(recipe[input_constraints["diet"]] == false){
+				restriction_friendly = false;
+			}
+		}
+
+
+
+		if(all_constraints_available && restriction_friendly){
 			variables[recipe["yummly_id"]] = tempObj;
 		}
 	}
@@ -223,7 +252,7 @@ function single_constraint(constraint_name,recipe,tempObj){
 			return true;
 		}
 	} else if (constraint_name.substr(0,constraint_name.length-1) in recipe){
-
+		
 		if(recipe[constraint_name.substr(0,constraint_name.length-1)] != 'NaN'){
 			tempObj[constraint_name] = recipe[constraint_name.substr(0,constraint_name.length-1)]
 			return true;
@@ -234,7 +263,7 @@ function single_constraint(constraint_name,recipe,tempObj){
 	}
 }
 
-//Creates ints object within the solver object
+//Creates ints object within the solver object 
 function populate_ints(variables){
 
 	var ints = {};
@@ -268,39 +297,36 @@ function return_calendar(model,results){
 			}
 
 
-
+			
 			var single_recipe = {
-				'id': 0,
+				'id': 1,
 				'name': model["variables"][keys[i]]["recipe_name"],
 				'link': model["variables"][keys[i]]["source_recipe_url"],
 				'ingredients':ingredient_obj_array
 			}
 
 			if (model["variables"][keys[i]]["breakfast"] == 1){
-				var meal = {'name':'Breakfast', 'id':0,'recipes':[single_recipe]};
+				var meal = {'name':'Breakfast', 'id':1,'recipes':[single_recipe]};
 				meals[0] = meal;
 			}
 			if (model["variables"][keys[i]]["lunch"] == 1){
-				var meal = {'name':'Lunch', 'id':1,'recipes':[single_recipe]};
+				var meal = {'name':'Lunch', 'id':2,'recipes':[single_recipe]};
 				meals[1] = meal;
 			}
 			if (model["variables"][keys[i]]["dinner"] == 1){
-				var meal = {'name':'Dinner', 'id':2,'recipes':[single_recipe]};
+				var meal = {'name':'Dinner', 'id':3,'recipes':[single_recipe]};
 				meals[2] = meal;
 			}
-
+			
 
 
 		}
 	}
 
-	var week = [{'name':'Day 1','id':0,'meals':meals}];
-
-	//Initiate the first meal of the first day as the active one
-	week[0].meals[0].active = true;
+	var week = [{'name':'Day 1','id':1,'meals':meals}];
 
 	return week;
-
+	
 
 }
 
