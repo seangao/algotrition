@@ -4,8 +4,10 @@ function updateNutrOption(i, obj) {
   const inputIdTag = `#${inputId}`;
   if ($(obj).is('.active')) {
     $(inputIdTag).show();
+    $(inputIdTag + ' :input').attr('disabled', true);
   } else {
     $(inputIdTag).hide();
+    $(inputIdTag + ' :input').attr('disabled', false);
   }
 }
 
