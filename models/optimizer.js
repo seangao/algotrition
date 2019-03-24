@@ -311,8 +311,21 @@ function write_calendar_file(path,calendar){
 	})
 }
 
+function increment_active_meal(path, calendar, eaten_day, eaten_meal){
+	var fs = require("fs");
+	calendar[eaten_day].meals[eaten_meal].eaten = true;
+	if (calendar[eaten_day].meals[++eaten_meal]) {
+		calendar[eaten_day].meals[eaten_meal].active = true;
+	}
+	else if (calendar[++eaten_day]) {
+		calendar[eaten_day].meals[0].active = true;
+	}
+	fs.writeFile(path,JSON.stringify(calendar),(err) => {
+		if(err) throw err;
+	})
+}
 
 
 
-
-module.exports = {optimization,return_calendar,write_calendar_file};
+module.exports = {
+	optimization,return_calendar,write_calendar_file,increment_active_meal};
