@@ -1,6 +1,6 @@
-async function insertNewUser(db, user) {
+async function insertNewUser(db, user, dbName) {
   const stmt = `
-      INSERT INTO public."Users" (username, password, age, height, weight)
+      INSERT INTO users (username, password, age, height, weight)
       VALUES ($1, $2, $3, 160, $4)
       RETURNING id, username, age, height, weight
   `;
