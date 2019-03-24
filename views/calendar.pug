@@ -4,9 +4,9 @@ block content
   br
   br
   .container
-    each day in week
+    each day, week_index in week
       h3= day.name
-      each meal in day.meals
+      each meal, meal_index in day.meals
         if meal.eaten
           h4.text-secondary= meal.name
           .row.align-items-start
@@ -35,7 +35,7 @@ block content
             |
             |
             .btn-group(role="group")
-              a.btn.btn-success(href="/calendar?eaten="+meal.id)
+              a.btn.btn-success(href="/calendar?eaten_week="+week_index+"&eaten_meal="+meal_index)
                 i.fas.fa-check
               a.btn.btn-secondary(href="#")
                 i.fas.fa-plus
