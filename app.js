@@ -57,7 +57,6 @@ app.use(function (err, req, res) {
 // add database to app's local prototype. Available to all controllers
 const config = require('./config')
 app.locals.db = pgp(config.databaseURL);
-app.locals.dbName = pgp(config.databaseName);
 
 // port number can be changed for testing purpose
 console.log('Express running at port 3000');
