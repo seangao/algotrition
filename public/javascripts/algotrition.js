@@ -35,8 +35,6 @@ function createRequirement() {
       {id: value, value: $('#' + value.id).val()}
       );
   });
-
-  console.log('requirementData length: ' + requirementData.length);
 }
 
 function main() {
