@@ -4,14 +4,6 @@ var solver = require("javascript-lp-solver")
 //This is the primary function which is reads in user input and returns a meal plan
 function optimization(input_constraints){
 
-	//This block overwrites input_constraints. Must be deleted once data is gathered from form
-	input_constraints = {
-		'calories-min':2000,
-		'calories-max':2500,
-		'protein-min':100,
-		'protein-max':200,
-	}
-
 
 
 	var model = {
@@ -272,7 +264,7 @@ function return_calendar(model,results){
 
 			var j;
 			for(j=0;j<ingredient_string_array.length;j++){
-				ingredient_obj_array.push({'name':ingredient_string_array[j],'qty':1});
+				ingredient_obj_array.push({'name':ingredient_string_array[j],'qty':''});
 			}
 
 

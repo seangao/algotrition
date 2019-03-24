@@ -24,9 +24,7 @@ block content
                   .card-text.collapse(id="meal"+meal.id+"-"+recipe.id)
                     ul.list-group
                     each ingredient in recipe.ingredients
-                      li.text-secondary.list-group-item.d-flex
-                        .mr-auto= ingredient.name
-                        .text-nowrap= ingredient.qty
+                      li.text-secondary.list-group-item= ingredient.name
                     if recipe.link
                       li.list-group-item.bg-light
                         a.text-secondary(href=recipe.link, target="_blank") See recipe...
@@ -56,9 +54,7 @@ block content
                   .card-text.collapse.show(id="meal"+meal.id+"-"+recipe.id)
                     ul.list-group
                     each ingredient in recipe.ingredients
-                      li.list-group-item.d-flex
-                        .mr-auto= ingredient.name
-                        .text-nowrap= ingredient.qty
+                      li.list-group-item= ingredient.name
                     if recipe.link
                       li.list-group-item.bg-primary
                         a.text-white(href=recipe.link, target="_blank") See recipe...
@@ -81,9 +77,7 @@ block content
                   .card-text.collapse(id="meal"+meal.id+"-"+recipe.id)
                     ul.list-group
                     each ingredient in recipe.ingredients
-                      li.list-group-item.d-flex
-                        .mr-auto= ingredient.name
-                        .text-nowrap= ingredient.qty
+                      li.list-group-item= ingredient.name
                     if recipe.link
                       li.list-group-item.bg-dark
                         a.text-white(href=recipe.link, target="_blank") See recipe...
