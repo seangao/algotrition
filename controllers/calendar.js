@@ -210,9 +210,9 @@ function calendar(req, res, next) {
   var week = JSON.parse(week_string);
 
   var queryData = url.parse(req.url, true).query;
-  if (queryData.eaten) {
-    week[0].meals[2].eaten = true;
-    week[1].meals[0].active = true;
+  if (queryData.eaten_week) {
+    console.log(week[queryData.eaten_week].meals[queryData.eaten_meal]);
+    week[queryData.eaten_week].meals[queryData.eaten_meal].eaten = true;
   }
   res.render('calendar', { title: 'Calendar', week: week });
 }

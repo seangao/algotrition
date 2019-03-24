@@ -12,7 +12,7 @@ function optimization(input_constraints){
 	}
 
 	model["constraints"] = populate_constraints(input_constraints);
-	model["variables"] = populate_recipe_variables(model["constraints"]);
+	model["variables"] = populate_recipe_variables(model["constraints"],input_constraints);
 	model["ints"] = populate_ints(model["variables"]);
 
 	var results = solver.Solve(model);
@@ -170,7 +170,7 @@ function get_recipe_array(allergen_list){
 
 
 //Creates the variables object within the solver object
-function populate_recipe_variables(constraints){
+function populate_recipe_variables(constraints, input_constraints){
 
 	var variables = {};
 	var recipe_array = get_recipe_array('abc');
@@ -204,7 +204,36 @@ function populate_recipe_variables(constraints){
 		tempObj["recipe_name"] = recipe["recipe_name"];
 		tempObj["source_recipe_url"] = recipe["source_recipe_url"];
 
-		if(all_constraints_available){
+
+		var restriction_friendly = true;
+		if('allergens' in input_constraints){
+			var allergens = input_constraints["allergens"];
+			var j;
+			for(j=0; j<allergens.length;j++){
+				if(allergens[j] == 'tree nuts'){
+					allergens[j] = 'tree_nut';
+				}
+
+			}
+
+			for(j=0; j<allergens.length;j++){
+				if (recipe[allergens[j]] == false){
+					restriction_friendly = false;
+				}
+			}
+
+
+		}
+
+		if('diet' in input_constraints){
+			if(recipe[input_constraints["diet"]] == false){
+				restriction_friendly = false;
+			}
+		}
+
+
+
+		if(all_constraints_available && restriction_friendly){
 			variables[recipe["yummly_id"]] = tempObj;
 		}
 	}
