@@ -209,6 +209,8 @@ function populate_recipe_variables(constraints, input_constraints){
 		if('allergens' in input_constraints){
 			var allergens = input_constraints["allergens"];
 			var j;
+
+
 			for(j=0; j<allergens.length;j++){
 				if(allergens[j] == 'tree nuts'){
 					allergens[j] = 'tree_nut';
@@ -216,12 +218,23 @@ function populate_recipe_variables(constraints, input_constraints){
 
 			}
 
-			for(j=0; j<allergens.length;j++){
-				if (recipe[allergens[j]] == false){
+
+			if(typeof(allergens)=='string'){
+
+				if (recipe[allergens] == false){
 					restriction_friendly = false;
 				}
-			}
 
+			} else {
+
+				for(j=0; j<allergens.length;j++){
+					if (recipe[allergens[j]] == false){
+					restriction_friendly = false;
+				}
+
+				}
+
+			}
 
 		}
 
@@ -325,6 +338,9 @@ function return_calendar(model,results){
 
 	var week = [{'name':'Day 1','id':1,'meals':meals}];
 
+	//Initiate the first meal of the first day as the active one
+	week[0].meals[0].active = true;
+
 	return week;
 
 
@@ -338,7 +354,20 @@ function write_calendar_file(path,calendar){
 }
 
 
+function increment_active_meal(path, calendar, eaten_day, eaten_meal){
+	var fs = require("fs");
+	calendar[eaten_day].meals[eaten_meal].eaten = true;
+	if (calendar[eaten_day].meals[++eaten_meal]) {
+		calendar[eaten_day].meals[eaten_meal].active = true;
+	}
+	else if (calendar[++eaten_day]) {
+		calendar[eaten_day].meals[0].active = true;
+	}
+	fs.writeFile(path,JSON.stringify(calendar),(err) => {
+		if(err) throw err;
+	})
+}
 
 
 
-module.exports = {optimization,return_calendar,write_calendar_file};
+module.exports = {optimization,return_calendar,write_calendar_file, increment_active_meal};

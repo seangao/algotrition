@@ -1,4 +1,5 @@
 const url = require('url');
+const optimizer = require('../models/optimizer.js');
 
 function calendar(req, res, next) {
   /*
@@ -210,9 +211,10 @@ function calendar(req, res, next) {
   var week = JSON.parse(week_string);
 
   var queryData = url.parse(req.url, true).query;
-  if (queryData.eaten_week) {
-    console.log(week[queryData.eaten_week].meals[queryData.eaten_meal]);
-    week[queryData.eaten_week].meals[queryData.eaten_meal].eaten = true;
+  if (queryData.eaten_day) {
+
+    optimizer.increment_active_meal('./saved_plans/recipe1.txt',week,queryData.eaten_day,queryData.eaten_meal);
+    res.redirect('/calendar');
   }
   res.render('calendar', { title: 'Calendar', week: week });
 }
