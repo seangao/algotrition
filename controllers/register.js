@@ -6,10 +6,11 @@ function register(req, res, next) {
 }
 
 async function registerProcess(req, res, next) {
-    var user_ans = await registerModels.insertNewUser(req.app.locals.db,
-      req.body);
-    var profile = await profileControllers.generateProfile(user_ans);
-    res.render('profile', {title: "My Profile", user : profile});
+    var user_ans = await registerModels.insertNewUser(req.app.locals.db, req.body);
+    req.session.user = true;
+    req.session.userid = user_ans.id;
+    res.locals.user = true;
+    next();
 }
 
 module.exports = {

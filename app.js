@@ -16,6 +16,7 @@ const profileRouter = require('./routes/profile');
 const planGeneratorRouter = require('./routes/planGenerator');
 const calendarRouter = require('./routes/calendar');
 const recipesRouter = require('./routes/recipes');
+const logoutRouter = require('./routes/logout');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -26,6 +27,12 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: true}));
 app.use(express.static(path.join(__dirname, 'public')));
+
+
+
+//parsing requests
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 // initialize express-session to allow us track the logged-in user across sessions.
 app.use(session({
@@ -47,6 +54,12 @@ app.use((req, res, next) => {
   next();
 });
 
+app.use('/logout', logoutRouter);
+app.use('/profile', profileRouter);
+app.use('/generator', planGeneratorRouter);
+app.use('/calendar', calendarRouter);
+app.use('/recipes', recipesRouter);
+
 // middleware function to check for logged-in users
 var sessionChecker = (req, res, next) => {
   if (req.session.user && req.cookies.user_sid) {
@@ -56,18 +69,11 @@ var sessionChecker = (req, res, next) => {
   }
 };
 
-//parsing requests
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
-
 // routers loading
 app.use('/', sessionChecker, loginRouter);
 app.use('/login', sessionChecker, loginRouter);
 app.use('/register', sessionChecker, registerRouter);
-app.use('/profile', profileRouter);
-app.use('/generator', planGeneratorRouter);
-app.use('/calendar', calendarRouter);
-app.use('/recipes', recipesRouter);
+
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

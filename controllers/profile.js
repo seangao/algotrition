@@ -1,68 +1,15 @@
-function generateProfileDummy(req, res, next) {
-  // var user_id = 42;
-  // var user_info = user.get_info(user_id);
-  // var user_calories;
-  // var user_name = "John";
+const profileModels = require('../models/profile')
 
-  var user = [
-    {
-      name: "General",
-      id: 0,
-      items: [
-        {
-          name: "Name",
-          value: "John Doe"
-        },
-        {
-          name: "Weight",
-          value: "160 pounds"
-        },
-        {
-          name: "Age",
-          value: 22
-        },
-        {
-          name: "Gender",
-          value: "male"
-        }
-      ]
-    },
-    {
-      name: "Nutritional Information",
-      id: 1,
-      items: [
-        {
-          name: "Allergens",
-          value: "peanuts and soy"
-        },
-        {
-          name: "Calorie Preference",
-          value: "2000"
-        }
-      ]
-    },
-    {
-      name: "History",
-      id: 2,
-      items: [
-        {
-          name: "Previous plans",
-          value: "Link to plans"
-        }
-      ]
-    }
-  ]
-
-  res.render('profile', {user : user});
+async function getProfile(req, res, next) {
+  if (!req.session.user)
+      res.render('login', { title: 'Login', header_menu: false , err : "Please log in first!"});
+  else
+      next();
 }
 
-
-function generateProfile(req, res, next) {
-  // var user_id = 42;
-  // var user_info = user.get_info(user_id);
-  // var user_calories;
-  // var user_name = "John";
-
+async function generateProfile(req, res) {
+  console.log(req.session.id)
+  var query = await profileModels.searchUserbyID(req.app.locals.db, req.session.userid);
   var user = [
     {
       name: "General",
@@ -70,15 +17,15 @@ function generateProfile(req, res, next) {
       items: [
         {
           name: "Name",
-          value: req.username
+          value: query.username
         },
         {
           name: "Weight",
-          value: req.weight + " pounds"
+          value: query.weight + " pounds"
         },
         {
           name: "Age",
-          value: req.age
+          value: query.age
         },
         {
           name: "Gender",
@@ -111,10 +58,9 @@ function generateProfile(req, res, next) {
       ]
     }
   ]
-
-  return user;
+  res.render('profile', {title: "My Profile", user : user});
 }
 
 module.exports = {
-    generateProfile, generateProfileDummy
+    generateProfile, getProfile
 };
