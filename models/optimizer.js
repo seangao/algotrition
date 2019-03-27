@@ -3,7 +3,7 @@ var solver = require("javascript-lp-solver")
 
 //This is the primary function which is reads in user input and returns a meal plan
 function optimization(input_constraints){
-
+	// console.log(input_constraints);
 
 
 	var model = {
