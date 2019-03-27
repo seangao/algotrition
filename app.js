@@ -3,7 +3,6 @@ const express = require('express');
 const path = require('path');
 const session = require('express-session')
 const cookieParser = require('cookie-parser');
-const bodyParser = require('body-parser')
 const logger = require('morgan');
 const pgp = require('pg-promise')();
 const bodyParser = require('body-parser');
@@ -44,7 +43,7 @@ app.use(session({
 // This usually happens when you stop your express server after login, your cookie still remains saved in the browser.
 app.use((req, res, next) => {
   if (req.cookies.user_sid && !req.session.user) {
-      res.clearCookie('user_sid');        
+      res.clearCookie('user_sid');
   }
   next();
 });
@@ -55,7 +54,7 @@ var sessionChecker = (req, res, next) => {
       res.redirect('/profile');
   } else {
       next();
-  }    
+  }
 };
 =======
 //parsing requests
