@@ -1,18 +1,37 @@
 extends layout
 
-block content
-  br
-  br
-  h1= title
-  
-  .container
-    each category in user
-        h5.card-header.d-flex
-          a.mr-auto.text-secondary(data-toggle="collapse" href="#category"+category.id)= category.name
-        .card-text.collapse.text-secondary.show(id="category"+category.id)
-          each item in category.items
-            p= item.name + ": " + item.value
-              
+block content 
+  dig#profile-carousel.carousel.slide(data-ride='carousel', data-interval='false')
+    div.carousel-inner
+      div.carousel-item.active
+        div.text-right.pt-2
+          a#profile-button-next.btn.btn-outline-primary.btn-collapsible(href='#profile-carousel', role='button',
+          data-slide='next') 
+            span.glyphicon.glyphicon-pencil
+            | Edit Profile
+          //- a#profile-animated-button-next.btn.btn-info.btn-sm.btn-collapsible
+          //-   i.fa.fa-cloud-download
+          //-   span Download
+        div.list
+          each category in user
+              h5.card-header.d-flex
+                a.mr-auto.text-secondary(data-toggle="collapse" href="#category"+category.id)= category.name
+              .card-text.collapse.text-secondary.show(id="category"+category.id)
+                each item in category.items
+                  p= item.name + ": " + item.value
+
+      div.carousel-item
+        div.list
+          each category in user
+              h5.card-header.d-flex
+                a.mr-auto.text-secondary(data-toggle="collapse" href="#category"+category.id)= category.name
+              .card-text.collapse.text-secondary.show(id="category"+category.id)
+                each item in category.items
+                  p= item.name + ": " + item.value
+        div.text-center.pt-2        
+          a#profile-button-next.btn.btn-primary(href='#profile-carousel', role='button',
+          data-slide='next') Save
+      
   //- .container
   //-   each category in user
   //-     h2= category.name
