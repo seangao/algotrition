@@ -365,7 +365,8 @@ function increment_active_meal(path, calendar, eaten_day, eaten_meal){
 	}
 	fs.writeFile(path,JSON.stringify(calendar),(err) => {
 		if(err) throw err;
-	})
+	});
+	return calendar;
 }
 
 
