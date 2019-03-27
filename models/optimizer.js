@@ -306,7 +306,7 @@ function return_calendar(model,results){
 
 			var j;
 			for(j=0;j<ingredient_string_array.length;j++){
-				ingredient_obj_array.push({'name':ingredient_string_array[j],'qty':''});
+				ingredient_obj_array.push({'name':ingredient_string_array[j]});
 			}
 
 
