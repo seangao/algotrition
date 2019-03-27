@@ -1,18 +1,19 @@
 extends layout
 
 block content
-  if (locals.err)
-    br
-    p= locals.err
   div(class='dropdown-menu login-menu')
     form(method='POST', class='px-3 py-3', action='/loginprocess')
       div(class='form-group input-group')
         div(class='input-group-prepend')
           span(class='input-group-text input-group-icon')
             i(class='fas fa-user')
-        input#username.form-control(type='text', placeholder='Username',
-          name='username')
-        div.invalid-feedback Invalid username
+        if (locals.err)
+          input#username.form-control.is-invalid(type='text', 
+            placeholder='Username', name='username')
+        else
+          input#username.form-control(type='text', placeholder='Username',
+            name='username')
+        div.invalid-feedback locals.err
       div(class='form-group input-group')
         div(class='input-group-prepend')
           span(class='input-group-text input-group-icon')
