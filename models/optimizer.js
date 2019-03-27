@@ -5,18 +5,34 @@ var solver = require("javascript-lp-solver")
 function optimization(input_constraints){
 	// console.log(input_constraints);
 
+	input_constraints = { 'calories-min': '1500',
+  'calories-max': '2000',
+  'cook-time-min': '0',
+  'cook-time-max': '60',
+  'cost-min': '10',
+  'cost-max': '20',
+  'calcium-min': '0',
+  'calcium-max': '100',
+  'fiber-min': '0',
+  'fiber-max': '100',
+  'protein-min': '50',
+  'protein-max': '100',
+  generate: '' };
+
 
 	var model = {
 		"optimize":"total_time_seconds",
 		"opType":"min"
-	}
+	};
 
 	model["constraints"] = populate_constraints(input_constraints);
 	model["variables"] = populate_recipe_variables(model["constraints"],input_constraints);
+
+	var serving_numbers = [.5,1,1.5,2,3];
+	model["variables"] = duplicate_variables(model["variables"],serving_numbers);
 	model["ints"] = populate_ints(model["variables"]);
 
 	var results = solver.Solve(model);
-	//console.log(results);
 
 	return [model,results];
 }
@@ -252,6 +268,74 @@ function populate_recipe_variables(constraints, input_constraints){
 	}
 
 	return variables;
+}
+
+
+function duplicate_variables(variables,servings_array){
+	
+	var partial_scaled_parameters = [
+		"potassium",
+		"sodium",
+		"cholesterol",
+		"trans_fat",
+		"saturated_fat",
+		"carbohydrates",
+		"fiber",
+		"protein",
+		"vitamin_c",
+		"calcium",
+		"iron",
+		"sugar",
+		"energy",
+		"fat",
+		"vitamin_a"];
+
+
+
+	var i;
+	var scaled_parameters = [];
+	for(i=0;i<partial_scaled_parameters.length;i++){
+		scaled_parameters.push(partial_scaled_parameters[i]);
+		scaled_parameters.push(partial_scaled_parameters[i] + '2');
+	}
+
+
+	var variables2 = {};
+
+	var j;
+	var k;
+	k = Object.keys(variables);
+
+	for(i=0;i<k.length;i++){
+		for(j=0;j<servings_array.length;j++){
+
+			
+			var tempObj = {};
+			var recipe = variables[k[i]];
+			var recipe_fields = Object.keys(recipe);
+
+			var m;
+			for(m=0;m<recipe_fields.length;m++){
+
+				if(scaled_parameters.includes(recipe_fields[m])){
+					tempObj[recipe_fields[m]] = recipe[recipe_fields[m]] * servings_array[j];
+				}
+				else{
+					tempObj[recipe_fields[m]] = recipe[recipe_fields[m]];
+				}
+			}
+
+			tempObj["num_recommended_servings"] = servings_array[j];
+			tempObj["recipe_name"] = recipe["recipe_name"] + '_' + String(servings_array[j]);
+			variables2[k[i] + '_' + String(servings_array[j])] = tempObj;
+
+		}
+	}
+
+
+
+	return variables2; 
+
 }
 
 
