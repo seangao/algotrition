@@ -1,4 +1,4 @@
-async function insertNewUser(db, user, dbName) {
+async function insertNewUser(db, user) {
   const stmt = `
       INSERT INTO users (username, password, age, height, weight)
       VALUES ($1, $2, $3, 160, $4)
