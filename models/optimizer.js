@@ -5,20 +5,6 @@ var solver = require("javascript-lp-solver")
 function optimization(input_constraints){
 	// console.log(input_constraints);
 
-	input_constraints = { 'calories-min': '1500',
-  'calories-max': '2000',
-  'cook-time-min': '0',
-  'cook-time-max': '60',
-  'cost-min': '10',
-  'cost-max': '20',
-  'calcium-min': '0',
-  'calcium-max': '100',
-  'fiber-min': '0',
-  'fiber-max': '100',
-  'protein-min': '50',
-  'protein-max': '100',
-  generate: '' };
-
 
 	var model = {
 		"optimize":"total_time_seconds",
@@ -326,7 +312,7 @@ function duplicate_variables(variables,servings_array){
 			}
 
 			tempObj["num_recommended_servings"] = servings_array[j];
-			tempObj["recipe_name"] = recipe["recipe_name"] + '_' + String(servings_array[j]);
+			tempObj["recipe_name"] = recipe["recipe_name"];
 			variables2[k[i] + '_' + String(servings_array[j])] = tempObj;
 
 		}
@@ -398,6 +384,7 @@ function return_calendar(model,results){
 			var single_recipe = {
 				'id': 1,
 				'name': model["variables"][keys[i]]["recipe_name"],
+				'servings' : model["variables"][keys[i]]["num_recommended_servings"], 
 				'link': model["variables"][keys[i]]["source_recipe_url"],
 				'ingredients':ingredient_obj_array
 			}
