@@ -306,7 +306,7 @@ function return_calendar(model,results){
 
 			var j;
 			for(j=0;j<ingredient_string_array.length;j++){
-				ingredient_obj_array.push({'name':ingredient_string_array[j],'qty':''});
+				ingredient_obj_array.push({'name':ingredient_string_array[j]});
 			}
 
 
@@ -365,7 +365,8 @@ function increment_active_meal(path, calendar, eaten_day, eaten_meal){
 	}
 	fs.writeFile(path,JSON.stringify(calendar),(err) => {
 		if(err) throw err;
-	})
+	});
+	return calendar;
 }
 
 
