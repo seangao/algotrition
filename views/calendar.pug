@@ -4,9 +4,9 @@ block content
   br
   br
   .container
-    each day in week
+    each day, week_index in week
       h3= day.name
-      each meal in day.meals
+      each meal, meal_index in day.meals
         if meal.eaten
           h4.text-secondary= meal.name
           .row.align-items-start
@@ -14,19 +14,17 @@ block content
               .col-md-3
                 .card.border-secondary.my-1
                   h5.card-header.d-flex
-                    a.mr-auto.text-secondary(data-toggle="collapse" href="#meal"+recipe.id)= recipe.name
+                    a.mr-auto.text-secondary(data-toggle="collapse" href="#meal"+meal.id+"-"+recipe.id)= recipe.name
                     .drop-down
                       a.text-secondary(data-toggle="dropdown" href="#")
                         i.fas.fa-ellipsis-h
                       .dropdown-menu.dropdown-menu-right
                         a.dropdown-item(href="#") Change date...
                         a.dropdown-item(href="#") Delete...
-                  .card-text.collapse(id="meal"+recipe.id)
+                  .card-text.collapse(id="meal"+meal.id+"-"+recipe.id)
                     ul.list-group
                     each ingredient in recipe.ingredients
-                      li.text-secondary.list-group-item.d-flex
-                        .mr-auto= ingredient.name
-                        .text-nowrap= ingredient.qty
+                      li.text-secondary.list-group-item= ingredient.name
                     if recipe.link
                       li.list-group-item.bg-light
                         a.text-secondary(href=recipe.link, target="_blank") See recipe...
@@ -37,7 +35,7 @@ block content
             |
             |
             .btn-group(role="group")
-              a.btn.btn-success(href="/calendar?eaten="+meal.id)
+              a.btn.btn-success(href="/calendar?eaten_day="+week_index+"&eaten_meal="+meal_index)
                 i.fas.fa-check
               a.btn.btn-secondary(href="#")
                 i.fas.fa-plus
@@ -46,19 +44,17 @@ block content
               .col-md-3
                 .card.bg-primary.my-1
                   h5.card-header.d-flex
-                    a.mr-auto.text-white(data-toggle="collapse" href="#meal"+recipe.id)= recipe.name
+                    a.mr-auto.text-white(data-toggle="collapse" href="#meal"+meal.id+"-"+recipe.id)= recipe.name
                     .drop-down
                       a.text-white(data-toggle="dropdown" href="#")
                         i.fas.fa-ellipsis-h
                       .dropdown-menu.dropdown-menu-right
                         a.dropdown-item(href="#") Change date...
                         a.dropdown-item(href="#") Delete...
-                  .card-text.collapse.show(id="meal"+recipe.id)
+                  .card-text.collapse.show(id="meal"+meal.id+"-"+recipe.id)
                     ul.list-group
                     each ingredient in recipe.ingredients
-                      li.list-group-item.d-flex
-                        .mr-auto= ingredient.name
-                        .text-nowrap= ingredient.qty
+                      li.list-group-item= ingredient.name
                     if recipe.link
                       li.list-group-item.bg-primary
                         a.text-white(href=recipe.link, target="_blank") See recipe...
@@ -71,19 +67,17 @@ block content
               .col-md-3
                 .card.bg-dark.my-1
                   h5.card-header.d-flex
-                    a.mr-auto.text-white(data-toggle="collapse" href="#meal"+recipe.id)= recipe.name
+                    a.mr-auto.text-white(data-toggle="collapse" href="#meal"+meal.id+"-"+recipe.id)= recipe.name
                     .drop-down
                       a.text-white(data-toggle="dropdown" href="#")
                         i.fas.fa-ellipsis-h
                       .dropdown-menu.dropdown-menu-right
                         a.dropdown-item(href="#") Change date...
                         a.dropdown-item(href="#") Delete...
-                  .card-text.collapse(id="meal"+recipe.id)
+                  .card-text.collapse(id="meal"+meal.id+"-"+recipe.id)
                     ul.list-group
                     each ingredient in recipe.ingredients
-                      li.list-group-item.d-flex
-                        .mr-auto= ingredient.name
-                        .text-nowrap= ingredient.qty
+                      li.list-group-item= ingredient.name
                     if recipe.link
                       li.list-group-item.bg-dark
                         a.text-white(href=recipe.link, target="_blank") See recipe...

@@ -4,8 +4,10 @@ function updateNutrOption(i, obj) {
   const inputIdTag = `#${inputId}`;
   if ($(obj).is('.active')) {
     $(inputIdTag).show();
+    $(inputIdTag + ' :input').attr('disabled', false);
   } else {
     $(inputIdTag).hide();
+    $(inputIdTag + ' :input').attr('disabled', true);
   }
 }
 
@@ -21,28 +23,9 @@ function toggleNutrOptions() {
   }
 }
 
-function createRequirement() {
-  allInputIds = []
-  $('#generator-form :input:not(:button)').each( function() {
-    allInputIds.push({
-      id: this.id
-    });
-  });
-
-  requirementData = []
-  $.each(allInputIds, function(index, value) {
-    requirementData.push(
-      {id: value, value: $('#' + value.id).val()}
-      );
-  });
-
-  console.log('requirementData length: ' + requirementData.length);
-}
-
 function main() {
   $('.generator-options-item').click(toggleNutrOptions);
   $('#generator-button-next').click(updateNutrOptions);
-  $('#generate').click(createRequirement);
 }
 
 function renderImage() {

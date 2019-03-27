@@ -37,12 +37,12 @@ block content
                 span(class='input-group-text input-group-icon')
                   i(class='fas fa-stopwatch')
               input#cook-time-min.form-control(type='number', placeholder='Cook time',
-                name='cook-time-min', value=1800)
+                name='cook-time-min', value=0)
               div(class='input-group-append input-group-prepend')
                 div(class='input-group-append input-group-prepend')
                   span(class='input-group-text') -
               input#cook-time-max.form-control(type='number', placeholder='Cook time',
-                name='cook-time-max', value=2200)
+                name='cook-time-max', value=60)
               div(class='input-group-append')
                 div(class='input-group-append')
                   span(class='input-group-text nutr-options-append-primary') min
@@ -68,12 +68,12 @@ block content
                   i(class='fas fa-allergies')
               select#allergens-web(class='selectpicker select-allergens form-control d-none', 
                 multiple, data-mobile=true, data-none-selected-text='Allergens', 
-                data-width:'auto', disabled)
+                data-width:'auto', name='allergens' disabled)
                 each allergen in allergens
                     option(value=allergen.toLowerCase()) #{allergen}
               select#allergens-mobile(class='custom-select form-control', 
                 multiple, data-mobile=true, data-none-selected-text='Allergens', 
-                data-width:'auto')
+                data-width:'auto', name='allergens')
                 option(disabled) Allergens
                 each allergen in allergens
                     option(value=allergen.toLowerCase()) #{allergen}
@@ -82,7 +82,7 @@ block content
               div(class='input-group-prepend')
                 span(class='input-group-text input-group-icon')
                   i(class='fas fa-carrot')
-              select#diet(class='custom-select')
+              select#diet(class='custom-select', name='diet')
                 option(selected disabled) No dietary restrictions
                 each diet in diets
                     option(value=diet.toLowerCase()) #{diet}
@@ -118,5 +118,5 @@ block content
                     
             div.dropdown-divider
             div.text-center.pt-3
-              button#generate.btn.btn-outline-primary(type='button',
+              button#generate.btn.btn-outline-primary(type='submit',
                 name='generate') Generate Meal Plan

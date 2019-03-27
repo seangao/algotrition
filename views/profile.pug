@@ -7,12 +7,20 @@ block content
   
   .container
     each category in user
-      .card.border-secondary.my-1
         h5.card-header.d-flex
           a.mr-auto.text-secondary(data-toggle="collapse" href="#category"+category.id)= category.name
-        .card-text.collapse(id="category"+category.id)
-          ul.list-group
+        .card-text.collapse.text-secondary.show(id="category"+category.id)
           each item in category.items
-            li.text-secondary.list-group-item.d-flex
-              .mr-auto= item.name
-              .text-nowrap= item.value
+            p= item.name + ": " + item.value
+              
+  //- .container
+  //-   each category in user
+  //-     h2= category.name
+  //-     hr
+  //-     ul.list-group
+  //-     each item in category.items
+  //-       li= item.name + ": " + item.value
+  //-     p
+  //-     p
+  //-     p
+      

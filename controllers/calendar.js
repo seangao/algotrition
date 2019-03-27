@@ -1,6 +1,8 @@
 const url = require('url');
+const optimizer = require('../models/optimizer.js');
 
 function calendar(req, res, next) {
+  /*
   const week = [
     {
       name: 'Monday',
@@ -200,10 +202,19 @@ function calendar(req, res, next) {
       ]
     }
   ]
+
+  */
+
+  //Code to read in the saved meal plan from a text file
+  var fs = require("fs");
+  var week_string = fs.readFileSync("./saved_plans/recipe1.txt").toString('utf-8');
+  var week = JSON.parse(week_string);
+
   var queryData = url.parse(req.url, true).query;
-  if (queryData.eaten) {
-    week[0].meals[2].eaten = true;
-    week[1].meals[0].active = true;
+  if (queryData.eaten_day) {
+
+    optimizer.increment_active_meal('./saved_plans/recipe1.txt',week,queryData.eaten_day,queryData.eaten_meal);
+    res.redirect('/calendar');
   }
   res.render('calendar', { title: 'Calendar', week: week });
 }

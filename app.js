@@ -6,6 +6,7 @@ const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser')
 const logger = require('morgan');
 const pgp = require('pg-promise')();
+const bodyParser = require('body-parser');
 
 const app = express();
 
@@ -27,6 +28,7 @@ app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: true}));
 app.use(express.static(path.join(__dirname, 'public')));
 
+<<<<<<< HEAD
 // initialize express-session to allow us track the logged-in user across sessions.
 app.use(session({
   key: 'user_sid',
@@ -55,6 +57,11 @@ var sessionChecker = (req, res, next) => {
       next();
   }    
 };
+=======
+//parsing requests
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+>>>>>>> origin/master
 
 // routers loading
 app.use('/', sessionChecker, loginRouter);
