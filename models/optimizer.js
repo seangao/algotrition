@@ -371,4 +371,4 @@ function increment_active_meal(path, calendar, eaten_day, eaten_meal){
 
 
 
-module.exports = {optimization,return_calendar,write_calendar_file, increment_active_meal};
+module.exports = {optimization,get_recipe_array,return_calendar,write_calendar_file, increment_active_meal};
