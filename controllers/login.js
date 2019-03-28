@@ -1,8 +1,7 @@
 const loginModels = require('../models/login')
-const profileControllers = require('./profile');
 
 function login(req, res, next) {
-  res.render('login', { title: 'Login', header_menu: false });
+    res.render('login', { title: 'Login', header_menu: false });
 }
 
 async function loginProcess(req, res, next) {
@@ -10,8 +9,10 @@ async function loginProcess(req, res, next) {
   if (user_ans == null) {
     res.render('login', { title: 'Login', header_menu: false , err : "User does not exist!"});
   } else {
-    var profile = await profileControllers.generateProfile(user_ans);
-    res.render('profile', {title: "My Profile", user : profile});
+    req.session.user = true;
+    req.session.userid = user_ans.id;
+    res.locals.user = true;
+    next();
   }
 }
 
