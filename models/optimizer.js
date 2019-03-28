@@ -9,14 +9,16 @@ function optimization(input_constraints){
 	var model = {
 		"optimize":"total_time_seconds",
 		"opType":"min"
-	}
+	};
 
 	model["constraints"] = populate_constraints(input_constraints);
 	model["variables"] = populate_recipe_variables(model["constraints"],input_constraints);
+
+	var serving_numbers = [.5,1,1.5,2,3];
+	model["variables"] = duplicate_variables(model["variables"],serving_numbers);
 	model["ints"] = populate_ints(model["variables"]);
 
 	var results = solver.Solve(model);
-	//console.log(results);
 
 	return [model,results];
 }
@@ -255,6 +257,74 @@ function populate_recipe_variables(constraints, input_constraints){
 }
 
 
+function duplicate_variables(variables,servings_array){
+	
+	var partial_scaled_parameters = [
+		"potassium",
+		"sodium",
+		"cholesterol",
+		"trans_fat",
+		"saturated_fat",
+		"carbohydrates",
+		"fiber",
+		"protein",
+		"vitamin_c",
+		"calcium",
+		"iron",
+		"sugar",
+		"energy",
+		"fat",
+		"vitamin_a"];
+
+
+
+	var i;
+	var scaled_parameters = [];
+	for(i=0;i<partial_scaled_parameters.length;i++){
+		scaled_parameters.push(partial_scaled_parameters[i]);
+		scaled_parameters.push(partial_scaled_parameters[i] + '2');
+	}
+
+
+	var variables2 = {};
+
+	var j;
+	var k;
+	k = Object.keys(variables);
+
+	for(i=0;i<k.length;i++){
+		for(j=0;j<servings_array.length;j++){
+
+			
+			var tempObj = {};
+			var recipe = variables[k[i]];
+			var recipe_fields = Object.keys(recipe);
+
+			var m;
+			for(m=0;m<recipe_fields.length;m++){
+
+				if(scaled_parameters.includes(recipe_fields[m])){
+					tempObj[recipe_fields[m]] = recipe[recipe_fields[m]] * servings_array[j];
+				}
+				else{
+					tempObj[recipe_fields[m]] = recipe[recipe_fields[m]];
+				}
+			}
+
+			tempObj["num_recommended_servings"] = servings_array[j];
+			tempObj["recipe_name"] = recipe["recipe_name"];
+			variables2[k[i] + '_' + String(servings_array[j])] = tempObj;
+
+		}
+	}
+
+
+
+	return variables2; 
+
+}
+
+
 
 //Updates a single field in tempObj with data from the recipe that corresponds to the constraint
 function single_constraint(constraint_name,recipe,tempObj){
@@ -314,6 +384,7 @@ function return_calendar(model,results){
 			var single_recipe = {
 				'id': 1,
 				'name': model["variables"][keys[i]]["recipe_name"],
+				'servings' : model["variables"][keys[i]]["num_recommended_servings"], 
 				'link': model["variables"][keys[i]]["source_recipe_url"],
 				'ingredients':ingredient_obj_array
 			}
