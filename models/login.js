@@ -1,6 +1,6 @@
 async function searchUser(db, user) {
     const stmt = `
-        SELECT id, username, age, height, weight FROM public."Users" WHERE
+        SELECT id, username, age, height, weight FROM users WHERE
         username = '$1:value' AND password = '$2:value'
     `;
     return db.oneOrNone(stmt, [user.username, user.password]);
