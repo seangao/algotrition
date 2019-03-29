@@ -28,29 +28,22 @@ app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: true}));
 app.use(express.static(path.join(__dirname, 'public')));
 
-
-
 //parsing requests
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // initialize express-session to allow us track the logged-in user across sessions.
 app.use(session({
-  key: 'user_sid',
-  secret: 'somerandonstuffs',
-  resave: false,
-  saveUninitialized: false,
-  cookie: {
-      expires: 600000
-  }
+  key: 'user_sid', secret: 'somerandonstuffs',
+  resave: false, saveUninitialized: false,
+  cookie: { expires: 600000 }
 }));
 
 // This middleware will check if user's cookie is still saved in browser and user is not set, then automatically log the user out.
 // This usually happens when you stop your express server after login, your cookie still remains saved in the browser.
 app.use((req, res, next) => {
-  if (req.cookies.user_sid && !req.session.user) {
+  if (req.cookies.user_sid && !req.session.user) 
       res.clearCookie('user_sid');
-  }
   next();
 });
 
@@ -74,7 +67,6 @@ app.use('/', sessionChecker, loginRouter);
 app.use('/login', sessionChecker, loginRouter);
 app.use('/register', sessionChecker, registerRouter);
 
-
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
   next(createError(404));
@@ -96,5 +88,5 @@ const config = require('./config')
 app.locals.db = pgp(config.databaseURL);
 
 // port number can be changed for testing purpose
-console.log('Express running at port 3000');
+console.log('Express running at port ${port}');
 module.exports = app;
