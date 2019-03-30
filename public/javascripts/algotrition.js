@@ -23,14 +23,29 @@ function toggleDropdownButton() {
   }
 }
 
-function clearSelectedOptimizerButtons() {
+function clearDropdownButton(i, obj) {
+  if ($(obj).is('.active')) {
+    $(obj).removeClass('active');
+  }
+}
 
+function selectOptimizerButton() {
+  $('.generator-optimizer-item').each(clearDropdownButton);
+  $(this).addClass('active');
+}
+
+function updateOptimizeId() {
+  const id = $('.generator-optimizer-item.active')
+    .attr('id')
+    .slice('optimize-'.length);
+  $('#optimize-id').val(id);
 }
 
 function main() {
   $('.generator-options-item').click(toggleDropdownButton);
-  $('.generator-optimizer-item').click(toggleDropdownButton);
+  $('.generator-optimizer-item').click(selectOptimizerButton);
   $('#generator-nutr-button').click(updateNutrOptions);
+  $('#generator-opt-button').click(updateOptimizeId);
 }
 
 function renderImage() {
