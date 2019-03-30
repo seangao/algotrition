@@ -15,7 +15,7 @@ function updateNutrOptions() {
   $('.generator-options-item').each(updateNutrOption);
 }
 
-function toggleNutrOptions() {
+function toggleDropdownButton() {
   if ($(this).is('.active')) {
     $(this).removeClass('active');
   } else {
@@ -23,9 +23,14 @@ function toggleNutrOptions() {
   }
 }
 
+function clearSelectedOptimizerButtons() {
+
+}
+
 function main() {
-  $('.generator-options-item').click(toggleNutrOptions);
-  $('#generator-button-next').click(updateNutrOptions);
+  $('.generator-options-item').click(toggleDropdownButton);
+  $('.generator-optimizer-item').click(toggleDropdownButton);
+  $('#generator-nutr-button').click(updateNutrOptions);
 }
 
 function renderImage() {
