@@ -4,7 +4,7 @@
 const fs = require('fs');
 const pgp = require('pg-promise')();
 
-const folder = process.env.RECIPES_FOLDER;
+const folder = "./recipes_for_testing";
 
 const config = require('./config');
 var db = pgp(config.databaseURL);
