@@ -9,7 +9,7 @@ async function registerProcess(req, res, next) {
     req.session.user = true;
     req.session.userid = user_ans.id;
     res.locals.user = true;
-    next();
+    res.redirect('/profile');
 }
 
 module.exports = {
