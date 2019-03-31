@@ -13,8 +13,10 @@ Run `npm test`
 ## Database Query examples
 
 1. Insertion
+
 Checkout register.js OR recipe_loader.js
 
 2. Selection
+
 Checkout login.js OR profile.js
 
