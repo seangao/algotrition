@@ -88,5 +88,5 @@ const config = require('./config')
 app.locals.db = pgp(config.databaseURL);
 
 // port number can be changed for testing purpose
-console.log('Express running at port ${port}');
+console.log('Express running at port 3000');
 module.exports = app;
