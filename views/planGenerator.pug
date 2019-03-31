@@ -8,10 +8,25 @@ block content
           div.dropdown-item.pb-2 Desired Nutritional Requirements
           div#generator-options.list-group.list-group-flush.login-menu
             each nutr in nutrients
-              button.list-group-item.list-group-item-action.generator-options-item.py-2(id=nutr.id + '-toggle',
+              button.list-group-item.list-group-item-action.generator-options-item.py-2(id=nutr.id+'-toggle',
                 type='button') #{nutr.name}
           div.text-center.pt-2
-            a#generator-button-next.btn.btn-outline-primary(href='#generator-carousel', role='button',
+            a#generator-nutr-button.btn.btn-outline-primary(href='#generator-carousel', role='button',
+              data-slide='next') Next
+              
+      div.carousel-item
+        div.dropdown-menu.login-menu
+          div.dropdown-item.pb-2 What to Optimize For
+          div#generator-optimizers.list-group.list-group-flush.login-menu
+            each opt, index in optimizers
+              if index == 0
+                button.list-group-item.list-group-item-action.generator-optimizer-item.py-2.active(id='optimize-'+opt.id,
+                  type='button') #{opt.desc}
+              else
+                button.list-group-item.list-group-item-action.generator-optimizer-item.py-2(id='optimize-'+opt.id,
+                  type='button') #{opt.desc}
+          div.text-center.pt-2
+            a#generator-opt-button.btn.btn-outline-primary(href='#generator-carousel', role='button',
               data-slide='next') Next
               
       div.carousel-item
@@ -115,6 +130,8 @@ block content
                 div(class='input-group-append')
                   div(class='input-group-append')
                     span.nutr-options-additional-append-primary(class='input-group-text') #{nutr.units}
+            
+            input#optimize-id(type='hidden', value=0)
                     
             div.dropdown-divider
             div.text-center.pt-3

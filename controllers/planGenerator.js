@@ -1,4 +1,23 @@
   function generator(req, res, next) {
+    const optimizers = [
+      {
+        desc: 'Minimize cooking time',
+        id: 0,
+      },
+      {
+        desc: 'Minimize cost',
+        id: 1,
+      },
+      {
+        desc: 'Minimize calories',
+        id: 2,
+      },
+      {
+        desc: 'Maximize calories',
+        id: 3,
+      },
+    ];
+
   const allergens = [
     'Dairy',
     'Egg',
@@ -110,6 +129,7 @@
     allergens,
     diets,
     nutrients,
+    optimizers,
   });
 }
 
