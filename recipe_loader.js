@@ -9,8 +9,8 @@ const folder = "./recipes_for_testing";
 const config = require('./config');
 var db = pgp(config.databaseURL);
 
-//const drop_stmt = `DROP TABLE recipes`;
-//db.none(drop_stmt);
+// const drop_stmt = `DROP TABLE recipes`;
+// db.none(drop_stmt);
 
 const creation_stmt = `
   CREATE TABLE recipes (
