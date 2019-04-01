@@ -16,5 +16,5 @@ async function updateProfile(db, placeholder, id) {
 }
 
 module.exports = {
-    searchUserbyID
+    searchUserbyID, updateProfile
 };
