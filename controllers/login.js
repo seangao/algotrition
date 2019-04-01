@@ -5,7 +5,6 @@ function login(req, res, next) {
 }
 
 async function loginProcess(req, res, next) {
-  console.log(res);
   var user_ans = await loginModels.searchUser(req.app.locals.db, req.body);
   if (user_ans == null) {
     res.render('login', { title: 'Login', header_menu: false , err : "User does not exist!"});

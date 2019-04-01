@@ -2,6 +2,8 @@ const url = require('url');
 const optimizer = require('../models/optimizer.js');
 
 function calendar(req, res, next) {
+  if (!req.session.user)
+      res.redirect('/');
   /*
   const week = [
     {

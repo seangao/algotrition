@@ -1,4 +1,6 @@
   function generator(req, res, next) {
+    if (!req.session.user)
+      res.redirect('/');
     const optimizers = [
       {
         desc: 'Minimize cooking time',
