@@ -4,8 +4,8 @@ async function searchUser(db, user) {
         username = '$1:value' AND password = '$2:value'
     `;
     return db.oneOrNone(stmt, [user.username, user.password]);
-  }
+}
 
-  module.exports = {
-     searchUser
-  };
+module.exports = {
+    searchUser
+};

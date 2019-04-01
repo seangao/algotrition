@@ -1,9 +1,9 @@
-const optimizer = require('../models/optimizer.js');
+const recipesModels = require("../models/recipes")
 
-function recipes(req, res, next) {
-  test_recipes = optimizer.get_recipe_array('abc');
-  res.render('recipes', { title: 'Recipes', test_recipes: test_recipes });
-  next();
+async function recipes(req, res, next) {
+    var test_recipes = await recipesModels.getAllRecipes(req.app.locals.db)
+    res.render('recipes', { title: 'Recipes', test_recipes: test_recipes });
+    next();
 }
 
 module.exports = {
