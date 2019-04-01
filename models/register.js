@@ -1,4 +1,4 @@
-const bcrypt = require('bcrypt')
+const bcrypt = require('bcrypt');
 
 async function insertNewUser(db, user) {
     let hash = bcrypt.hashSync(user.password, 10);
@@ -14,6 +14,14 @@ function convertHeight(feet, inch) {
     return feet * 30.48 + inch * 2.54;
 }
 
+function reverseHeight(cm) {
+    feet = Math.floor(cm / 30.48);
+    inch = Math.round((cm - feet * 30.48) / 2.54);
+    return [feet, inch];
+}
+
 module.exports = {
-  insertNewUser
+  insertNewUser,
+  convertHeight,
+  reverseHeight,
 };
