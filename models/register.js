@@ -1,11 +1,13 @@
-async function insertNewUser(db, user) {
-  const stmt = `
-      INSERT INTO users (username, password, age, height, weight)
-      VALUES ($1, $2, $3, $4, $5)
-      RETURNING id, username, age, height, weight
-  `;
+const bcrypt = require('bcrypt')
 
-  return db.one(stmt, [user.username, user.password, user.age, convertHeight(user.ft, user.in), user.weight]);
+async function insertNewUser(db, user) {
+    let hash = bcrypt.hashSync(user.password, 10);
+    const stmt = `
+        INSERT INTO users (username, password, age, height, weight)
+        VALUES ($1, $2, $3, $4, $5)
+        RETURNING id, username, age, height, weight
+    `;
+    return db.one(stmt, [user.username, hash, user.age, convertHeight(user.ft, user.in), user.weight]);
 }
 
 function convertHeight(feet, inch) {

@@ -2,7 +2,7 @@ const profileModels = require('../models/profile')
 
 async function getProfile(req, res, next) {
   if (!req.session.user)
-      res.render('login', { title: 'Login', header_menu: false , err : "Please log in first!"});
+      res.render('login', { title: 'Login', header_menu: false , loginerr : "Please log in first!"});
   else
       next();
 }
