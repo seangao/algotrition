@@ -130,6 +130,7 @@
     diets,
     nutrients,
     optimizers,
+    user: req.session.user,
   });
 }
 

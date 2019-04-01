@@ -21,18 +21,21 @@ html
         span(class='navbar-toggler-icon')
       div(id='collapsibleNavbar' class='menu_bar collapse navbar-collapse')
         ul(id='main_menu' class='navbar-nav mr-auto')
-          li(class='nav-item active'): a(class='nav-link' href='/profile') My profile
-          |
-          |
-          li(class='nav-item active'): a(class='nav-link' href='/generator') Meal plan generator
-          |
-          |
-          li(class='nav-item active'): a(class='nav-link' href='/calendar') Calendar
-          |
-          |
-          li(class='nav-item active'): a(class='nav-link' href='/recipes') My recipes
-          |
-          |
           if (user)
-            li(class='nav-item active'): a(class='nav-link' href='/logout') Logout
+            li(class='nav-item active'): a(class='nav-link' href='/profile') My profile
+            |
+            |
+            li(class='nav-item active'): a(class='nav-link' href='/generator') Meal plan generator
+            |
+            |
+            li(class='nav-item active'): a(class='nav-link' href='/calendar') Calendar
+            |
+            |
+            li(class='nav-item active'): a(class='nav-link' href='/recipes') My recipes
+            |
+            |
+            if (user)
+              li(class='nav-item active'): a(class='nav-link' href='/logout') Logout
+          else
+            li.nav-item.active: a.nav-link Welcome to Algotrition! Please Log in or Register.
     block content
