@@ -2,7 +2,7 @@ const unirest = require('unirest');
 const fs = require('fs');
 const keys = require('./keys');
 
-unirest.get("https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/random?number=200")
+unirest.get("https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/random?number=10")
 .header("X-RapidAPI-Key", keys.spoonacular)
 .end(function (result) {
   console.log(result.status, result.headers, result.body);
