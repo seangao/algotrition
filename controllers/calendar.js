@@ -2,6 +2,8 @@ const url = require('url');
 const optimizer = require('../models/optimizer.js');
 
 function calendar(req, res, next) {
+  if (!req.session.user)
+      res.redirect('/');
   /*
   const week = [
     {
@@ -214,7 +216,7 @@ function calendar(req, res, next) {
   if (queryData.eaten_day) {
     week = optimizer.increment_active_meal('./saved_plans/recipe1.txt', week, queryData.eaten_day, queryData.eaten_meal);
   }
-  res.render('calendar', { title: 'Calendar', week: week });
+  res.render('calendar', { title: 'Calendar', week: week, user: req.session.user });
 }
 
 module.exports = {
