@@ -1,4 +1,6 @@
-const keys = require('./keys');
+var keys = {};
+
+try {keys = require('./keys');} catch (e) {}
 
 module.exports = {
   port: process.env.PORT || 3000,
@@ -9,5 +11,5 @@ module.exports = {
     };
 
    */
-  databaseURL: process.env.DATABASE_URL || keys.database 
+  databaseURL: process.env.DATABASE_URL || keys.database
 };
