@@ -4,3 +4,4 @@ node_modules
 npm-debug.log
 .vscode
 saved_plans
+keys.js
