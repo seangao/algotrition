@@ -9,6 +9,6 @@ describe ('models/register', function() {
   });
 
   it('reverseHeight', function() {
-    expect(registerModel.reverseHeight(175.26).to.equal([5, 9]));
+    expect(registerModel.reverseHeight(175.26)).to.equal([5, 9]);
   });
 });
