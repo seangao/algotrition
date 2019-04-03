@@ -3,6 +3,7 @@ const expect = require('chai').expect;
 
 const app = require('../app');
 const db = app.locals.db;
+const registerModels = require('../models/register');
 
 describe ('db', function() {
   it('create users database', function(done) {
@@ -17,5 +18,15 @@ describe ('db', function() {
       );
     `)
     .then(() => done());
+  });
+
+  it('insert new user manually', function(done) {
+    registerModels.insertNewUser(db, {
+      username: 'test1',
+      password: 'test',
+      age: 20,
+      weight: 120,
+    })
+      .then(() => done());
   });
 });
