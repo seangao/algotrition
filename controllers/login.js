@@ -15,10 +15,15 @@ async function loginProcess(req, res, next) {
     req.session.user = true;
     req.session.userid = user_ans.id;
     res.locals.user = true;
-    res.redirect('/profile');
+    next();
   }
 }
 
+async function forgotPassword(req, res, next) {
+  await loginModels.changePasswordbyUsername(req.app.locals.db, req.body)
+  res.redirect('/');
+}
+
 module.exports = {
-  login, loginProcess
+  login, loginProcess, forgotPassword
 };
