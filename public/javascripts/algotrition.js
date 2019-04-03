@@ -41,11 +41,33 @@ function updateOptimizeId() {
   $('#optimize-id').val(id);
 }
 
+function addIngredient() {
+  const input = $('#ingredient-input').val();
+  $('#ingredient-input').val('');
+  const markup = '<li class="list-group-item"><button type="button" class="close remove-ingredient" aria-label="Close"><span aria-hidden="true">&times;</span></button>' + input +'</li>';
+  $('#ingredient-list').append(markup);
+  $('.remove-ingredient').click(removeIngredient);
+}
+
+function removeIngredient() {
+  $(this).parent().remove();
+}
+
+function setUpEnterKey(event) {
+  if (event.key == "Enter") {
+    if ($("#ingredient-input:focus")) {
+      $('#add-ingredient').trigger("click");
+    }
+  }
+}
+
 function main() {
   $('.generator-options-item').click(toggleDropdownButton);
   $('.generator-optimizer-item').click(selectOptimizerButton);
   $('#generator-nutr-button').click(updateNutrOptions);
   $('#generator-opt-button').click(updateOptimizeId);
+  $('#add-ingredient').click(addIngredient);
+  $('#ingredient-input').on('keyup', setUpEnterKey);
 }
 
 function renderImage() {
