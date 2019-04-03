@@ -20,13 +20,15 @@ describe ('db', function() {
     .then(() => done());
   });
 
-  it('insert new user manually', function(done) {
+  it('insert new user manually', function() {
     registerModels.insertNewUser(db, {
       username: 'test1',
       password: 'test',
       age: 20,
       weight: 120,
     })
-      .then(() => done());
+    .then(data => {
+      expect(data.id).to.equal('1');
+    });
   });
 });
