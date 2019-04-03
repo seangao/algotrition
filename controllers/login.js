@@ -16,7 +16,7 @@ async function loginProcess(req, res, next) {
     req.session.user = true;
     req.session.userid = user_ans.id;
     res.locals.user = true;
-    res.redirect('/profile');
+    next();
   }
 }
 
