@@ -6,7 +6,6 @@ function login(req, res, next) {
 }
 
 async function loginProcess(req, res, next) {
-  console.log(req.body);
   var user_ans = await loginModels.searchUser(req.app.locals.db, req.body);
   if (user_ans == null) {
     res.render('login', { title: 'Login', header_menu: false , loginerr : "User does not exist!"});
@@ -20,6 +19,11 @@ async function loginProcess(req, res, next) {
   }
 }
 
+async function forgotPassword(req, res, next) {
+  await loginModels.changePasswordbyUsername(req.app.locals.db, req.body)
+  res.redirect('/');
+}
+
 module.exports = {
-  login, loginProcess
+  login, loginProcess, forgotPassword
 };

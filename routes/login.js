@@ -13,5 +13,7 @@ router.get('/', loginControllers.login);
 /* process login */
 router.post('/loginprocess', urlencodedParser, loginControllers.loginProcess, profileControllers.generateProfile);
 
+/* process forgot password */
+router.post('/forgotpassword', urlencodedParser, loginControllers.forgotPassword);
 
 module.exports = router;
