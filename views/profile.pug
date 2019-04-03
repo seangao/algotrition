@@ -28,20 +28,66 @@ block content
                 a.mr-auto.text-secondary(data-toggle="collapse" href="#category"+category.id+"edit")= category.name
               .card-text.collapse.text-secondary.show(id="category"+category.id+"edit")
                 each item in category.items
-                  if item.edit
+                  if item.name == 'Height'
+                    div(class='form-group input-group')
+                      div(class='input-group-prepend')
+                        span(class='input-group-text') #{item.name}
+                          //- i(class=item.icon)
+                      select(class='custom-select', name='ft')
+                        option(selected, disabled) #{item.feet}
+                        option(value='0') 0
+                        option(value='1') 1
+                        option(value='2') 2
+                        option(value='3') 3
+                        option(value='4') 4
+                        option(value='5') 5
+                        option(value='6') 6
+                        option(value='7') 7
+                      div(class='input-group-append input-group-prepend')
+                        div(class='input-group-append input-group-prepend')
+                          span(class='input-group-text') '
+                      select(class='custom-select', name='in')
+                        option(selected, disabled) #{item.inch}
+                        option(value='0') 0
+                        option(value='1') 1
+                        option(value='2') 2
+                        option(value='3') 3
+                        option(value='4') 4
+                        option(value='5') 5
+                        option(value='6') 6
+                        option(value='7') 7
+                        option(value='8') 8
+                        option(value='9') 9
+                        option(value='10') 10
+                        option(value='11') 11
+                        option(value='12') 12
+                      div(class='input-group-append')
+                        div(class='input-group-append')
+                          span(class='input-group-text') "
+                  else if item.name == 'Gender'
+                    div(class='form-group input-group')
+                      div(class='input-group-prepend')
+                        span(class='input-group-text') #{item.name}
+                          //- i(class=item.icon) 
+                      select(class='custom-select', name='gender')
+                        option(selected, disabled) #{item.value}
+                        option(value='0') Male
+                        option(value='1') Female
+                        option(value='2') Other
+                  else if item.edit
                     if item.number
                       div(class='form-group input-group')
                         div(class='input-group-prepend')
-                          span(class='input-group-text')
-                          p= item.name
-                        input#age.form-control(type='number', placeholder=item.value,
+                          span(class='input-group-text') #{item.name}
+                            //- i(class=item.icon) 
+                        input.form-control(type='number', placeholder=item.value,
                           name=item.name)
                     else
                       div(class='form-group input-group')
                         div(class='input-group-prepend')
-                          span(class='input-group-text')
-                          p= item.name
-                        input#age.form-control(type='text', placeholder=item.value,
+                          span(class='input-group-image input-group-text') #{item.name}
+                            //- i(class=item.icon) 
+                        input.form-control(type='text', placeholder=item.value,
                           name=item.name)
                   else
                     p= item.name + ": " + item.value
