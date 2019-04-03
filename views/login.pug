@@ -7,13 +7,13 @@ block content
         div(class='input-group-prepend')
           span(class='input-group-text input-group-icon')
             i(class='fas fa-user')
-        if (locals.err)
+        if (locals.loginerr)
           input#username.form-control.is-invalid(type='text', 
             placeholder='Username', name='username')
         else
           input#username.form-control(type='text', placeholder='Username',
             name='username')
-        div.invalid-feedback #{locals.err}
+        div.invalid-feedback #{locals.loginerr}
       div(class='form-group input-group')
         div(class='input-group-prepend')
           span(class='input-group-text input-group-icon')

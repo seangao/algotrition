@@ -9,8 +9,11 @@ const folder = "./recipes_for_testing";
 const config = require('./config');
 var db = pgp(config.databaseURL);
 
-// const drop_stmt = `DROP TABLE recipes`;
-// db.none(drop_stmt);
+const drop_stmt = `DROP TABLE recipes`;
+
+async function drop_table() {
+  await db.none(drop_stmt);
+}
 
 const creation_stmt = `
   CREATE TABLE recipes (
@@ -174,6 +177,7 @@ const recipe_attributes = [
   'all-allergens'];
 
 async function add_to_table() {
+  await drop_table();
   await create_table();
   var files = fs.readdirSync(folder);
   for (var i = 0; i < files.length; i++) {

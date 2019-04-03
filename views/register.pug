@@ -7,6 +7,12 @@ block content
         div(class='input-group-prepend')
           span(class='input-group-text input-group-icon')
             i(class='fas fa-user')
+
+
+        //-
+           a variable called registerlogin will be passed to here if username already exist
+           someone implement the conditional here? same as the login one
+
         input#username.form-control(type='text', placeholder='Username',
           name='username')
       div(class='form-group input-group')
@@ -71,3 +77,4 @@ block content
       div(class='text-center')
         button#register(type='submit' class='btn btn-outline-primary',
           name='register') Register
+        a(class='btn btn-outline-primary text-primary' href='/') Back

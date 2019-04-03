@@ -1,4 +1,5 @@
 var solver = require("javascript-lp-solver")
+const recipesModels = require("../models/recipes")
 
 
 //This is the primary function which is reads in user input and returns a meal plan
@@ -156,7 +157,8 @@ function populate_constraints(input_constraints){
 //Returns an array where each element is an object describing a single recipe
 //Currently reads from local files. Will be replaced by a database call
 //Note that database query should only return allergen-approprate recipes
-function get_recipe_array(allergen_list){
+
+async function get_recipe_array(req, res){
 	var recipe_array = [];
 	var fs = require("fs");
 	var files = fs.readdirSync("./recipes_for_testing");
@@ -166,9 +168,12 @@ function get_recipe_array(allergen_list){
 		var recipe = JSON.parse(text);
 		recipe_array.push(recipe);
 	}
+	console.log(recipe[0])
 
+	var recipe_array = await recipesModels.getAllRecipes(req.app.locals.db)
 	return recipe_array;
 }
+
 
 
 //Creates the variables object within the solver object
