@@ -33,8 +33,20 @@ describe ('db', function() {
     });
   });
 
-  it('search for user in database', function() {
-    loginMode.searchUser(db, { username: 'test1' })
+  it('search user by username', function() {
+    loginModel.searchUser(db, { username: 'test1' })
+    .then(data => {
+      expect(data).to.satisfy(function(data) {
+        return data.id == 1 &&
+          data.username == 'test1' &&
+          data.age == 20 &&
+          data.weight == 120;
+      });
+    });
+  });
+
+  it('search user by id', function() {
+    loginModel.searchUser(db, 1)
     .then(data => {
       expect(data).to.satisfy(function(data) {
         return data.id == 1 &&
