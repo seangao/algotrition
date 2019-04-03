@@ -29,7 +29,7 @@ describe ('db', function() {
       weight: 120,
     })
     .then(data => {
-      expect(data.id).to.equal('1');
+      expect(data.id).to.equal(1);
     });
   });
 
@@ -37,11 +37,13 @@ describe ('db', function() {
     loginMode.searchUser(db, { username: 'test1' })
     .then(data => {
       expect(data).to.satisfy(function(data) {
-        return data.id == '1' &&
+        return data.id == 1 &&
           data.username == 'test1' &&
           data.age == 20 &&
           data.weight == 120;
       });
     });
   });
+
+
 });
