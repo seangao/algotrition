@@ -6,8 +6,8 @@ function login(req, res, next) {
 }
 
 async function loginProcess(req, res, next) {
+  console.log(req.body);
   var user_ans = await loginModels.searchUser(req.app.locals.db, req.body);
-  console.log(user_ans.password)
   if (user_ans == null) {
     res.render('login', { title: 'Login', header_menu: false , loginerr : "User does not exist!"});
   } else if (!bcrypt.compareSync(req.body.password, user_ans.password)) {
