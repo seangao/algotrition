@@ -21,13 +21,46 @@ block content
                   p= item.name + ": " + item.value
 
       div.carousel-item
-        div.list
-          each category in user
+        div#edit-form(class='list')
+          form(method='POST', class='px-3 py-3', action='/editprofile')
+            each category in user
               h5.card-header.d-flex
-                a.mr-auto.text-secondary(data-toggle="collapse" href="#category"+category.id)= category.name
-              .card-text.collapse.text-secondary.show(id="category"+category.id)
+                a.mr-auto.text-secondary(data-toggle="collapse" href="#category"+category.id+"edit")= category.name
+              .card-text.collapse.text-secondary.show(id="category"+category.id+"edit")
                 each item in category.items
-                  p= item.name + ": " + item.value
+                  if item.edit
+                    if item.number
+                      div(class='form-group input-group')
+                        div(class='input-group-prepend')
+                          span(class='input-group-text')
+                          p= item.name
+                        input#age.form-control(type='number', placeholder=item.value,
+                          name=item.name)
+                    else
+                      div(class='form-group input-group')
+                        div(class='input-group-prepend')
+                          span(class='input-group-text')
+                          p= item.name
+                        input#age.form-control(type='text', placeholder=item.value,
+                          name=item.name)
+                  else
+                    p= item.name + ": " + item.value
+            
+            //- div(class='form-groupd input-group')
+            //-   div(class='input-group-prepend')
+            //-     span(class='input-group-text input-group-icon')
+            //-       i(class='fas fa-user')
+            //-   input#username.form-control(type='text', placeholder= user[0].items[0].number, name='username')
+            //- div(class='form-group input-group')
+            //-   div(class='input-group-prepend')
+            //-     span(class='input-group-text input-group-icon')
+                  
+        //-   each category in user
+        //-       h5.card-header.d-flex
+        //-         a.mr-auto.text-secondary(data-toggle="collapse" href="#category"+category.id)= category.name
+        //-       .card-text.collapse.text-secondary.show(id="category"+category.id)
+        //-         each item in category.items
+        //-           p= item.name + ": " + item.value
         div.text-center.pt-2        
           a#profile-button-next.btn.btn-primary(href='#profile-carousel', role='button',
           data-slide='next') Save

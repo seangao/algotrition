@@ -17,19 +17,31 @@ async function generateProfile(req, res) {
       items: [
         {
           name: "Name",
-          value: query.username
+          value: query.username,
+          icon: 'fa-user',
+          number: false,
+          edit: true,
         },
         {
           name: "Weight",
-          value: query.weight + " pounds"
+          value: query.weight + " pounds",
+          icon: 'fa-weight',
+          number: true,
+          edit: true
+
         },
         {
           name: "Age",
-          value: query.age
+          value: query.age,
+          icon: 'fa-birthday-cake',
+          number: true,
+          edit: true
         },
         {
           name: "Gender",
-          value: "male"
+          value: "male",
+          number: false,
+          edit: true
         }
       ]
     },
@@ -39,11 +51,15 @@ async function generateProfile(req, res) {
       items: [
         {
           name: "Allergens",
-          value: "peanuts and soy"
+          value: "None",
+          number: false,
+          edit: true
         },
         {
           name: "Calorie Preference",
-          value: "2000"
+          value: 2000,
+          number: true,
+          edit: true
         }
       ]
     },
@@ -53,7 +69,9 @@ async function generateProfile(req, res) {
       items: [
         {
           name: "Previous plans",
-          value: "Link to plans"
+          value: "Link to plans",
+          number: false,
+          edit: false
         }
       ]
     }
