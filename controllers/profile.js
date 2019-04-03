@@ -9,7 +9,6 @@ async function getProfile(req, res, next) {
 }
 
 async function generateProfile(req, res) {
-  console.log(req.session.id)
   var query = await profileModels.searchUserbyID(req.app.locals.db, req.session.userid);
   const feet_inch = registerModels.reverseHeight(query.height);
   var user = [
@@ -91,6 +90,11 @@ async function generateProfile(req, res) {
   res.render('profile', {title: "My Profile", user : user});
 }
 
+async function updateProfile(req, res) {
+  await profileModels.updateProfile(req.app.locals.db, req.session.userid, req.body)
+  res.redirect('profile');
+}
+
 module.exports = {
-    generateProfile, getProfile
+    generateProfile, getProfile, updateProfile
 };

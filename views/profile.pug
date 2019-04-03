@@ -22,7 +22,7 @@ block content
 
       div.carousel-item
         div#edit-form(class='list')
-          form(method='POST', class='px-3 py-3', action='/editprofile')
+          form(method='POST', class='px-3 py-3', action='/profile/updateprofile')
             each category in user
               h5.card-header.d-flex
                 a.mr-auto.text-secondary(data-toggle="collapse" href="#category"+category.id+"edit")= category.name
@@ -91,7 +91,9 @@ block content
                           name=item.name)
                   else
                     p= item.name + ": " + item.value
-            
+            div(class='text-center')
+              button#save(type='submit', class='btn btn-outline-primary',
+                name='save') Save 
             //- div(class='form-groupd input-group')
             //-   div(class='input-group-prepend')
             //-     span(class='input-group-text input-group-icon')
@@ -107,9 +109,11 @@ block content
         //-       .card-text.collapse.text-secondary.show(id="category"+category.id)
         //-         each item in category.items
         //-           p= item.name + ": " + item.value
-        div.text-center.pt-2        
-          a#profile-button-next.btn.btn-primary(href='#profile-carousel', role='button',
-          data-slide='next') Save
+        //- div.text-center.pt-2        
+        //-   a#profile-button-next.btn.btn-primary(href='#profile-carousel', role='button',
+        //-   data-slide='next', type='submit') Save
+
+
       
   //- .container
   //-   each category in user

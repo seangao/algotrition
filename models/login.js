@@ -1,3 +1,6 @@
+const bcrypt = require('bcrypt');
+
+
 async function searchUser(db, user) {
     const stmt = `
         SELECT id, username, password, age, height, weight FROM users WHERE
@@ -6,6 +9,16 @@ async function searchUser(db, user) {
     return db.oneOrNone(stmt, [user.username]);
 }
 
+async function changePasswordbyUsername(db, info) {
+    let hash = bcrypt.hashSync(info.password, 10);
+    const stmt = `
+        UPDATE users
+        SET password = '$1.value'
+        WHERE username = '$2.value'
+    `
+    return db.oneOrNone(stmt, [hash, info.username])
+}
+
 module.exports = {
-    searchUser
+    searchUser, changePasswordbyUsername
 };
