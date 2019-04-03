@@ -9,6 +9,8 @@ describe ('models/register', function() {
   });
 
   it('reverseHeight', function() {
-    expect(registerModel.reverseHeight(175.26)).to.equal([5, 9]);
+    expect(registerModel.reverseHeight(175.26)).to.satisfy(function(x) {
+      return x[0] == 5 && x[1] == 9;
+    });
   });
 });
