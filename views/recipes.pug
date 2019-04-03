@@ -1,13 +1,27 @@
 extends layout
 
 block content
-  h1= title
-  img(src='https://media.tenor.com/images/22156650aae0422953e56c5e8539570a/tenor.gif' alt='Salty')
-  ul.list-group
-    each recipe in test_recipes
-        li.list-group-item
-            a(href=recipe.source_recipe_url)
-                =recipe.recipe_name
-            div.flexbox.float-right
-                a Favorite
+  div#recipe-carousel.carousel.slide(data-ride='carousel', data-interval='false')
+    div.carousel-inner
+      div.carousel-item.active
+        div.input-group.mb-3
+          input#ingredient-input.form-control(type='text', placeholder='Input ingredients', aria-label='Input ingredients', aria-describedby="basic-addon2")
+          div.input-group-append
+            button#add-ingredient.btn.btn-outline-secondary(type='button') Add Ingreident
+
+        div#ingredients.container
+          ul#ingredient-list.list-group
+
+        div.text-center.pt-2
+          a.btn.btn-outline-primary(href='#recipe-carousel', role='button', data-slide='next') Input Detailed Instructions
+
+      div.carousel-item
+        div.form-group
+          textarea.form-control(rows="5")
+        div.text-center.pt-3
+          button.btn.btn-outline-primary(type='submit', name='submit-recipe') Submit Recipe
+          a.btn.btn-outline-primary(href='#recipe-carousel', role='button', data-slide='prev') Back
+
+
+
 
