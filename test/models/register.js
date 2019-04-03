@@ -1,7 +1,7 @@
 const assert = require('chai').assert;
 const expect = require('chai').expect;
 
-const registerModel = require('../models/register');
+const registerModel = require('../../models/register');
 
 describe ('models/register', function() {
   it('convertHeight', function() {
