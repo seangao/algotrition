@@ -5,14 +5,14 @@ const config = require('./config');
 const pgp = require('pg-promise')();
 var db = pgp(config.databaseURL);
 
+const number_of_recipes = 1;
 function get_field(name,good_or_bad) {
   const gb = good_or_bad;
   let i = 0;
-  //console.log('gb:    ',gb);
   while (i < gb.length && gb[i].title != name) {
     i++;
   }
-  if (gb[i]) {console.log(parseFloat(gb[i].amount)); return parseFloat(gb[i].amount);}
+  if (gb[i]) {return parseFloat(gb[i].amount);}
   else {return 0;}
 }
 
@@ -24,7 +24,6 @@ function get_nutritional_info(recipes) {
     .header("X-RapidAPI-Key", keys.spoonacular)
     .end(function (result) {
       let nutr = result.body;
-      console.log(nutr);
       let stmt = `INSERT INTO recipes_sp (
         id,
         total_time_seconds,
@@ -71,16 +70,16 @@ function get_nutritional_info(recipes) {
         price_per_serving,
         cuisine,
         ready_in_minutes,
-        servings
+        servings,
+        image_url
         )
         VALUES
-        ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18,$19,$20,$21,$22,$23,$24,$25,$26,$27,$28,$29,$30,$31,$32,$33,$34,$35,$36,$37,$38,$39,$40,$41,$42,$43,$44,$45,$46)`;
-
+        ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18,$19,$20,$21,$22,$23,$24,$25,$26,$27,$28,$29,$30,$31,$32,$33,$34,$35,$36,$37,$38,$39,$40,$41,$42,$43,$44,$45,$46,$47)`;
       let values = [
         // id,
         recipe.id,
         // total_time_seconds,
-        60 * recipe.readyInMinutes,
+        60 * (recipe.readyInMinutes),
         // breakfast,
         (recipe.dishTypes.includes('breakfast'))?1:0,
         // lunch,
@@ -144,13 +143,13 @@ function get_nutritional_info(recipes) {
         // vitamin_a,
         get_field('Vitamin A',nutr.good),
         // ingredients,
-        JSON.stringify(recipe.ingredients),
+        JSON.stringify(recipe.extendedIngredients),
         // title,
         recipe.title,
         // instructions,
         recipe.instructions,
         // source_site_url,
-        recipe.sourceSiteUrl,
+        recipe.sourceUrl,
         // very_healthy,
         recipe.veryHealthy,
         // cheap,
@@ -161,25 +160,27 @@ function get_nutritional_info(recipes) {
         recipe.preparationMinutes,
         // cooking_minutes,
         recipe.cookingMinutes,
-        // price_per_saving,
-        recipe.pricePerSaving,
+        // price_per_serving,
+        recipe.pricePerServing,
         // cuisines,
         JSON.stringify(recipe.cuisines),
         // ready_in_minutes,
         recipe.readyInMinutes,
-        // servings
-        recipe.Servings
-      ]
+        // servings,
+        recipe.servings,
+        // image_url
+        recipe.image
+      ];
       db.none(stmt,values);
     });
   }
 }
 
 function get_random_recipe() {
-  unirest.get("https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/random?number=2")
+  unirest.get("https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/random?number="+number_of_recipes)
   .header("X-RapidAPI-Key", keys.spoonacular)
   .end(function (result) {
-    console.log(result.body.recipes);
+    //console.log(result.body.recipes);
     get_nutritional_info(result.body.recipes);
   });
 }
