@@ -19,8 +19,6 @@ function optimization(input_constraints, recipes){
 	model["variables"] = duplicate_variables(model["variables"],serving_numbers);
 	model["ints"] = populate_ints(model["variables"]);
 
-	console.log(model.variables);
-
 	var results = solver.Solve(model);
 
 	return [model,results];
@@ -233,7 +231,7 @@ function populate_recipe_variables(constraints, input_constraints, recipe_array)
 
 
 		if(all_constraints_available && restriction_friendly){
-			variables[recipe["yummly_id"]] = tempObj;
+			variables[recipe.id] = tempObj;
 		}
 	}
 
