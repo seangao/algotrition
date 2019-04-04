@@ -3,7 +3,7 @@ const recipesModels = require("../models/recipes")
 
 
 //This is the primary function which is reads in user input and returns a meal plan
-function optimization(input_constraints){
+function optimization(input_constraints, recipes){
 	// console.log(input_constraints);
 
 
@@ -13,7 +13,7 @@ function optimization(input_constraints){
 	};
 
 	model["constraints"] = populate_constraints(input_constraints);
-	model["variables"] = populate_recipe_variables(model["constraints"],input_constraints);
+	model["variables"] = populate_recipe_variables(model["constraints"],input_constraints, recipes);
 
 	var serving_numbers = [.5,1,1.5,2,3];
 	model["variables"] = duplicate_variables(model["variables"],serving_numbers);
@@ -154,30 +154,10 @@ function populate_constraints(input_constraints){
 	return output;
 }
 
-//Returns an array where each element is an object describing a single recipe
-//Currently reads from local files. Will be replaced by a database call
-//Note that database query should only return allergen-approprate recipes
-
-function get_recipe_array(req, res){
-	var recipe_array = [];
-	var fs = require("fs");
-	var files = fs.readdirSync("./recipes_for_testing");
-	var i;
-	for(i=0; i<files.length;i++){
-		var text = fs.readFileSync("./recipes_for_testing/" + files[i]).toString('utf-8');
-		var recipe = JSON.parse(text);
-		recipe_array.push(recipe);
-	}
-	return recipe_array;
-}
-
-
-
 //Creates the variables object within the solver object
-function populate_recipe_variables(constraints, input_constraints){
+function populate_recipe_variables(constraints, input_constraints, recipe_array){
 
 	var variables = {};
-	var recipe_array = get_recipe_array('abc');
 
 	var i;
 	for(i=0; i<recipe_array.length;i++){
@@ -444,4 +424,4 @@ function increment_active_meal(path, calendar, eaten_day, eaten_meal){
 
 
 
-module.exports = {optimization,get_recipe_array,return_calendar,write_calendar_file, increment_active_meal};
+module.exports = {optimization,return_calendar,write_calendar_file, increment_active_meal};

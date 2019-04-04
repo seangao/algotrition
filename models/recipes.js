@@ -1,8 +1,10 @@
 async function getAllRecipes(db) {
     const stmt = `
-        SELECT * FROM recipes
+        SELECT * FROM recipes LIMIT 500
     `;
-    return db.manyOrNone(stmt);
+    let recipes = await db.manyOrNone(stmt);
+    console.log(recipes);
+    return recipes;
 }
 
 module.exports = {

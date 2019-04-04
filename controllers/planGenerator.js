@@ -1,6 +1,7 @@
-  function generator(req, res, next) {
-    if (!req.session.user)
-      res.redirect('/');
+function generator(req, res, next) {
+
+  if (!req.session.user)
+    res.redirect('/');
     const optimizers = [
       {
         desc: 'Minimize cooking time',
@@ -138,11 +139,15 @@
 
 var optimizer = require('../models/optimizer.js');
 
-function saveGeneratorRequest(req, res, next) {
+async function saveGeneratorRequest(req, res, next) {
   //req.body contains the POST request in a JSON format
   // console.log(req.body);
 
-  [model,results] = optimizer.optimization(req.body);
+
+  const recipes_mod = require('../models/recipes.js');
+  let recipes = await recipes_mod.getAllRecipes(req.app.locals.db);
+
+  [model,results] = optimizer.optimization(req.body, recipes);
 
   if(results['feasible']){
 
