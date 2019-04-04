@@ -34,9 +34,97 @@ console.log(sql_stmt);
 
 
 
-// const config = require('./config');
-// var db = pgp(config.databaseURL);
-//
+const config = require('./config');
+var db = pgp(config.databaseURL);
+
+//id SERIAL PRIMARY KEY,
+//     energy FLOAT,
+//     saturated_fat FLOAT,
+//     trans_fat FLOAT,
+//     soy BOOLEAN,
+//     image_url_large TEXT,
+//     breakfast INT,
+//     sugar FLOAT,
+//     protein FLOAT,
+//     sulfite BOOLEAN,
+//     ingredients TEXT,
+//     attribution_html TEXT,
+//     total_time_seconds FLOAT,
+//     vitamin_a FLOAT,
+//     dinner INT,
+//     source_recipe_url TEXT,
+//     attribution_url TEXT,
+//     recipe_name TEXT,
+//     dairy BOOLEAN,
+//     attribution_text TEXT,
+//     potassium FLOAT,
+//     fiber FLOAT,
+//     wheat BOOLEAN,
+//     gluten BOOLEAN,
+//     yummly_id TEXT,
+//     image_url_small TEXT,
+//     cholesterol FLOAT,
+//     vegan BOOLEAN,
+//     tree_nut BOOLEAN,
+//     lunch INT,
+//     attribution_logo TEXT,
+//     fat FLOAT,
+//     vitamin_c FLOAT,
+//     carbohydrates FLOAT,
+//     source_display_name TEXT,
+//     seafood BOOLEAN,
+//     sodium FLOAT,
+//     image_url_medium TEXT,
+//     ketogenic BOOLEAN,
+//     sesame BOOLEAN,
+//     calcium FLOAT,
+//     source_site_url TEXT,
+//     iron FLOAT,
+//     peanut BOOLEAN,
+//     vegetarian BOOLEAN,
+//     egg BOOLEAN,
+//     number_servings FLOAT,
+//     "tree-nut" BOOLEAN,
+//     "all-allergens" BOOLEAN
+
+
+
+// vegetarian BOOLEAN,
+// vegan BOOLEAN,
+// glutenFree BOOLEAN,
+// dairyFree BOOLEAN,
+// veryHealthy BOOLEAN,
+// cheap BOOLEAN,
+// veryPopular BOOLEAN,
+// sustainable BOOLEAN,
+// weightWatcherSmartPoints FLOAT,
+// gaps TEXT,
+// lowFodmap BOOLEAN,
+// ketogenic BOOLEAN,
+// whole30 BOOLEAN,
+// preparationMinutes FLOAT,
+// cookingMinutes FLOAT,
+// sourceUrl TEXT,
+// spoonacularSourceUrl TEXT,
+// aggregateLikes FLOAT,
+// spoonacularScore FLOAT,
+// healthScore FLOAT,
+// creditText TEXT,
+// sourceName TEXT,
+// pricePerServing FLOAT,
+// title TEXT,
+// readyInMinutes FLOAT,
+// servings FLOAT,
+// image TEXT,
+// imageType TEXT,
+// instructions TEXT,
+// creditsText TEXT,
+// cuisines []
+// dishTypes [ 'side dish' ]
+// diets [ 'gluten free' ]
+// analyzedInstructions [ { name: '', steps: [ [Object], [Object], [Object] ] } ]
+// extendedIngredients [ { id: 93607,
+
 // // const drop_stmt = `DROP TABLE recipes`;
 // // db.none(drop_stmt);
 //
