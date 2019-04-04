@@ -1,3 +1,12 @@
+// Run this script with:
+//   node spoonacular.js
+// It requires a spoonacular key and a postgresql database in a key.js file:
+// module.exports = {
+//  database: 'postgres://user:password@address:port/name?ssl=true',
+//  spoonacular: 'your-spoonacular-key'
+// };
+
+
 const unirest = require('unirest');
 const fs = require('fs');
 const keys = require('./keys');
@@ -9,7 +18,7 @@ const number_of_recipes = 1;
 function get_field(name,good_or_bad) {
   const gb = good_or_bad;
   let i = 0;
-  while (i < gb.length && gb[i].title != name) {
+  while (i < gb.length && gb[i].recipe_name != name) {
     i++;
   }
   if (gb[i]) {return parseFloat(gb[i].amount);}
@@ -59,9 +68,9 @@ function get_nutritional_info(recipes) {
         fat,
         vitamin_a,
         ingredients,
-        title,
+        recipe_name,
         instructions,
-        source_site_url,
+        source_recipe_url,
         very_healthy,
         cheap,
         very_popular,
@@ -144,11 +153,11 @@ function get_nutritional_info(recipes) {
         get_field('Vitamin A',nutr.good),
         // ingredients,
         JSON.stringify(recipe.extendedIngredients),
-        // title,
-        recipe.title,
+        // recipe_name,
+        recipe.recipe_name,
         // instructions,
         recipe.instructions,
-        // source_site_url,
+        // source_recipe_url,
         recipe.sourceUrl,
         // very_healthy,
         recipe.veryHealthy,

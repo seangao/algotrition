@@ -231,7 +231,7 @@ function populate_recipe_variables(constraints, input_constraints, recipe_array)
 
 
 		if(all_constraints_available && restriction_friendly){
-			variables[recipe["yummly_id"]] = tempObj;
+			variables[recipe.id] = tempObj;
 		}
 	}
 
@@ -353,14 +353,7 @@ function return_calendar(model,results){
 	for(i=0;i<keys.length;i++){
 		if(keys[i] != 'feasible' && keys[i] != 'result' && keys[i] != 'bounded' && results[keys[i]] > 0){
 
-			var ingredient_string_array = model["variables"][keys[i]]["ingredients"].split('%&%&');
-			var ingredient_obj_array = [];
-
-			var j;
-			for(j=0;j<ingredient_string_array.length;j++){
-				ingredient_obj_array.push({'name':ingredient_string_array[j]});
-			}
-
+			let ingredients_array = JSON.parse(model["variables"][keys[i]]["ingredients"]);
 
 
 			var single_recipe = {
@@ -368,7 +361,7 @@ function return_calendar(model,results){
 				'name': model["variables"][keys[i]]["recipe_name"],
 				'servings' : model["variables"][keys[i]]["num_recommended_servings"],
 				'link': model["variables"][keys[i]]["source_recipe_url"],
-				'ingredients':ingredient_obj_array
+				'ingredients':ingredients_array
 			}
 
 			if (model["variables"][keys[i]]["breakfast"] == 1){
