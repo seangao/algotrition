@@ -1,3 +1,12 @@
+// Run this script with:
+//   node spoonacular.js
+// It requires a spoonacular key and a postgresql database in a key.js file:
+// module.exports = {
+//  database: 'postgres://user:password@address:port/name?ssl=true',
+//  spoonacular: 'your-spoonacular-key'
+// };
+
+
 const unirest = require('unirest');
 const fs = require('fs');
 const keys = require('./keys');
