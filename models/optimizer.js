@@ -168,9 +168,7 @@ async function get_recipe_array(req, res){
 		var recipe = JSON.parse(text);
 		recipe_array.push(recipe);
 	}
-	console.log(recipe[0])
-
-	var recipe_array = await recipesModels.getAllRecipes(req.app.locals.db)
+	//var recipe_array = await recipesModels.getAllRecipes(req.app.locals.db)
 	return recipe_array;
 }
 
@@ -263,7 +261,7 @@ function populate_recipe_variables(constraints, input_constraints){
 
 
 function duplicate_variables(variables,servings_array){
-	
+
 	var partial_scaled_parameters = [
 		"potassium",
 		"sodium",
@@ -300,7 +298,7 @@ function duplicate_variables(variables,servings_array){
 	for(i=0;i<k.length;i++){
 		for(j=0;j<servings_array.length;j++){
 
-			
+
 			var tempObj = {};
 			var recipe = variables[k[i]];
 			var recipe_fields = Object.keys(recipe);
@@ -325,7 +323,7 @@ function duplicate_variables(variables,servings_array){
 
 
 
-	return variables2; 
+	return variables2;
 
 }
 
@@ -389,7 +387,7 @@ function return_calendar(model,results){
 			var single_recipe = {
 				'id': 1,
 				'name': model["variables"][keys[i]]["recipe_name"],
-				'servings' : model["variables"][keys[i]]["num_recommended_servings"], 
+				'servings' : model["variables"][keys[i]]["num_recommended_servings"],
 				'link': model["variables"][keys[i]]["source_recipe_url"],
 				'ingredients':ingredient_obj_array
 			}
