@@ -158,7 +158,7 @@ function populate_constraints(input_constraints){
 //Currently reads from local files. Will be replaced by a database call
 //Note that database query should only return allergen-approprate recipes
 
-async function get_recipe_array(req, res){
+function get_recipe_array(req, res){
 	var recipe_array = [];
 	var fs = require("fs");
 	var files = fs.readdirSync("./recipes_for_testing");
@@ -168,7 +168,6 @@ async function get_recipe_array(req, res){
 		var recipe = JSON.parse(text);
 		recipe_array.push(recipe);
 	}
-	//var recipe_array = await recipesModels.getAllRecipes(req.app.locals.db)
 	return recipe_array;
 }
 
