@@ -146,7 +146,6 @@ async function saveGeneratorRequest(req, res, next) {
 
   const recipes_mod = require('../models/recipes.js');
   let recipes = await recipes_mod.getAllRecipes(req.app.locals.db);
-
   [model,results] = optimizer.optimization(req.body, recipes);
 
   if(results['feasible']){
