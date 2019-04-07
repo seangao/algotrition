@@ -1,13 +1,13 @@
 const url = require('url');
+const fs = require('fs');
 const optimizer = require('../models/optimizer.js');
 
-function calendar(req, res, next) {
+function calendar(req, res) {
   if (!req.session.user) res.redirect('/');
 
   // Code to read in the saved meal plan from a text file
-  const fs = require('fs');
-  const week_string = fs.readFileSync('./saved_plans/recipe1.txt').toString('utf-8');
-  let week = JSON.parse(week_string);
+  const weekString = fs.readFileSync('./saved_plans/recipe1.txt').toString('utf-8');
+  let week = JSON.parse(weekString);
 
   const queryData = url.parse(req.url, true).query;
   if (queryData.eaten_day) {

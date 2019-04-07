@@ -1,4 +1,3 @@
-const { assert } = require('chai');
 const { expect } = require('chai');
 
 const app = require('../app');
@@ -37,20 +36,20 @@ describe('db', () => {
   it('search user by username', () => {
     loginModel.searchUser(db, { username: 'test1' })
       .then((data) => {
-        expect(data).to.satisfy(data => data.id == 1
-          && data.username == 'test1'
-          && data.age == 20
-          && data.weight == 120);
+        expect(data).to.satisfy(d => d.id === 1
+          && d.username === 'test1'
+          && d.age === 20
+          && d.weight === 120);
       });
   });
 
   it('search user by id', () => {
     loginModel.searchUser(db, 1)
       .then((data) => {
-        expect(data).to.satisfy(data => data.id == 1
-          && data.username == 'test1'
-          && data.age == 20
-          && data.weight == 120);
+        expect(data).to.satisfy(d => d.id === 1
+          && d.username === 'test1'
+          && d.age === 20
+          && d.weight === 120);
       });
   });
 });

@@ -3,10 +3,11 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www",
-    "dev": "nodemon ./bin/www",
+    "lint": "eslint --ignore-path .gitignore .",
+    "start": "npm run lint && node ./bin/www",
+    "dev": "npm run lint && nodemon ./bin/www",
     "test": "mocha --recursive",
-    "lint": "eslint --ignore-path .gitignore ."
+    "lintfix": "eslint --ignore-path .gitignore . --fix"
   },
   "engines": {
     "node": "10.x"

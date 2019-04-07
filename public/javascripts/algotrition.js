@@ -41,6 +41,10 @@ function updateOptimizeId() {
   $('#optimize-id').val(id);
 }
 
+function removeIngredient() {
+  $(this).parent().remove();
+}
+
 function addIngredient() {
   const input = $('#ingredient-input').val();
   $('#ingredient-input').val('');
@@ -49,12 +53,8 @@ function addIngredient() {
   $('.remove-ingredient').click(removeIngredient);
 }
 
-function removeIngredient() {
-  $(this).parent().remove();
-}
-
 function setUpEnterKey(event) {
-  if (event.key == 'Enter') {
+  if (event.key === 'Enter') {
     if ($('#ingredient-input:focus')) {
       $('#add-ingredient').trigger('click');
     }
@@ -71,7 +71,7 @@ function main() {
 }
 
 function renderImage() {
-  windowWidth = $(window).width();
+  const windowWidth = $(window).width();
   if (windowWidth < 479) {
     $('#header_logo').attr('src', 'http://rocomenty.com/wp-content/uploads/2019/02/algo_logo_mobile.png');
   } else if (windowWidth < 767) {

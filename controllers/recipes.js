@@ -1,11 +1,11 @@
 const recipesModels = require('../models/recipes');
 
-async function recipes(req, res, next) {
+async function recipes(req, res) {
   if (!req.session.user) {
     res.redirect('/');
   }
-  const test_recipes = await recipesModels.getAllRecipes(req.app.locals.db);
-  res.render('recipes', { title: 'Recipes', test_recipes, user: req.session.user });
+  const testRecipes = await recipesModels.getAllRecipes(req.app.locals.db);
+  res.render('recipes', { title: 'Recipes', testRecipes, user: req.session.user });
   // next();
 }
 

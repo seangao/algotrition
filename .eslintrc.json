@@ -14,6 +14,7 @@
       "strict": 0,
       "quotes": ["error", "single", { "allowTemplateLiterals": true }],
       "prefer-arrow-callback": ["warn", { "allowNamedFunctions": true }],
-      "func-names": ["error", "never"]
+      "func-names": ["error", "never"],
+      "no-param-reassign": "off"
      }
 }
