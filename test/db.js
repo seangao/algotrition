@@ -1,13 +1,13 @@
-const { expect } = require('chai');
+const expect = require('chai').expect;
 
 const app = require('../app');
-
-const { db } = app.locals;
+const db = app.locals.db;
 const registerModel = require('../models/register');
 const loginModel = require('../models/login');
+const profileModel = require('../models/profile');
 
-describe('db', () => {
-  it('create users database', (done) => {
+describe ('db', function() {
+  it('create users database', function(done) {
     db.none(`
       create table users (
         id serial primary key,
@@ -18,38 +18,60 @@ describe('db', () => {
         weight numeric
       );
     `)
-      .then(() => done());
+    .then(() => done());
   });
 
-  it('insert new user manually', () => {
+  it('insert new user manually', function() {
     registerModel.insertNewUser(db, {
       username: 'test1',
       password: 'test',
       age: 20,
       weight: 120,
     })
-      .then((data) => {
-        expect(data.id).to.equal(1);
-      });
+    .then(data => {
+      expect(data.id).to.equal(1);
+    });
   });
 
-  it('search user by username', () => {
+  it('search user by username', function() {
     loginModel.searchUser(db, { username: 'test1' })
-      .then((data) => {
-        expect(data).to.satisfy(d => d.id === 1
-          && d.username === 'test1'
-          && d.age === 20
-          && d.weight === 120);
+    .then(data => {
+      expect(data).to.satisfy(function(d) {
+        return d.id === 1 &&
+          d.username === 'test1' &&
+          d.age === 20 &&
+          d.weight === 120;
       });
+    });
   });
 
-  it('search user by id', () => {
-    loginModel.searchUser(db, 1)
-      .then((data) => {
-        expect(data).to.satisfy(d => d.id === 1
-          && d.username === 'test1'
-          && d.age === 20
-          && d.weight === 120);
+  it('search user by id', function() {
+    loginModel.searchUserbyID(db, 1)
+    .then(data => {
+      expect(data).to.satisfy(function(d) {
+        return d.id === 1 &&
+          d.username === 'test1' &&
+          d.age === 20 &&
+          d.weight === 120;
       });
+    });
   });
+
+  it('update profile', function() {
+    loginModel.updateProfile(db, 1, {
+      Name: 'test2',
+      Weight: 140,
+      Age: 30
+    })
+    .then(data => {
+      expect(data).to.satisfy(function(d) {
+        return d.id === 1 &&
+          d.username === 'test2' &&
+          d.age === 30 &&
+          d.weight === 140;
+      });
+    });
+  });
+
+
 });
