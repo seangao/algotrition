@@ -1,25 +1,23 @@
 function generator(req, res, next) {
-
-  if (!req.session.user)
-    res.redirect('/');
-    const optimizers = [
-      {
-        desc: 'Minimize cooking time',
-        id: 0,
-      },
-      {
-        desc: 'Minimize cost',
-        id: 1,
-      },
-      {
-        desc: 'Minimize calories',
-        id: 2,
-      },
-      {
-        desc: 'Maximize calories',
-        id: 3,
-      },
-    ];
+  if (!req.session.user) res.redirect('/');
+  const optimizers = [
+    {
+      desc: 'Minimize cooking time',
+      id: 0,
+    },
+    {
+      desc: 'Minimize cost',
+      id: 1,
+    },
+    {
+      desc: 'Minimize calories',
+      id: 2,
+    },
+    {
+      desc: 'Maximize calories',
+      id: 3,
+    },
+  ];
 
   const allergens = [
     'Dairy',
@@ -137,35 +135,30 @@ function generator(req, res, next) {
   });
 }
 
-var optimizer = require('../models/optimizer.js');
+const optimizer = require('../models/optimizer.js');
 
 async function saveGeneratorRequest(req, res, next) {
-  //req.body contains the POST request in a JSON format
+  // req.body contains the POST request in a JSON format
   // console.log(req.body);
 
 
   const recipes_mod = require('../models/recipes.js');
-  let recipes = await recipes_mod.getAllRecipes(req.app.locals.db);
-  [model,results] = optimizer.optimization(req.body, recipes);
+  const recipes = await recipes_mod.getAllRecipes(req.app.locals.db);
+  [model, results] = optimizer.optimization(req.body, recipes);
 
-  if(results['feasible']){
-
-    var calendar = optimizer.return_calendar(model,results);
-    await optimizer.write_calendar_file('./saved_plans/recipe1.txt',calendar);
+  if (results.feasible) {
+    const calendar = optimizer.return_calendar(model, results);
+    await optimizer.write_calendar_file('./saved_plans/recipe1.txt', calendar);
     res.redirect('/calendar');
-
   } else {
-
     res.render('error', {
       message: 'Solution not found. Please try again.',
-      error: {status: 'No Solution'},
+      error: { status: 'No Solution' },
       user: req.session.user,
     });
-
   }
-
 }
 
 module.exports = {
-  generator, saveGeneratorRequest
+  generator, saveGeneratorRequest,
 };

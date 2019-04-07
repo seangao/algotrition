@@ -4,10 +4,10 @@ function updateNutrOption(i, obj) {
   const inputIdTag = `#${inputId}`;
   if ($(obj).is('.active')) {
     $(inputIdTag).show();
-    $(inputIdTag + ' :input').attr('disabled', false);
+    $(`${inputIdTag} :input`).attr('disabled', false);
   } else {
     $(inputIdTag).hide();
-    $(inputIdTag + ' :input').attr('disabled', true);
+    $(`${inputIdTag} :input`).attr('disabled', true);
   }
 }
 
@@ -44,7 +44,7 @@ function updateOptimizeId() {
 function addIngredient() {
   const input = $('#ingredient-input').val();
   $('#ingredient-input').val('');
-  const markup = '<li class="list-group-item"><button type="button" class="close remove-ingredient" aria-label="Close"><span aria-hidden="true">&times;</span></button>' + input +'</li>';
+  const markup = `<li class="list-group-item"><button type="button" class="close remove-ingredient" aria-label="Close"><span aria-hidden="true">&times;</span></button>${input}</li>`;
   $('#ingredient-list').append(markup);
   $('.remove-ingredient').click(removeIngredient);
 }
@@ -54,9 +54,9 @@ function removeIngredient() {
 }
 
 function setUpEnterKey(event) {
-  if (event.key == "Enter") {
-    if ($("#ingredient-input:focus")) {
-      $('#add-ingredient').trigger("click");
+  if (event.key == 'Enter') {
+    if ($('#ingredient-input:focus')) {
+      $('#add-ingredient').trigger('click');
     }
   }
 }

@@ -7,11 +7,13 @@
       "browser": true,
       "commonjs": true,
       "es6": true,
-      "jquery": true
+      "jquery": true,
+      "mocha": true
     },
     "rules": {
       "strict": 0,
       "quotes": ["error", "single", { "allowTemplateLiterals": true }],
-      "prefer-arrow-callback": ["warn", { "allowNamedFunctions": true }]
+      "prefer-arrow-callback": ["warn", { "allowNamedFunctions": true }],
+      "func-names": ["error", "never"]
      }
 }
