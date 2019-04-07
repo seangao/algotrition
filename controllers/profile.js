@@ -11,13 +11,28 @@ async function getProfile(req, res, next) {
 async function generateProfile(req, res) {
   var query = await profileModels.searchUserbyID(req.app.locals.db, req.session.userid);
   const feet_inch = registerModels.reverseHeight(query.height);
+  let height = feet_inch[0];
+
+  if (feet_inch[0] == 1) {
+    height += ' foot ';
+  } else {
+    height += ' feet ';
+  }
+  height += feet_inch[1];
+
+  if (feet_inch[1] == 1) {
+    height += 'inch';
+  } else {
+    height += 'inches';
+  }
+
   var user = [
     {
       name: "General",
       id: 0,
       items: [
         {
-          name: "Name",
+          name: "Username",
           value: query.username,
           icon: 'fas fa-user',
           number: false,
@@ -25,7 +40,7 @@ async function generateProfile(req, res) {
         },
         {
           name: "Height",
-          value: feet_inch[0] + " feets " + feet_inch[1] + " inches",
+          value: height,
           icon: 'fas fa-ruler-vertical',
           feet: feet_inch[0],
           inch: feet_inch[1],
