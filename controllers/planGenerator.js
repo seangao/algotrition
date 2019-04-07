@@ -152,11 +152,15 @@ async function saveGeneratorRequest(req, res, next) {
 
     var calendar = optimizer.return_calendar(model,results);
     await optimizer.write_calendar_file('./saved_plans/recipe1.txt',calendar);
-    res.redirect('/calendar')
+    res.redirect('/calendar');
 
   } else {
 
-    res.render('error',{message: 'Solution not found. Please try again.', error: {status: 'No Solution'}})
+    res.render('error', {
+      message: 'Solution not found. Please try again.',
+      error: {status: 'No Solution'},
+      user: req.session.user,
+    });
 
   }
 
