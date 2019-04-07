@@ -1,6 +1,6 @@
 let keys = {};
 
-try { keys = require('./keys'); } catch (e) { throw e; } // eslint-disable-line global-require
+try { keys = require('./keys'); } catch (e) { keys = null; } // eslint-disable-line global-require
 
 module.exports = {
   port: process.env.PORT || 3000,
