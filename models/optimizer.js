@@ -1,420 +1,385 @@
-var solver = require("javascript-lp-solver")
-const recipesModels = require("../models/recipes")
+const solver = require('javascript-lp-solver');
+const fs = require('fs');
+// const recipesModels = require('../models/recipes');
 
 
-//This is the primary function which is reads in user input and returns a meal plan
-function optimization(input_constraints, recipes){
-	// console.log(input_constraints);
+// This function creates the constraints object within the solver object
+function populateConstraints(inputConstraints) {
+  const output = {};
+
+  output.breakfast = { min: 0.9 };
+  output.breakfast2 = { max: 1.1 };
+  output.lunch = { min: 0.9 };
+  output.lunch2 = { max: 1.1 };
+  output.dinner = { min: 0.9 };
+  output.dinner2 = { max: 1.1 };
 
 
-	var model = {
-		"optimize":"total_time_seconds",
-		"opType":"min"
-	};
+  if ('calories-min' in inputConstraints) {
+    output.energy = { min: inputConstraints['calories-min'] };
+  }
 
-	model["constraints"] = populate_constraints(input_constraints);
-	model["variables"] = populate_recipe_variables(model["constraints"],input_constraints, recipes);
+  if ('calories-max' in inputConstraints) {
+    output.energy2 = { max: inputConstraints['calories-max'] };
+  }
 
-	var serving_numbers = [.5,1,1.5,2,3];
-	model["variables"] = duplicate_variables(model["variables"],serving_numbers);
-	model["ints"] = populate_ints(model["variables"]);
+  if ('potassium-min' in inputConstraints) {
+    output.potassium = { min: inputConstraints['potassium-min'] };
+  }
 
-	var results = solver.Solve(model);
+  if ('potassium-max' in inputConstraints) {
+    output.potassium2 = { max: inputConstraints['potassium-max'] };
+  }
 
-	return [model,results];
+  if ('sodium-min' in inputConstraints) {
+    output.sodium = { min: inputConstraints['sodium-min'] };
+  }
+
+  if ('sodium-max' in inputConstraints) {
+    output.sodium2 = { max: inputConstraints['sodium-max'] };
+  }
+
+  if ('calcium-min' in inputConstraints) {
+    output.calcium = { min: inputConstraints['calcium-min'] };
+  }
+
+  if ('calcium-max' in inputConstraints) {
+    output.calcium2 = { max: inputConstraints['calcium-max'] };
+  }
+
+  if ('iron-min' in inputConstraints) {
+    output.iron = { min: inputConstraints['iron-min'] };
+  }
+
+  if ('iron-max' in inputConstraints) {
+    output.iron2 = { max: inputConstraints['iron-max'] };
+  }
+
+  if ('satfat-min' in inputConstraints) {
+    output.saturated_fat = { min: inputConstraints['satfat-min'] };
+  }
+
+  if ('satfat-max' in inputConstraints) {
+    output.saturated_fat2 = { max: inputConstraints['satfat-max'] };
+  }
+
+  if ('transfat-min' in inputConstraints) {
+    output.trans_fat = { min: inputConstraints['transfat-min'] };
+  }
+
+  if ('transfat-max' in inputConstraints) {
+    output.trans_fat2 = { max: inputConstraints['transfat-max'] };
+  }
+
+  if ('sugar-min' in inputConstraints) {
+    output.sugar = { min: inputConstraints['sugar-min'] };
+  }
+
+  if ('sugar-max' in inputConstraints) {
+    output.sugar2 = { max: inputConstraints['sugar-max'] };
+  }
+
+  if ('carbs-min' in inputConstraints) {
+    output.carbohydrates = { min: inputConstraints['carbs-min'] };
+  }
+
+  if ('carbs-max' in inputConstraints) {
+    output.carbohydrates2 = { max: inputConstraints['carbs-max'] };
+  }
+
+  if ('fiber-min' in inputConstraints) {
+    output.fiber = { min: inputConstraints['fiber-min'] };
+  }
+
+  if ('fiber-max' in inputConstraints) {
+    output.fiber2 = { max: inputConstraints['fiber-max'] };
+  }
+
+  if ('protein-min' in inputConstraints) {
+    output.protein = { min: inputConstraints['protein-min'] };
+  }
+
+  if ('protein-max' in inputConstraints) {
+    output.protein2 = { max: inputConstraints['protein-max'] };
+  }
+
+  if ('vita-min' in inputConstraints) {
+    output.vitamin_a = { min: inputConstraints['vita-min'] };
+  }
+
+  if ('vita-max' in inputConstraints) {
+    output.vitamin_a2 = { max: inputConstraints['vita-max'] };
+  }
+
+  if ('vitc-min' in inputConstraints) {
+    output.vitamin_c = { min: inputConstraints['vitc-min'] };
+  }
+
+  if ('vitc-max' in inputConstraints) {
+    output.vitamin_c2 = { max: inputConstraints['vitc-max'] };
+  }
+
+  if ('fat-min' in inputConstraints) {
+    output.fat = { min: inputConstraints['fat-min'] };
+  }
+
+  if ('fat-max' in inputConstraints) {
+    output.fat2 = { max: inputConstraints['fat-max'] };
+  }
+
+  return output;
 }
 
 
-//This function creates the constraints object within the solver object
-function populate_constraints(input_constraints){
-	var output = {};
-
-	output["breakfast"] = {"min":.9};
-	output["breakfast2"] = {"max":1.1};
-	output["lunch"] = {"min":.9};
-	output["lunch2"] = {"max":1.1};
-	output["dinner"] = {"min":.9};
-	output["dinner2"] = {"max":1.1};
-
-
-
-
-	if('calories-min' in input_constraints){
-		output["energy"] = {"min":input_constraints["calories-min"]};
-	}
-
-	if('calories-max' in input_constraints){
-		output["energy2"] = {"max":input_constraints["calories-max"]};
-	}
-
-	if('potassium-min' in input_constraints){
-		output["potassium"] = {"min":input_constraints["potassium-min"]};
-	}
-
-	if('potassium-max' in input_constraints){
-		output["potassium2"] = {"max":input_constraints["potassium-max"]};
-	}
-
-	if('sodium-min' in input_constraints){
-		output["sodium"] = {"min":input_constraints["sodium-min"]};
-	}
-
-	if('sodium-max' in input_constraints){
-		output["sodium2"] = {"max":input_constraints["sodium-max"]};
-	}
-
-	if('calcium-min' in input_constraints){
-		output["calcium"] = {"min":input_constraints["calcium-min"]};
-	}
-
-	if('calcium-max' in input_constraints){
-		output["calcium2"] = {"max":input_constraints["calcium-max"]};
-	}
-
-	if('iron-min' in input_constraints){
-		output["iron"] = {"min":input_constraints["iron-min"]};
-	}
-
-	if('iron-max' in input_constraints){
-		output["iron2"] = {"max":input_constraints["iron-max"]};
-	}
-
-	if('satfat-min' in input_constraints){
-		output["saturated_fat"] = {"min":input_constraints["satfat-min"]};
-	}
-
-	if('satfat-max' in input_constraints){
-		output["saturated_fat2"] = {"max":input_constraints["satfat-max"]};
-	}
-
-	if('transfat-min' in input_constraints){
-		output["trans_fat"] = {"min":input_constraints["transfat-min"]};
-	}
-
-	if('transfat-max' in input_constraints){
-		output["trans_fat2"] = {"max":input_constraints["transfat-max"]};
-	}
-
-	if('sugar-min' in input_constraints){
-		output["sugar"] = {"min":input_constraints["sugar-min"]};
-	}
-
-	if('sugar-max' in input_constraints){
-		output["sugar2"] = {"max":input_constraints["sugar-max"]};
-	}
-
-	if('carbs-min' in input_constraints){
-		output["carbohydrates"] = {"min":input_constraints["carbs-min"]};
-	}
-
-	if('carbs-max' in input_constraints){
-		output["carbohydrates2"] = {"max":input_constraints["carbs-max"]};
-	}
-
-	if('fiber-min' in input_constraints){
-		output["fiber"] = {"min":input_constraints["fiber-min"]};
-	}
-
-	if('fiber-max' in input_constraints){
-		output["fiber2"] = {"max":input_constraints["fiber-max"]};
-	}
-
-	if('protein-min' in input_constraints){
-		output["protein"] = {"min":input_constraints["protein-min"]};
-	}
-
-	if('protein-max' in input_constraints){
-		output["protein2"] = {"max":input_constraints["protein-max"]};
-	}
-
-	if('vita-min' in input_constraints){
-		output["vitamin_a"] = {"min":input_constraints["vita-min"]};
-	}
-
-	if('vita-max' in input_constraints){
-		output["vitamin_a2"] = {"max":input_constraints["vita-max"]};
-	}
-
-	if('vitc-min' in input_constraints){
-		output["vitamin_c"] = {"min":input_constraints["vitc-min"]};
-	}
-
-	if('vitc-max' in input_constraints){
-		output["vitamin_c2"] = {"max":input_constraints["vitc-max"]};
-	}
-
-	if('fat-min' in input_constraints){
-		output["fat"] = {"min":input_constraints["fat-min"]};
-	}
-
-	if('fat-max' in input_constraints){
-		output["fat2"] = {"max":input_constraints["fat-max"]};
-	}
-
-	return output;
-}
-
-//Creates the variables object within the solver object
-function populate_recipe_variables(constraints, input_constraints, recipe_array){
-
-	var variables = {};
-
-	var i;
-	for(i=0; i<recipe_array.length;i++){
-		var recipe = recipe_array[i];
-
-		var tempObj = {};
-		var constraint_list = Object.keys(constraints);
-		//loop over constraint list calling single_constraint
-		var all_constraints_available = true;
-		var j;
-		for(j=0;j<constraint_list.length;j++){
-
-			//single_constraint(constraint_list[j],recipe,tempObj)
-			if(! single_constraint(constraint_list[j],recipe,tempObj)){
-				all_constraints_available = false;
-			}
-
-		}
-
-		tempObj["breakfast"] = recipe["breakfast"];
-		tempObj["breakfast2"] = recipe["breakfast"];
-		tempObj["lunch"] = recipe["lunch"];
-		tempObj["lunch2"] = recipe["lunch"];
-		tempObj["dinner"] = recipe["dinner"];
-		tempObj["dinner2"] = recipe["dinner"];
-		tempObj["total_time_seconds"] = recipe["total_time_seconds"];
-		tempObj["ingredients"] = recipe["ingredients"];
-		tempObj["recipe_name"] = recipe["recipe_name"];
-		tempObj["source_recipe_url"] = recipe["source_recipe_url"];
+function duplicateVariables(variables, servingsArray) {
+  const partialScaledParameters = [
+    'potassium',
+    'sodium',
+    'cholesterol',
+    'trans_fat',
+    'saturated_fat',
+    'carbohydrates',
+    'fiber',
+    'protein',
+    'vitamin_c',
+    'calcium',
+    'iron',
+    'sugar',
+    'energy',
+    'fat',
+    'vitamin_a'];
 
 
-		var restriction_friendly = true;
-		if('allergens' in input_constraints){
-			var allergens = input_constraints["allergens"];
-			var j;
+  let i;
+  const scaledParameters = [];
+  for (i = 0; i < partialScaledParameters.length; i += 1) {
+    scaledParameters.push(partialScaledParameters[i]);
+    scaledParameters.push(`${partialScaledParameters[i]}2`);
+  }
 
 
-			for(j=0; j<allergens.length;j++){
-				if(allergens[j] == 'tree nuts'){
-					allergens[j] = 'tree_nut';
-				}
+  const variables2 = {};
 
-			}
+  let j;
+  const k = Object.keys(variables);
 
+  for (i = 0; i < k.length; i += 1) {
+    for (j = 0; j < servingsArray.length; j += 1) {
+      const tempObj = {};
+      const recipe = variables[k[i]];
+      const recipeFields = Object.keys(recipe);
 
-			if(typeof(allergens)=='string'){
+      let m;
+      for (m = 0; m < recipeFields.length; m += 1) {
+        if (scaledParameters.includes(recipeFields[m])) {
+          tempObj[recipeFields[m]] = recipe[recipeFields[m]] * servingsArray[j];
+        } else {
+          tempObj[recipeFields[m]] = recipe[recipeFields[m]];
+        }
+      }
 
-				if (recipe[allergens] == false){
-					restriction_friendly = false;
-				}
-
-			} else {
-
-				for(j=0; j<allergens.length;j++){
-					if (recipe[allergens[j]] == false){
-					restriction_friendly = false;
-				}
-
-				}
-
-			}
-
-		}
-
-		if('diet' in input_constraints){
-			if(recipe[input_constraints["diet"]] == false){
-				restriction_friendly = false;
-			}
-		}
+      tempObj.num_recommended_servings = servingsArray[j];
+      tempObj.recipe_name = recipe.recipe_name;
+      variables2[`${k[i]}_${String(servingsArray[j])}`] = tempObj;
+    }
+  }
 
 
-
-		if(all_constraints_available && restriction_friendly){
-			variables[recipe.id] = tempObj;
-		}
-	}
-
-	return variables;
+  return variables2;
 }
 
 
-function duplicate_variables(variables,servings_array){
+// Updates a single field in tempObj with data from the recipe that corresponds to the constraint
+function singleConstraint(constraintName, recipe, tempObj) {
+  if (constraintName in recipe) {
+    if (recipe[constraintName] !== 'NaN') {
+      tempObj[constraintName] = recipe[constraintName];
+      return true;
+    }
+  } else if (constraintName.substr(0, constraintName.length - 1) in recipe) {
+    if (recipe[constraintName.substr(0, constraintName.length - 1)] !== 'NaN') {
+      tempObj[constraintName] = recipe[constraintName.substr(0, constraintName.length - 1)];
+      return true;
+    }
+  }
+  return false;
+}
 
-	var partial_scaled_parameters = [
-		"potassium",
-		"sodium",
-		"cholesterol",
-		"trans_fat",
-		"saturated_fat",
-		"carbohydrates",
-		"fiber",
-		"protein",
-		"vitamin_c",
-		"calcium",
-		"iron",
-		"sugar",
-		"energy",
-		"fat",
-		"vitamin_a"];
+// Creates the variables object within the solver object
+function populateRecipeVariables(constraints, inputConstraints, recipeArray) {
+  const variables = {};
 
+  let i;
+  for (i = 0; i < recipeArray.length; i += 1) {
+    const recipe = recipeArray[i];
 
+    const tempObj = {};
+    const constraintList = Object.keys(constraints);
+    // loop over constraint list calling singleConstraint
+    let allConstraintsAvailable = true;
+    let j;
+    for (j = 0; j < constraintList.length; j += 1) {
+      // singleConstraint(constraintList[j],recipe,tempObj)
+      if (!singleConstraint(constraintList[j], recipe, tempObj)) {
+        allConstraintsAvailable = false;
+      }
+    }
 
-	var i;
-	var scaled_parameters = [];
-	for(i=0;i<partial_scaled_parameters.length;i++){
-		scaled_parameters.push(partial_scaled_parameters[i]);
-		scaled_parameters.push(partial_scaled_parameters[i] + '2');
-	}
-
-
-	var variables2 = {};
-
-	var j;
-	var k;
-	k = Object.keys(variables);
-
-	for(i=0;i<k.length;i++){
-		for(j=0;j<servings_array.length;j++){
-
-
-			var tempObj = {};
-			var recipe = variables[k[i]];
-			var recipe_fields = Object.keys(recipe);
-
-			var m;
-			for(m=0;m<recipe_fields.length;m++){
-
-				if(scaled_parameters.includes(recipe_fields[m])){
-					tempObj[recipe_fields[m]] = recipe[recipe_fields[m]] * servings_array[j];
-				}
-				else{
-					tempObj[recipe_fields[m]] = recipe[recipe_fields[m]];
-				}
-			}
-
-			tempObj["num_recommended_servings"] = servings_array[j];
-			tempObj["recipe_name"] = recipe["recipe_name"];
-			variables2[k[i] + '_' + String(servings_array[j])] = tempObj;
-
-		}
-	}
+    tempObj.breakfast = recipe.breakfast;
+    tempObj.breakfast2 = recipe.breakfast;
+    tempObj.lunch = recipe.lunch;
+    tempObj.lunch2 = recipe.lunch;
+    tempObj.dinner = recipe.dinner;
+    tempObj.dinner2 = recipe.dinner;
+    tempObj.total_time_seconds = recipe.total_time_seconds;
+    tempObj.ingredients = recipe.ingredients;
+    tempObj.recipe_name = recipe.recipe_name;
+    tempObj.source_recipe_url = recipe.source_recipe_url;
 
 
+    let restrictionFriendly = true;
+    if ('allergens' in inputConstraints) {
+      const { allergens } = inputConstraints;
 
-	return variables2;
 
+      for (j = 0; j < allergens.length; j += 1) {
+        if (allergens[j] === 'tree nuts') {
+          allergens[j] = 'tree_nut';
+        }
+      }
+
+
+      if (typeof (allergens) === 'string') {
+        if (recipe[allergens] === false) {
+          restrictionFriendly = false;
+        }
+      } else {
+        for (j = 0; j < allergens.length; j += 1) {
+          if (recipe[allergens[j]] === false) {
+            restrictionFriendly = false;
+          }
+        }
+      }
+    }
+
+    if ('diet' in inputConstraints) {
+      if (recipe[inputConstraints.diet] === false) {
+        restrictionFriendly = false;
+      }
+    }
+
+
+    if (allConstraintsAvailable && restrictionFriendly) {
+      variables[recipe.id] = tempObj;
+    }
+  }
+
+  return variables;
 }
 
 
+// Creates ints object within the solver object
+function populateInts(variables) {
+  const ints = {};
+  const k = Object.keys(variables);
+  let i;
+  for (i = 0; i < k.length; i += 1) {
+    ints[k[i]] = 1;
+  }
 
-//Updates a single field in tempObj with data from the recipe that corresponds to the constraint
-function single_constraint(constraint_name,recipe,tempObj){
-
-	if(constraint_name in recipe){
-		if (recipe[constraint_name] != 'NaN'){
-			tempObj[constraint_name] = recipe[constraint_name]
-			return true;
-		}
-	} else if (constraint_name.substr(0,constraint_name.length-1) in recipe){
-
-		if(recipe[constraint_name.substr(0,constraint_name.length-1)] != 'NaN'){
-			tempObj[constraint_name] = recipe[constraint_name.substr(0,constraint_name.length-1)]
-			return true;
-		}
-	}
-	else{
-		return false;
-	}
-}
-
-//Creates ints object within the solver object
-function populate_ints(variables){
-
-	var ints = {};
-	var k = Object.keys(variables);
-	var i;
-	for(i=0; i< k.length; i++){
-		ints[k[i]] = 1;
-	}
-
-	return ints;
-
+  return ints;
 }
 
 
-function return_calendar(model,results){
+function returnCalendar(model, results) {
+  const keys = Object.keys(results);
+  let i;
 
-	var keys = Object.keys(results);
-	var i;
+  const meals = [];
 
-	var meals = [];
-
-	for(i=0;i<keys.length;i++){
-		if(keys[i] != 'feasible' && keys[i] != 'result' && keys[i] != 'bounded' && results[keys[i]] > 0){
-
-			let ingredients_array = JSON.parse(model["variables"][keys[i]]["ingredients"]);
+  for (i = 0; i < keys.length; i += 1) {
+    if (keys[i] !== 'feasible' && keys[i] !== 'result' && keys[i] !== 'bounded' && results[keys[i]] > 0) {
+      const ingredientsArray = JSON.parse(model.variables[keys[i]].ingredients);
 
 
-			var single_recipe = {
-				'id': 1,
-				'name': model["variables"][keys[i]]["recipe_name"],
-				'servings' : model["variables"][keys[i]]["num_recommended_servings"],
-				'link': model["variables"][keys[i]]["source_recipe_url"],
-				'ingredients':ingredients_array
-			}
+      const singleRecipe = {
+        id: 1,
+        name: model.variables[keys[i]].recipe_name,
+        servings: model.variables[keys[i]].num_recommended_servings,
+        link: model.variables[keys[i]].source_recipe_url,
+        ingredients: ingredientsArray,
+      };
 
-			if (model["variables"][keys[i]]["breakfast"] == 1){
-				var meal = {'name':'Breakfast', 'id':1,'recipes':[single_recipe]};
-				meals[0] = meal;
-			}
-			if (model["variables"][keys[i]]["lunch"] == 1){
-				var meal = {'name':'Lunch', 'id':2,'recipes':[single_recipe]};
-				meals[1] = meal;
-			}
-			if (model["variables"][keys[i]]["dinner"] == 1){
-				var meal = {'name':'Dinner', 'id':3,'recipes':[single_recipe]};
-				meals[2] = meal;
-			}
+      if (model.variables[keys[i]].breakfast === 1) {
+        const meal = { name: 'Breakfast', id: 1, recipes: [singleRecipe] };
+        meals[0] = meal;
+      }
+      if (model.variables[keys[i]].lunch === 1) {
+        const meal = { name: 'Lunch', id: 2, recipes: [singleRecipe] };
+        meals[1] = meal;
+      }
+      if (model.variables[keys[i]].dinner === 1) {
+        const meal = { name: 'Dinner', id: 3, recipes: [singleRecipe] };
+        meals[2] = meal;
+      }
+    }
+  }
 
+  const week = [{ name: 'Day 1', id: 1, meals }];
 
+  // Initiate the first meal of the first day as the active one
+  week[0].meals[0].active = true;
 
-		}
-	}
-
-	var week = [{'name':'Day 1','id':1,'meals':meals}];
-
-	//Initiate the first meal of the first day as the active one
-	week[0].meals[0].active = true;
-
-	return week;
-
-
+  return week;
 }
 
-function write_calendar_file(path,calendar){
-	var fs = require("fs");
-	fs.writeFile(path,JSON.stringify(calendar),(err) => {
-		if(err) throw err;
-	})
+function writeCalendarFile(path, calendar) {
+  fs.writeFile(path, JSON.stringify(calendar), (err) => {
+    if (err) throw err;
+  });
 }
 
 
-function increment_active_meal(path, calendar, eaten_day, eaten_meal){
-	var fs = require("fs");
-	calendar[eaten_day].meals[eaten_meal].eaten = true;
-	if (calendar[eaten_day].meals[++eaten_meal]) {
-		calendar[eaten_day].meals[eaten_meal].active = true;
-	}
-	else if (calendar[++eaten_day]) {
-		calendar[eaten_day].meals[0].active = true;
-	}
-	fs.writeFile(path,JSON.stringify(calendar),(err) => {
-		if(err) throw err;
-	});
-	return calendar;
+function incrementActiveMeal(path, calendar, eatenDay, eatenMeal) {
+  calendar[eatenDay].meals[eatenMeal].eaten = true;
+  eatenMeal += 1;
+  if (calendar[eatenDay].meals[eatenMeal]) {
+    calendar[eatenDay].meals[eatenMeal].active = true;
+  } else {
+    eatenDay += 1;
+    if (calendar[eatenDay]) {
+      calendar[eatenDay].meals[0].active = true;
+    }
+  }
+  fs.writeFile(path, JSON.stringify(calendar), (err) => {
+    if (err) throw err;
+  });
+  return calendar;
+}
+
+// This is the primary function which is reads in user input and returns a meal plan
+function optimization(inputConstraints, recipes) {
+  // console.log(inputConstraints);
+
+
+  const model = {
+    optimize: 'total_time_seconds',
+    opType: 'min',
+  };
+
+  model.constraints = populateConstraints(inputConstraints);
+  model.variables = populateRecipeVariables(model.constraints, inputConstraints, recipes);
+
+  const servingNumbers = [0.5, 1, 1.5, 2, 3];
+  model.variables = duplicateVariables(model.variables, servingNumbers);
+  model.ints = populateInts(model.variables);
+
+  const results = solver.Solve(model);
+
+  return [model, results];
 }
 
 
-
-module.exports = {optimization,return_calendar,write_calendar_file, increment_active_meal};
+module.exports = {
+  optimization, returnCalendar, writeCalendarFile, incrementActiveMeal,
+};
