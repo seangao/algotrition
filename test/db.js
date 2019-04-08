@@ -22,54 +22,47 @@ describe ('db', function() {
     .then(() => done());
   });
 
-  it('insert new user manually', function() {
-    registerModel.insertNewUser(db, {
+  it('insert new user manually', async function() {
+    const data = await registerModel.insertNewUser(db, {
       username: 'test1',
       password: 'test',
       age: 20,
       weight: 120,
-    })
-    .then(data => {
-      expect(data.id).to.equal(1);
     });
+    expect(data.id).to.equal(1);
   });
 
   it('search user by username', async function() {
     const data = await loginModel.searchUser(db, { username: 'test1' });
-    console.log(data);
     expect(data).to.satisfy(function(d) {
       return d.id === 1 &&
         d.username === 'test1' &&
-        d.age === 20 &&
-        d.weight === 120;
+        d.age === '20' &&
+        d.weight === '120';
     });
   });
 
   it('search user by id', function() {
-    profileModel.searchUserbyID(db, 1)
-    .then(data => {
-      expect(data).to.satisfy(function(d) {
-        return d.id === 1 &&
-          d.username === 'test1' &&
-          d.age === 20 &&
-          d.weight === 120;
-      });
+    const data = await profileModel.searchUserbyID(db, 1);
+    expect(data).to.satisfy(function(d) {
+      return d.id === 1 &&
+        d.username === 'test1' &&
+        d.age === '20' &&
+        d.weight === '120';
     });
   });
 
   it('update profile', function() {
-    profileModel.updateProfile(db, 1, {
+    const data = await profileModel.updateProfile(db, 1, {
       Name: 'test2',
       Weight: 140,
       Age: 30
-    })
-    .then(data => {
-      expect(data).to.satisfy(function(d) {
-        return d.id === 1 &&
-          d.username === 'test2' &&
-          d.age === 30 &&
-          d.weight === 140;
-      });
+    });
+    expect(data).to.satisfy(function(d) {
+      return d.id === 1 &&
+        d.username === 'test2' &&
+        d.age === '30' &&
+        d.weight === '140';
     });
   });
 
