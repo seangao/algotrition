@@ -1,3 +1,4 @@
+const bcrypt = require('bcrypt');
 const { expect } = require('chai');
 
 const app = require('../app');
@@ -48,6 +49,7 @@ describe('db', () => {
     const data = await loginModel.searchUser(db, { username: 'test1' });
     expect(data).to.satisfy(d => d.id === 1
         && d.username === 'test1'
+        && bcrypt.compareSync('test', d.password)
         && d.age === '20'
         && d.weight === '120');
   });
@@ -55,6 +57,7 @@ describe('db', () => {
   it('search user by id', async () => {
     const data = await profileModel.searchUserbyID(db, 1);
     expect(data).to.satisfy(d => d.username === 'test1'
+        && bcrypt.compareSync('test', d.password)
         && d.age === '20'
         && d.weight === '120');
   });
