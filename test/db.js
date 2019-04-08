@@ -43,6 +43,7 @@ describe('db', () => {
 
   it('search user by id', async () => {
     const data = await profileModel.searchUserbyID(db, 1);
+    console.log(data);
     expect(data).to.satisfy(d => d.id === 1
         && d.username === 'test1'
         && d.age === '20'
