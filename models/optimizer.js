@@ -299,26 +299,28 @@ function returnCalendar(model, results) {
 
   for (i = 0; i < keys.length; i += 1) {
     if (keys[i] !== 'feasible' && keys[i] !== 'result' && keys[i] !== 'bounded' && results[keys[i]] > 0) {
-      const ingredientsArray = JSON.parse(model.variables[keys[i]].ingredients);
+      const recipe = model.variables[keys[i]];
+      const ingredientsArray = JSON.parse(recipe.ingredients);
 
 
       const singleRecipe = {
         id: 1,
-        name: model.variables[keys[i]].recipe_name,
-        servings: model.variables[keys[i]].num_recommended_servings,
-        link: model.variables[keys[i]].source_recipe_url,
+        name: recipe.recipe_name,
+        servings: recipe.num_recommended_servings,
+        link: recipe.source_recipe_url,
         ingredients: ingredientsArray,
+        calories: recipe.energy,
       };
 
-      if (model.variables[keys[i]].breakfast === 1) {
+      if (recipe.breakfast === 1) {
         const meal = { name: 'Breakfast', id: 1, recipes: [singleRecipe] };
         meals[0] = meal;
       }
-      if (model.variables[keys[i]].lunch === 1) {
+      if (recipe.lunch === 1) {
         const meal = { name: 'Lunch', id: 2, recipes: [singleRecipe] };
         meals[1] = meal;
       }
-      if (model.variables[keys[i]].dinner === 1) {
+      if (recipe.dinner === 1) {
         const meal = { name: 'Dinner', id: 3, recipes: [singleRecipe] };
         meals[2] = meal;
       }
@@ -343,11 +345,11 @@ function writeCalendarFile(path, calendar) {
 function incrementActiveMeal(path, calendar, eatenDay, eatenMeal) {
   calendar[eatenDay].meals[eatenMeal].eaten = true;
   eatenMeal += 1;
-  if (calendar[eatenDay].meals[eatenMeal]) {
+  if (eatenMeal in calendar[eatenDay].meals) {
     calendar[eatenDay].meals[eatenMeal].active = true;
   } else {
     eatenDay += 1;
-    if (calendar[eatenDay]) {
+    if (eatenDay in calendar) {
       calendar[eatenDay].meals[0].active = true;
     }
   }
