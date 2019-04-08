@@ -26,12 +26,12 @@ describe('db', () => {
   // });
 
   it('create users database', (done) => {
-    db.none(sqlModel.readSQLFile('../test/users.sql'))
+    db.none(sqlModel.readSQLFile('test/users.sql'))
       .then(() => done());
   });
 
   it('create spoonacular recipes database', (done) => {
-    db.none(sqlModel.readSQLFile('../test/recipes_sp.sql'))
+    db.none(sqlModel.readSQLFile('test/recipes_sp.sql'))
       .then(() => done());
   });
 
