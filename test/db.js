@@ -10,7 +10,7 @@ const profileModel = require('../models/profile');
 const recipesModel = require('../models/recipes');
 const sqlModel = require('../models/sql');
 
-describe('db', () => {
+describe('database', () => {
   // it('create users database', (done) => {
   //   db.none(`
   //     create table users (
@@ -57,9 +57,16 @@ describe('db', () => {
   it('search user by id', async () => {
     const data = await profileModel.searchUserbyID(db, 1);
     expect(data).to.satisfy(d => d.username === 'test1'
-        && bcrypt.compareSync('test', d.password)
         && d.age === '20'
         && d.weight === '120');
+  });
+
+  it('change password', async () => {
+    const data = await loginModel.changePasswordbyUsername(db, {
+      username: 'test1',
+      password: 'newpassword'
+    });
+    console.log(data);
   });
 
   it('update profile', async () => {
