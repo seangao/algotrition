@@ -35,14 +35,12 @@ describe ('db', function() {
   });
 
   it('search user by username', function() {
-    loginModel.searchUser(db, { username: 'test1' })
-    .then(data => {
-      expect(data).to.satisfy(function(d) {
-        return d.id === 1 &&
-          d.username === 'test1' &&
-          d.age === 20 &&
-          d.weight === 120;
-      });
+    const data = await loginModel.searchUser(db, { username: 'test1' });
+    expect(data).to.satisfy(function(d) {
+      return d.id === 1 &&
+        d.username === 'test1' &&
+        d.age === 20 &&
+        d.weight === 120;
     });
   });
 
@@ -74,11 +72,11 @@ describe ('db', function() {
     });
   });
 
-  // it('get recipes', function () {
-  //   recipesModel.getAllRecipes(db)
-  //   .then(data => {
-  //     expect(data).to.not.equal(null);
-  //   });
-  // });
+  it('get recipes', function () {
+    recipesModel.getAllRecipes(db)
+    .then(data => {
+      expect(data).to.not.equal(null);
+    });
+  });
 
 });
