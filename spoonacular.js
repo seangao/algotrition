@@ -16,11 +16,12 @@ const config = require('./config');
 
 const db = pgp(config.databaseURL);
 
-const numberOfRecipes = 1;
+const numberOfRecipes = 90;
+
 function getField(name, goodOrBad) {
   const gb = goodOrBad;
   let i = 0;
-  while (i < gb.length && gb[i].recipe_name !== name) {
+  while (i < gb.length && gb[i].title !== name) {
     i += 1;
   }
   if (gb[i]) { return parseFloat(gb[i].amount); }
