@@ -11,7 +11,7 @@ function calendar(req, res) {
 
   const queryData = url.parse(req.url, true).query;
   if (queryData.eaten_day) {
-    week = optimizer.increment_active_meal('./saved_plans/recipe1.txt', week, queryData.eaten_day, queryData.eaten_meal);
+    week = optimizer.incrementActiveMeal('./saved_plans/recipe1.txt', week, queryData.eaten_day, queryData.eaten_meal);
   }
   res.render('calendar', { title: 'Calendar', week, user: req.session.user });
 }
