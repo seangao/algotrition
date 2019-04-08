@@ -74,14 +74,11 @@ describe ('db', function() {
     });
   });
 
-  it('get recipes', function () {
-    recipesModel.getAllRecipes(db)
-    .then(data => {
-      expect(data).to.not.equal(null);
-    })
-    .catch(function (err) {
-      throw err;
-    });
-  });
+  // it('get recipes', function () {
+  //   recipesModel.getAllRecipes(db)
+  //   .then(data => {
+  //     expect(data).to.not.equal(null);
+  //   });
+  // });
 
 });
