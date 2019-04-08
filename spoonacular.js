@@ -14,7 +14,7 @@ const config = require('./config');
 const pgp = require('pg-promise')();
 var db = pgp(config.databaseURL);
 
-const number_of_recipes = 1;
+const number_of_recipes = 100;
 function get_field(name,good_or_bad) {
   const gb = good_or_bad;
   let i = 0;
@@ -154,7 +154,7 @@ function get_nutritional_info(recipes) {
         // ingredients,
         JSON.stringify(recipe.extendedIngredients),
         // recipe_name,
-        recipe.recipe_name,
+        recipe.title,
         // instructions,
         recipe.instructions,
         // source_recipe_url,
@@ -180,6 +180,7 @@ function get_nutritional_info(recipes) {
         // image_url
         recipe.image
       ];
+      console.log(recipe.title);
       db.none(stmt,values);
     });
   }
