@@ -62,11 +62,16 @@ describe('database', () => {
   });
 
   it('change password', async () => {
-    const data = await loginModel.changePasswordbyUsername(db, {
+    await loginModel.changePasswordbyUsername(db, {
       username: 'test1',
-      password: 'newpassword'
+      password: 'newpassword',
     });
-    console.log(data);
+    const stmt = `
+        SELECT password FROM users WHERE
+        username = 'test1'
+    `;
+    const data = await db.oneOrNone(stmt);
+    expect(data).to.satisfy(d => bcrypt.compareSync('newpassword', d.password));
   });
 
   it('update profile', async () => {
