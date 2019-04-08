@@ -1,11 +1,6 @@
 const profileModels = require('../models/profile');
 const registerModels = require('../models/register');
 
-async function getProfile(req, res, next) {
-  if (!req.session.user) res.render('login', { title: 'Login', header_menu: false, loginerr: 'Please log in first!' });
-  else next();
-}
-
 async function generateProfile(req, res) {
   const query = await profileModels.searchUserbyID(req.app.locals.db, req.session.userid);
   const feetInches = registerModels.reverseHeight(query.height);
@@ -109,5 +104,5 @@ async function updateProfile(req, res) {
 }
 
 module.exports = {
-  generateProfile, getProfile, updateProfile,
+  generateProfile, updateProfile,
 };

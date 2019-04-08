@@ -1,8 +1,11 @@
 const bcrypt = require('bcrypt');
 const loginModels = require('../models/login');
 
-function login(req, res) {
-  res.render('login', { title: 'Login', header_menu: false });
+function login(req, res, next) {
+  if (!req.session.user) {
+    res.render('login', { title: 'Login', header_menu: false });
+  }
+  else next();
 }
 
 async function loginProcess(req, res, next) {

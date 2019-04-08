@@ -2,7 +2,6 @@ const optimizer = require('../models/optimizer.js');
 const recipesMod = require('../models/recipes.js');
 
 function generator(req, res) {
-  if (!req.session.user) res.redirect('/');
   const optimizers = [
     {
       desc: 'Minimize cooking time',
