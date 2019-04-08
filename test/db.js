@@ -36,6 +36,7 @@ describe ('db', function() {
 
   it('search user by username', async function() {
     const data = await loginModel.searchUser(db, { username: 'test1' });
+    console.log(data);
     expect(data).to.satisfy(function(d) {
       return d.id === 1 &&
         d.username === 'test1' &&
