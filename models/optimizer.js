@@ -225,6 +225,22 @@ function populateRecipeVariables(constraints, inputConstraints, recipeArray) {
       }
     }
 
+    //Chosing breakfast, lunch or dinner
+    if (1 == recipe.breakfast) {
+      recipe.lunch = 0;
+      recipe.dinner = 0;
+    }
+    if (1 == recipe.lunch) {
+      if (Math.random() < 0.5) {
+        recipe.lunch = 1;
+        recipe.dinner = 0;
+      }
+      else {
+        recipe.lunch = 0;
+        recipe.dinner = 1;
+      }
+    }
+
     tempObj.breakfast = recipe.breakfast;
     tempObj.breakfast2 = recipe.breakfast;
     tempObj.lunch = recipe.lunch;
@@ -310,6 +326,7 @@ function returnCalendar(model, results) {
         link: recipe.source_recipe_url,
         ingredients: ingredientsArray,
         calories: recipe.energy,
+        total_time_seconds: recipe.total_time_seconds,
       };
 
       if (recipe.breakfast === 1) {

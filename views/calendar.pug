@@ -23,6 +23,8 @@ block content
                         a.dropdown-item(href="#") Delete...
                   .card-text.collapse(id="meal"+meal.id+"-"+recipe.id)
                     .text= "Calories: " + recipe.calories
+                    .text= "Total time: " + recipe.total_time_seconds + " s"
+                    .text= "Servings: " + recipe.servings
                     ul.list-group
                     each ingredient in recipe.ingredients
                       li.text-secondary.text-capitalize.list-group-item= ingredient.name
@@ -54,6 +56,8 @@ block content
                         a.dropdown-item(href="#") Delete...
                   .card-text.collapse.show(id="meal"+meal.id+"-"+recipe.id)
                     .text-white= "Calories: " + recipe.calories
+                    .text-white= "Total time: " + recipe.total_time_seconds + " s"
+                    .text-white= "Servings: " + recipe.servings
                     ul.list-group
                     each ingredient in recipe.ingredients
                       li.list-group-item.text-capitalize= ingredient.name
@@ -78,6 +82,8 @@ block content
                         a.dropdown-item(href="#") Delete...
                   .card-text.collapse(id="meal"+meal.id+"-"+recipe.id)
                     .text-white= "Calories: " + recipe.calories
+                    .text-white= "Total time: " + recipe.total_time_seconds + " s"
+                    .text-white= "Servings: " + recipe.servings
                     ul.list-group
                     each ingredient in recipe.ingredients
                       li.text-capitalize.list-group-item= ingredient.name
