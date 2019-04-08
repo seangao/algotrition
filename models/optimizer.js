@@ -359,7 +359,6 @@ function incrementActiveMeal(path, calendar, eatenDay, eatenMeal) {
 
 // This is the primary function which is reads in user input and returns a meal plan
 function optimization(inputConstraints, recipes) {
-  // console.log(inputConstraints);
 
 
   const model = {

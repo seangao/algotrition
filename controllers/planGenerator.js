@@ -138,9 +138,8 @@ function generator(req, res) {
   });
 }
 
-async function saveGeneratorRequest(req, res) {
+async function saveGeneratorRequest(req, res, next) {
   // req.body contains the POST request in a JSON format
-  // console.log(req.body);
 
   const recipes = await recipesMod.getAllRecipes(req.app.locals.db);
   const [model, results] = optimizer.optimization(req.body, recipes);
@@ -148,7 +147,7 @@ async function saveGeneratorRequest(req, res) {
   if (results.feasible) {
     const calendar = optimizer.returnCalendar(model, results);
     await optimizer.writeCalendarFile('./saved_plans/recipe1.txt', calendar);
-    res.redirect('/calendar');
+    next();
   } else {
     res.render('error', {
       message: 'Solution not found. Please try again.',

@@ -16,7 +16,8 @@ const config = require('./config');
 
 const db = pgp(config.databaseURL);
 
-const numberOfRecipes = 90;
+const numberOfRecipes = 10;
+const tags = 'breakfast';
 
 function getField(name, goodOrBad) {
   const gb = goodOrBad;
@@ -190,7 +191,7 @@ function getNutritionalInfo(recipes) {
 }
 
 function getRandomRecipe() {
-  unirest.get(`https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/random?number=${numberOfRecipes}`)
+  unirest.get(`https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/random?number=${numberOfRecipes}&tags=${tags}`)
     .header('X-RapidAPI-Key', keys.spoonacular)
     .end((result) => {
     // console.log(result.body.recipes);
