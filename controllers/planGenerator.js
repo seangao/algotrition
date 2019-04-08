@@ -146,8 +146,8 @@ async function saveGeneratorRequest(req, res) {
   const [model, results] = optimizer.optimization(req.body, recipes);
 
   if (results.feasible) {
-    const calendar = optimizer.return_calendar(model, results);
-    await optimizer.write_calendar_file('./saved_plans/recipe1.txt', calendar);
+    const calendar = optimizer.returnCalendar(model, results);
+    await optimizer.writeCalendarFile('./saved_plans/recipe1.txt', calendar);
     res.redirect('/calendar');
   } else {
     res.render('error', {
