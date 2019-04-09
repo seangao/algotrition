@@ -357,7 +357,9 @@ function returnCalendar(resultsArray, mealsArray) {
   }
 
   // Initiate the first meal of the first day as the active one
-  week[0].meals[0].active = true;
+  if (week.length > 0) {
+    week[0].meals[0].active = true;
+  }
 
   return week;
 }
