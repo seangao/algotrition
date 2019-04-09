@@ -141,9 +141,10 @@ async function saveGeneratorRequest(req, res, next) {
   // req.body contains the POST request in a JSON format
 
   const recipes = await recipesMod.getAllRecipes(req.app.locals.db);
-  const [model, results] = optimizer.optimization(req.body, recipes);
-  if (results.feasible) {
-    const calendar = optimizer.returnCalendar(model, results);
+
+  const calendar = optimizer.optimization(req.body, recipes);
+
+  if (calendar.length > 0) {
     await optimizer.writeCalendarFile('./saved_plans/recipe1.txt', calendar);
     next();
   } else {
