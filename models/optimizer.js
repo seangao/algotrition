@@ -225,17 +225,16 @@ function populateRecipeVariables(constraints, inputConstraints, recipeArray) {
       }
     }
 
-    //Chosing breakfast, lunch or dinner
-    if (1 == recipe.breakfast) {
+    // Chosing breakfast, lunch or dinner
+    if (recipe.breakfast == 1) {
       recipe.lunch = 0;
       recipe.dinner = 0;
     }
-    if (1 == recipe.lunch) {
+    if (recipe.lunch == 1) {
       if (Math.random() < 0.5) {
         recipe.lunch = 1;
         recipe.dinner = 0;
-      }
-      else {
+      } else {
         recipe.lunch = 0;
         recipe.dinner = 1;
       }
@@ -378,8 +377,6 @@ function incrementActiveMeal(path, calendar, eatenDay, eatenMeal) {
 
 // This is the primary function which is reads in user input and returns a meal plan
 function optimization(inputConstraints, recipes) {
-
-
   const model = {
     optimize: 'total_time_seconds',
     opType: 'min',
