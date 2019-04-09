@@ -373,12 +373,14 @@ function writeCalendarFile(path, calendar) {
 
 function incrementActiveMeal(path, calendar, eatenDay, eatenMeal) {
   calendar[eatenDay].meals[eatenMeal].eaten = true;
-  eatenMeal += 1;
-  if (eatenMeal in calendar[eatenDay].meals) {
+  //let the lint complain, otherwise we get 0 + 1 = 01
+  eatenMeal++;
+  console.log(eatenMeal);
+  if (eatenMeal < calendar[eatenDay].meals.length) {
     calendar[eatenDay].meals[eatenMeal].active = true;
   } else {
-    eatenDay += 1;
-    if (eatenDay in calendar) {
+    eatenDay++;
+    if (eatenDay < calendar.length) {
       calendar[eatenDay].meals[0].active = true;
     }
   }
@@ -422,7 +424,6 @@ function optimization(inputConstraints, recipes) {
     const results = solver.Solve(model);
     resultsArray.push(results);
     mealsArray.push(returnMealsForCalendar(model, results));
-    console.log(results);
 
     resultsKeys = Object.keys(results);
     for (j = 0; j < resultsKeys.length; j += 1) {
