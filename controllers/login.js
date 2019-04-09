@@ -1,29 +1,32 @@
-const loginModels = require('../models/login')
-const bcrypt = require('bcrypt')
+const bcrypt = require('bcrypt');
+const loginModels = require('../models/login');
 
 function login(req, res, next) {
+  if (!req.session.user) {
     res.render('login', { title: 'Login', header_menu: false });
+  }
+  else next();
 }
 
 async function loginProcess(req, res, next) {
-  var user_ans = await loginModels.searchUser(req.app.locals.db, req.body);
-  if (user_ans == null) {
-    res.render('login', { title: 'Login', header_menu: false , loginerr : "User does not exist!"});
-  } else if (!bcrypt.compareSync(req.body.password, user_ans.password)) {
-    res.render('login', { title: 'Login', header_menu: false , loginerr : "Wrong password!"});
+  const userAns = await loginModels.searchUser(req.app.locals.db, req.body);
+  if (userAns == null) {
+    res.render('login', { title: 'Login', header_menu: false, loginerr: 'User does not exist!' });
+  } else if (!bcrypt.compareSync(req.body.password, userAns.password)) {
+    res.render('login', { title: 'Login', header_menu: false, loginerr: 'Wrong password!' });
   } else {
     req.session.user = true;
-    req.session.userid = user_ans.id;
+    req.session.userid = userAns.id;
     res.locals.user = true;
     next();
   }
 }
 
-async function forgotPassword(req, res, next) {
-  await loginModels.changePasswordbyUsername(req.app.locals.db, req.body)
+async function forgotPassword(req, res) {
+  await loginModels.changePasswordbyUsername(req.app.locals.db, req.body);
   res.redirect('/');
 }
 
 module.exports = {
-  login, loginProcess, forgotPassword
+  login, loginProcess, forgotPassword,
 };

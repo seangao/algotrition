@@ -22,9 +22,12 @@ block content
                         a.dropdown-item(href="#") Change date...
                         a.dropdown-item(href="#") Delete...
                   .card-text.collapse(id="meal"+meal.id+"-"+recipe.id)
+                    .text= "Calories: " + recipe.calories
+                    .text= "Total time: " + recipe.total_time_seconds + " s"
+                    .text= "Servings: " + recipe.servings
                     ul.list-group
                     each ingredient in recipe.ingredients
-                      li.text-secondary.list-group-item= ingredient.name
+                      li.text-secondary.text-capitalize.list-group-item= ingredient.name
                     if recipe.link
                       li.list-group-item.bg-light
                         a.text-secondary(href=recipe.link, target="_blank") See recipe...
@@ -52,9 +55,12 @@ block content
                         a.dropdown-item(href="#") Change date...
                         a.dropdown-item(href="#") Delete...
                   .card-text.collapse.show(id="meal"+meal.id+"-"+recipe.id)
+                    .text-white= "Calories: " + recipe.calories
+                    .text-white= "Total time: " + recipe.total_time_seconds + " s"
+                    .text-white= "Servings: " + recipe.servings
                     ul.list-group
                     each ingredient in recipe.ingredients
-                      li.list-group-item= ingredient.name
+                      li.list-group-item.text-capitalize= ingredient.name
                     if recipe.link
                       li.list-group-item.bg-primary
                         a.text-white(href=recipe.link, target="_blank") See recipe...
@@ -75,9 +81,12 @@ block content
                         a.dropdown-item(href="#") Change date...
                         a.dropdown-item(href="#") Delete...
                   .card-text.collapse(id="meal"+meal.id+"-"+recipe.id)
+                    .text-white= "Calories: " + recipe.calories
+                    .text-white= "Total time: " + recipe.total_time_seconds + " s"
+                    .text-white= "Servings: " + recipe.servings
                     ul.list-group
                     each ingredient in recipe.ingredients
-                      li.list-group-item= ingredient.name
+                      li.text-capitalize.list-group-item= ingredient.name
                     if recipe.link
                       li.list-group-item.bg-dark
                         a.text-white(href=recipe.link, target="_blank") See recipe...

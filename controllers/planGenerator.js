@@ -1,25 +1,25 @@
-function generator(req, res, next) {
+const optimizer = require('../models/optimizer.js');
+const recipesMod = require('../models/recipes.js');
 
-  if (!req.session.user)
-    res.redirect('/');
-    const optimizers = [
-      {
-        desc: 'Minimize cooking time',
-        id: 0,
-      },
-      {
-        desc: 'Minimize cost',
-        id: 1,
-      },
-      {
-        desc: 'Minimize calories',
-        id: 2,
-      },
-      {
-        desc: 'Maximize calories',
-        id: 3,
-      },
-    ];
+function generator(req, res) {
+  const optimizers = [
+    {
+      desc: 'Minimize cooking time',
+      id: 0,
+    },
+    {
+      desc: 'Minimize cost',
+      id: 1,
+    },
+    {
+      desc: 'Minimize calories',
+      id: 2,
+    },
+    {
+      desc: 'Maximize calories',
+      id: 3,
+    },
+  ];
 
   const allergens = [
     'Dairy',
@@ -137,31 +137,25 @@ function generator(req, res, next) {
   });
 }
 
-var optimizer = require('../models/optimizer.js');
-
 async function saveGeneratorRequest(req, res, next) {
-  //req.body contains the POST request in a JSON format
-  // console.log(req.body);
+  // req.body contains the POST request in a JSON format
 
+  const recipes = await recipesMod.getAllRecipes(req.app.locals.db);
 
-  const recipes_mod = require('../models/recipes.js');
-  let recipes = await recipes_mod.getAllRecipes(req.app.locals.db);
-  [model,results] = optimizer.optimization(req.body, recipes);
+  const calendar = optimizer.optimization(req.body, recipes);
 
-  if(results['feasible']){
-
-    var calendar = optimizer.return_calendar(model,results);
-    await optimizer.write_calendar_file('./saved_plans/recipe1.txt',calendar);
-    res.redirect('/calendar')
-
+  if (calendar.length > 0) {
+    await optimizer.writeCalendarFile('./saved_plans/recipe1.txt', calendar);
+    next();
   } else {
-
-    res.render('error',{message: 'Solution not found. Please try again.', error: {status: 'No Solution'}})
-
+    res.render('error', {
+      message: 'Solution not found. Please try again.',
+      error: { status: 'No Solution' },
+      user: req.session.user,
+    });
   }
-
 }
 
 module.exports = {
-  generator, saveGeneratorRequest
+  generator, saveGeneratorRequest,
 };

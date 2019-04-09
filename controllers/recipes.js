@@ -1,14 +1,11 @@
-const recipesModels = require("../models/recipes")
+const recipesModels = require('../models/recipes');
 
-async function recipes(req, res, next) {
-    if (!req.session.user) {
-      res.redirect('/');
-    }
-    var test_recipes = await recipesModels.getAllRecipes(req.app.locals.db);
-    res.render('recipes', { title: 'Recipes', test_recipes: test_recipes, user: req.session.user });
-    // next();
+async function recipes(req, res) {
+  const testRecipes = await recipesModels.getAllRecipes(req.app.locals.db);
+  res.render('recipes', { title: 'Recipes', testRecipes, user: req.session.user });
+  // next();
 }
 
 module.exports = {
-   recipes,
+  recipes,
 };
