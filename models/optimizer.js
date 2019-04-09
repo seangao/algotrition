@@ -225,17 +225,16 @@ function populateRecipeVariables(constraints, inputConstraints, recipeArray) {
       }
     }
 
-    //Chosing breakfast, lunch or dinner
-    if (1 == recipe.breakfast) {
+    // Chosing breakfast, lunch or dinner
+    if (recipe.breakfast === 1) {
       recipe.lunch = 0;
       recipe.dinner = 0;
     }
-    if (1 == recipe.lunch) {
+    if (recipe.lunch === 1) {
       if (Math.random() < 0.5) {
         recipe.lunch = 1;
         recipe.dinner = 0;
-      }
-      else {
+      } else {
         recipe.lunch = 0;
         recipe.dinner = 1;
       }
@@ -306,8 +305,7 @@ function populateInts(variables) {
   return ints;
 }
 
-
-function returnCalendar(model, results) {
+function returnMealsForCalendar(model, results) {
   const keys = Object.keys(results);
   let i;
 
@@ -344,7 +342,19 @@ function returnCalendar(model, results) {
     }
   }
 
-  const week = [{ name: 'Day 1', id: 1, meals }];
+  return meals;
+}
+
+function returnCalendar(resultsArray, mealsArray) {
+  const week = [];
+  let counter = 1;
+  let i;
+  for (i = 0; i < resultsArray.length; i += 1) {
+    if (resultsArray[i].feasible === true) {
+      week.push({ name: `Day ${counter}`, id: counter, meals: mealsArray[i] });
+      counter += 1;
+    }
+  }
 
   // Initiate the first meal of the first day as the active one
   week[0].meals[0].active = true;
@@ -378,23 +388,51 @@ function incrementActiveMeal(path, calendar, eatenDay, eatenMeal) {
 
 // This is the primary function which is reads in user input and returns a meal plan
 function optimization(inputConstraints, recipes) {
+  const resultsArray = [];
+  const usedRecipeNames = [];
+  const mealsArray = [];
+  let variablesKeys;
+  let resultsKeys;
+  let i;
+  let j;
 
+  inputConstraints.numberDays = 2;
 
-  const model = {
-    optimize: 'total_time_seconds',
-    opType: 'min',
-  };
+  for (i = 0; i < inputConstraints.numberDays; i += 1) {
+    const model = {
+      optimize: 'total_time_seconds',
+      opType: 'min',
+    };
 
-  model.constraints = populateConstraints(inputConstraints);
-  model.variables = populateRecipeVariables(model.constraints, inputConstraints, recipes);
+    model.constraints = populateConstraints(inputConstraints);
+    model.variables = populateRecipeVariables(model.constraints, inputConstraints, recipes);
+    variablesKeys = Object.keys(model.variables);
+    for (j = 0; j < variablesKeys.length; j += 1) {
+      if (usedRecipeNames.includes(model.variables[variablesKeys[j]].recipe_name)) {
+        delete model.variables[variablesKeys[j]];
+      }
+    }
 
-  const servingNumbers = [0.5, 1, 1.5, 2, 3];
-  model.variables = duplicateVariables(model.variables, servingNumbers);
-  model.ints = populateInts(model.variables);
+    const servingNumbers = [0.5, 1, 1.5, 2, 3];
+    model.variables = duplicateVariables(model.variables, servingNumbers);
+    model.ints = populateInts(model.variables);
 
-  const results = solver.Solve(model);
+    const results = solver.Solve(model);
+    resultsArray.push(results);
+    mealsArray.push(returnMealsForCalendar(model, results));
+    console.log(results);
 
-  return [model, results];
+    resultsKeys = Object.keys(results);
+    for (j = 0; j < resultsKeys.length; j += 1) {
+      if (resultsKeys[j] !== 'feasible' && resultsKeys[j] !== 'result' && resultsKeys[j] !== 'bounded' && results[resultsKeys[j]] > 0) {
+        usedRecipeNames.push(model.variables[resultsKeys[j]].recipe_name);
+      }
+    }
+  }
+
+  const calendar = returnCalendar(resultsArray, mealsArray);
+
+  return calendar;
 }
 
 
