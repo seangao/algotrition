@@ -4,5 +4,5 @@ node_js:
 services:
   - postgresql
 before_script:
-  - cp keys.travis.js keys.js
+  - cp config.travis.js config.js
   - psql -c 'create database travis_ci_test;' -U postgres
