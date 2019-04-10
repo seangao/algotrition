@@ -12,6 +12,7 @@ const app = express();
 // routers import
 const loginRouter = require('./routes/login');
 const registerRouter = require('./routes/register');
+const passwordResetRouter = require('./routes/passwordReset');
 const profileRouter = require('./routes/profile');
 const planGeneratorRouter = require('./routes/planGenerator');
 const calendarRouter = require('./routes/calendar');
@@ -69,6 +70,7 @@ const sessionChecker = (req, res, next) => {
 app.use('/', sessionChecker, loginRouter);
 app.use('/login', sessionChecker, loginRouter);
 app.use('/register', sessionChecker, registerRouter);
+app.use('/passwordReset', sessionChecker, passwordResetRouter);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
