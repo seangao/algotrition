@@ -33,6 +33,63 @@ function getField(name, goodOrBad) {
   return 0;
 }
 
+async function createSpoonacularTable() {
+  const creation_stmt =  `
+    CREATE TABLE public.recipes_sp
+    (
+        id integer NOT NULL DEFAULT nextval('recipes_sp_id_seq'::regclass),
+        total_time_seconds integer,
+        breakfast integer,
+        lunch integer,
+        dinner integer,
+        gluten boolean,
+        peanut boolean,
+        seafood boolean,
+        sesame boolean,
+        soy boolean,
+        dairy boolean,
+        egg boolean,
+        sulfite boolean,
+        tree_nut boolean,
+        wheat boolean,
+        vegetarian boolean,
+        vegan boolean,
+        ketogenic boolean,
+        potassium double precision,
+        sodium double precision,
+        cholesterol double precision,
+        trans_fat double precision,
+        saturated_fat double precision,
+        carbohydrates double precision,
+        fiber double precision,
+        protein double precision,
+        vitamin_c double precision,
+        calcium double precision,
+        iron double precision,
+        sugar double precision,
+        energy double precision,
+        fat double precision,
+        vitamin_a double precision,
+        ingredients text COLLATE pg_catalog."default",
+        recipe_name text COLLATE pg_catalog."default",
+        instructions text COLLATE pg_catalog."default",
+        source_recipe_url text COLLATE pg_catalog."default",
+        cheap boolean,
+        very_popular boolean,
+        preparation_minutes integer,
+        cooking_minutes integer,
+        price_per_serving double precision,
+        ready_in_minutes integer,
+        cuisine text COLLATE pg_catalog."default",
+        servings double precision,
+        very_healthy boolean,
+        image_url text COLLATE pg_catalog."default",
+        CONSTRAINT recipes_sp_pkey PRIMARY KEY (id)
+    );
+  `;
+  await db.none(creation_stmt);
+}
+
 function getNutritionalInfo(recipes) {
   for (let i = 0; i < recipes.length; i += 1) {
     const recipe = recipes[i];
@@ -203,4 +260,8 @@ function getRandomRecipe() {
     });
 }
 
-getRandomRecipe();
+try {
+  getRandomRecipe();
+} catch(e) {
+  createSpoonacularTable();
+}
