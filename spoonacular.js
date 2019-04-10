@@ -5,6 +5,10 @@
 //  database: 'postgres://user:password@address:port/name?ssl=true',
 //  spoonacular: 'your-spoonacular-key'
 // };
+// The default values are 10 recipes with no tags.
+// You can transfer a different number of recipes or use tags by running:
+//   NB_RCP=100 RCP_TAGS='vegetarian,breakfast' node spoonacular.js
+// See https://rapidapi.com/spoonacular/api/recipe-food-nutrition for more info on the API
 
 
 const unirest = require('unirest');
@@ -16,8 +20,8 @@ const config = require('./config');
 
 const db = pgp(config.databaseURL);
 
-const numberOfRecipes = 10;
-const tags = 'breakfast';
+const numberOfRecipes = process.env.NB_RCP || 10;
+const tags = process.env.RCP_TAGS || ''; // for instance, 'vegetarian,breakfast'
 
 function getField(name, goodOrBad) {
   const gb = goodOrBad;
