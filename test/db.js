@@ -11,19 +11,6 @@ const recipesModel = require('../models/recipes');
 const sqlModel = require('../models/sql');
 
 describe('database', () => {
-  // it('create users database', (done) => {
-  //   db.none(`
-  //     create table users (
-  //       id serial primary key,
-  //       username varchar (100) unique not null,
-  //       password varchar (100) not null,
-  //       age numeric,
-  //       height numeric,
-  //       weight numeric
-  //     );
-  //   `)
-  //     .then(() => done());
-  // });
 
   it('create users database', (done) => {
     db.none(sqlModel.readSQLFile('test/users.sql'))
@@ -90,4 +77,5 @@ describe('database', () => {
     const data = await recipesModel.getAllRecipes(db);
     expect(data).to.not.equal(null);
   });
+  
 });
