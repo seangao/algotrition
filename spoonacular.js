@@ -34,7 +34,7 @@ function getField(name, goodOrBad) {
 }
 
 async function createSpoonacularTable() {
-  const creation_stmt =  `
+  const creationStmt = `
     CREATE TABLE public.recipes_sp
     (
         id SERIAL NOT NULL,
@@ -87,7 +87,7 @@ async function createSpoonacularTable() {
         CONSTRAINT recipes_sp_pkey PRIMARY KEY (id)
     );
   `;
-  await db.none(creation_stmt);
+  await db.none(creationStmt);
 }
 
 function getNutritionalInfo(recipes) {
@@ -260,5 +260,5 @@ function getRandomRecipe() {
     });
 }
 
-//createSpoonacularTable();
+// createSpoonacularTable();
 getRandomRecipe();
