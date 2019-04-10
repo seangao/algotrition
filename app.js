@@ -12,6 +12,7 @@ const app = express();
 // routers import
 const loginRouter = require('./routes/login');
 const registerRouter = require('./routes/register');
+const passwordResetRouter = require('./routes/passwordReset');
 const profileRouter = require('./routes/profile');
 const planGeneratorRouter = require('./routes/planGenerator');
 const calendarRouter = require('./routes/calendar');
@@ -33,6 +34,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // initialize express-session to allow us track the logged-in user across sessions.
+let sessionsettings = {};
+try { sessionsettings = require('./keys'); } catch (e) { sessionsettings = null; } // eslint-disable-line global-require
 app.use(session({
   key: 'user_sid',
   secret: 'somerandonstuffs',
@@ -69,6 +72,7 @@ const sessionChecker = (req, res, next) => {
 app.use('/', sessionChecker, loginRouter);
 app.use('/login', sessionChecker, loginRouter);
 app.use('/register', sessionChecker, registerRouter);
+app.use('/passwordReset', sessionChecker, passwordResetRouter);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {

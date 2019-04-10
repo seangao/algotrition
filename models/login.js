@@ -3,7 +3,7 @@ const bcrypt = require('bcrypt');
 
 async function searchUser(db, user) {
   const stmt = `
-        SELECT id, username, password, age, height, weight FROM users WHERE
+        SELECT id, username, password, age, height, weight, gender FROM users WHERE
         username = '$1:value'
     `;
   return db.oneOrNone(stmt, [user.username]);

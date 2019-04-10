@@ -39,6 +39,14 @@ block content
       div(class='form-group input-group')
         div(class='input-group-prepend')
           span(class='input-group-text input-group-icon')
+            i(class='fas fa-venus-mars')
+        select#gender(class='custom-select', name='gender')
+          option(selected, disabled) Gender
+          option(value='male') Male
+          option(value='female') Female
+      div(class='form-group input-group')
+        div(class='input-group-prepend')
+          span(class='input-group-text input-group-icon')
             i(class='fas fa-ruler-vertical')
         select#feet(class='custom-select', name='ft')
           option(selected, disabled) ft

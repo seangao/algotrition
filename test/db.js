@@ -25,8 +25,11 @@ describe('database', () => {
     const data = await registerModel.insertNewUser(db, {
       username: 'test1',
       password: 'test',
+      gender: 'male',
       age: 20,
       weight: 120,
+      ft: 5,
+      in: 10,
     });
     expect(data.id).to.equal(1);
   });
@@ -36,15 +39,19 @@ describe('database', () => {
     expect(data).to.satisfy(d => d.id === 1
         && d.username === 'test1'
         && bcrypt.compareSync('test', d.password)
-        && d.age === '20'
-        && d.weight === '120');
+        && d.age === 20
+        && d.weight === 120
+        && d.gender === 'male'
+        && d.height === 178);
   });
 
   it('search user by id', async () => {
     const data = await profileModel.searchUserbyID(db, 1);
     expect(data).to.satisfy(d => d.username === 'test1'
-        && d.age === '20'
-        && d.weight === '120');
+        && d.age === 20
+        && d.weight === 120
+        && d.gender === 'male'
+        && d.height === 178);
   });
 
   it('change password', async () => {
@@ -62,14 +69,16 @@ describe('database', () => {
 
   it('update profile', async () => {
     const data = await profileModel.updateProfile(db, 1, {
-      Name: 'test2',
-      Weight: 140,
-      Age: 30,
+      username: 'test2',
+      weight: 140,
+      age: 30,
+      gender: 'female',
     });
     expect(data).to.satisfy(d => d.id === 1
         && d.username === 'test2'
-        && d.age === '30'
-        && d.weight === '140');
+        && d.age === 30
+        && d.weight === 140
+        && d.gender === 'female');
   });
 
   it('get recipes', async () => {
