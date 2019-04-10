@@ -373,7 +373,7 @@ function writeCalendarFile(path, calendar) {
 
 function incrementActiveMeal(path, calendar, eatenDay, eatenMeal) {
   calendar[eatenDay].meals[eatenMeal].eaten = true;
-  //let the lint complain, otherwise we get 0 + 1 = 01
+  // let the lint complain, otherwise we get 0 + 1 = 01
   eatenMeal++;
   console.log(eatenMeal);
   if (eatenMeal < calendar[eatenDay].meals.length) {

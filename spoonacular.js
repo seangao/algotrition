@@ -20,8 +20,8 @@ const config = require('./config');
 
 const db = pgp(config.databaseURL);
 
-const numberOfRecipes = process.env.NB_RCP || 10;
-const tags = process.env.RCP_TAGS || ''; // for instance, 'vegetarian,breakfast'
+const numberOfRecipes = process.env.NB_RCP || 10;
+const tags = process.env.RCP_TAGS || ''; // for instance, 'vegetarian,breakfast'
 
 function getField(name, goodOrBad) {
   const gb = goodOrBad;
