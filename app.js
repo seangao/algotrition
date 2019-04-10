@@ -37,8 +37,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 let sessionsettings = {};
 try { sessionsettings = require('./keys'); } catch (e) { sessionsettings = null; } // eslint-disable-line global-require
 app.use(session({
-  key: sessionsettings.session_key,
-  secret: sessionsettings.session_secret,
+  key: 'user_sid',
+  secret: 'somerandonstuffs',
   resave: false,
   saveUninitialized: false,
   cookie: { expires: 600000 },
