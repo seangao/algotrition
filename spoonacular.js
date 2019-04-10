@@ -37,7 +37,7 @@ async function createSpoonacularTable() {
   const creation_stmt =  `
     CREATE TABLE public.recipes_sp
     (
-        id integer NOT NULL DEFAULT nextval('recipes_sp_id_seq'::regclass),
+        id SERIAL NOT NULL,
         total_time_seconds integer,
         breakfast integer,
         lunch integer,
@@ -260,8 +260,5 @@ function getRandomRecipe() {
     });
 }
 
-try {
-  getRandomRecipe();
-} catch(e) {
-  createSpoonacularTable();
-}
+//createSpoonacularTable();
+getRandomRecipe();
