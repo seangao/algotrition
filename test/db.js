@@ -11,7 +11,6 @@ const recipesModel = require('../models/recipes');
 const sqlModel = require('../models/sql');
 
 describe('database', () => {
-
   it('create users database', (done) => {
     db.none(sqlModel.readSQLFile('test/users.sql'))
       .then(() => done());
@@ -77,5 +76,4 @@ describe('database', () => {
     const data = await recipesModel.getAllRecipes(db);
     expect(data).to.not.equal(null);
   });
-  
 });

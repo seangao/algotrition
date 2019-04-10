@@ -13,8 +13,8 @@ async function changePasswordbyUsername(db, info) {
   const hash = bcrypt.hashSync(info.password, 10);
   const stmt = `
         UPDATE users
-        SET password = '$1'
-        WHERE username = '$2'
+        SET password = $1
+        WHERE username = $2
     `;
   return db.oneOrNone(stmt, [hash, info.username]);
 }
