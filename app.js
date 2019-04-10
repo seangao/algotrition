@@ -34,9 +34,11 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // initialize express-session to allow us track the logged-in user across sessions.
+let sessionsettings = {};
+try { sessionsettings = require('./keys'); } catch (e) { sessionsettings = null; } // eslint-disable-line global-require
 app.use(session({
-  key: 'user_sid',
-  secret: 'somerandonstuffs',
+  key: sessionsettings.session_key,
+  secret: sessionsettings.session_secret,
   resave: false,
   saveUninitialized: false,
   cookie: { expires: 600000 },
