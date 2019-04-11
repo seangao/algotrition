@@ -24,6 +24,10 @@ block content
                       br
                       h3 Detailed Instruction
                       p= recipe.instructions
+                      br
+                      div.text-center.text-primary.pt-3
+                        a.btn.btn-outline-primary(id='edit' + recipe.userid + '-' + recipe.id, role='button') Edit Recipe
+                        a.btn.btn-outline-primary(id='delete' + recipe.userid + '-' + recipe.id, role='button') Delete Recipe
           else
             div#no-user-recipes
               br
