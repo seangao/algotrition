@@ -21,7 +21,6 @@ async function getUserRecipe(req, res) {
     userRecipes = JSON.parse(JSON.stringify(userRecipes));
     for (var i=0; i < userRecipes.length; i++) {
         var ingredients = userRecipes[i].ingredients;
-        console.log(userRecipes[i]);
         ingredients = JSON.parse(ingredients);
         userRecipes[i].ingredients = ingredients;
     }

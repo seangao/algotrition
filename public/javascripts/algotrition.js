@@ -95,12 +95,13 @@ function main() {
 
 function renderImage() {
   const windowWidth = $(window).width();
+  $('.header_bar').css('background-image', 'url(../images/header_background.jpg)');
   if (windowWidth < 479) {
-    $('#header_logo').attr('src', 'http://rocomenty.com/wp-content/uploads/2019/02/algo_logo_mobile.png');
+    $('#header_logo').attr('src', '../images/algo_logo_mobile.png');
   } else if (windowWidth < 767) {
-    $('#header_logo').attr('src', 'http://rocomenty.com/wp-content/uploads/2019/02/algo_logo_mid.png');
+    $('#header_logo').attr('src', '../images/algo_logo_mid.png');
   } else {
-    $('#header_logo').attr('src', 'http://rocomenty.com/wp-content/uploads/2019/02/algo_logo_large.png');
+    $('#header_logo').attr('src', '../images/algo_logo_large.png');
   }
 }
 

@@ -18,7 +18,6 @@ async function saveNewRecipe(db, userid, title, ingredients, instructions) {
 }
 
 async function getUserRecipes(db, userid) {
-    console.log("getting user recipe " + userid);
     const stmt = `
         SELECT * FROM user_recipes WHERE userid = $1
     `;
