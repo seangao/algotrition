@@ -139,7 +139,7 @@ function generator(req, res) {
 
 async function saveGeneratorRequest(req, res, next) {
   // req.body contains the POST request in a JSON format
-
+  console.log(req.body);
   const recipes = await recipesMod.getAllRecipes(req.app.locals.db);
 
   const calendar = optimizer.optimization(req.body, recipes);

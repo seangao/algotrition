@@ -1,26 +1,66 @@
 extends layout
 
 block content
+
   div#recipe-carousel.carousel.slide(data-ride='carousel', data-interval='false')
     div.carousel-inner
-      div.carousel-item.active
-        div.input-group.mb-3
-          input#ingredient-input.form-control(type='text', placeholder='Input ingredients', aria-label='Input ingredients', aria-describedby="basic-addon2")
-          div.input-group-append
-            button#add-ingredient.btn.btn-outline-secondary(type='button') Add Ingreident
+      form#recipe-form(method='POST', action='')
+        div.carousel-item.active
+          if userRecipes
+            div#has-user-recipes
+              br
+              h2 Your Saved Recipes
+              br
+              div.list-group
+                each recipe in userRecipes
+                  button.list-group-item.list-group-item-action(type='button', data-toggle='collapse', data-target='#' + recipe.title + recipe.id, role='button', aria-expanded="false" aria-controls=recipe.title + recipe.id)= recipe.title
+                  div.collapse(id=recipe.title + recipe.id)
+                    div.card.card-body
+                      h3 Ingredients Needed
+                      br
+                      ul.list-group
+                        each ingredient in recipe.ingredients
+                          li.list-group-item= ingredient
+                      br
+                      h3 Detailed Instruction
+                      p= recipe.instructions
+          else
+            div#no-user-recipes
+              br
+              h2 You do not have any saved recipes.
+              br
 
-        div#ingredients.container
-          ul#ingredient-list.list-group
+          div.text-center.pt-3
+            a.btn.btn-outline-primary(href='#recipe-carousel', role='button', data-slide='next') Add Recipe
 
-        div.text-center.pt-2
-          a.btn.btn-outline-primary(href='#recipe-carousel', role='button', data-slide='next') Input Detailed Instructions
+        div.carousel-item
+          label(for="recipe-title") Please input a title for your recipe
+          div.input-group.mb-3
+            input#title.form-control(type='text', name='title', placeholder='Recipe Title', aria-label='Recipe Title', aria-descibedby="basic-addon2")
 
-      div.carousel-item
-        div.form-group
-          textarea.form-control(rows="5")
-        div.text-center.pt-3
-          button.btn.btn-outline-primary(type='submit', name='submit-recipe') Submit Recipe
-          a.btn.btn-outline-primary(href='#recipe-carousel', role='button', data-slide='prev') Back
+          div.text-center.pt-2
+            a#check-title-button.btn.btn-outline-primary(href='#recipe-carousel', role='button', data-slide='next') Input Ingredients
+            a#cancel-recipe-input.btn.btn-outline-primary(href='#recipe-carousel', role='button', data-slide='prev') Cancel
+
+        div.carousel-item
+          div.input-group.mb-3
+            input#ingredient-input.form-control(type='text', placeholder='Input ingredients', aria-label='Input ingredients', aria-describedby="basic-addon2")
+            div.input-group-append
+              button#add-ingredient.btn.btn-outline-secondary(type='button') Add Ingreident
+
+          div#ingredients.container
+            ul#ingredient-list.list-group
+
+          div.text-center.pt-2
+            a.btn.btn-outline-primary(href='#recipe-carousel', role='button', data-slide='next') Input Detailed Instructions
+            a.btn.btn-outline-primary(href='#recipe-carousel', role='button', data-slide='prev') Back
+
+        div.carousel-item
+          div.form-group
+            textarea#instruction.form-control(rows="5", name='instruction')
+          div.text-center.pt-3
+            button#submit-recipe.btn.btn-outline-primary(type='submit', name='submit-recipe') Submit Recipe
+            a.btn.btn-outline-primary(href='#recipe-carousel', role='button', data-slide='prev') Back
 
 
 

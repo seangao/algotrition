@@ -47,19 +47,40 @@ function removeIngredient() {
 
 function addIngredient() {
   const input = $('#ingredient-input').val();
+  if (!input) {
+    alert('Error: Ingredient is empty!');
+    return;
+  }
   $('#ingredient-input').val('');
-  const markup = `<li class="list-group-item"><button type="button" class="close remove-ingredient" aria-label="Close"><span aria-hidden="true">&times;</span></button>${input}</li>`;
+  const markup = `<li class="list-group-item"><input type='hidden' name='ingredients[]' value='${input}' form='recipe-form'/><button type="button" class="close remove-ingredient" aria-label="Close"><span aria-hidden="true">&times;</span></button>${input}</li>`;
   $('#ingredient-list').append(markup);
   $('.remove-ingredient').click(removeIngredient);
 }
 
-function setUpEnterKey(event) {
-  if (event.key === 'Enter') {
-    if ($('#ingredient-input:focus')) {
-      $('#add-ingredient').trigger('click');
-    }
+function clearRecipeInputs() {
+  $('#title').val('');
+  $('#ingredient-list').empty();
+  $('#instruction').val('');
+}
+
+function checkInputs() {
+  const title = $('#title').val();
+  const has_ingredients = $('ul#ingredient-list li').length >= 1;
+  const instruction = $('#instruction').val();
+
+  if (title == "" || !has_ingredients || instruction == "") {
+    alert('Error: one of the inputs is empty');
+    return false;
   }
 }
+
+// function setUpEnterKey(event) {
+//   if (event.key === 'Enter') {
+//     if ($('#ingredient-input:focus')) {
+//       $('#add-ingredient').trigger('click');
+//     }
+//   }
+// }
 
 function main() {
   $('.generator-options-item').click(toggleDropdownButton);
@@ -67,7 +88,9 @@ function main() {
   $('#generator-nutr-button').click(updateNutrOptions);
   $('#generator-opt-button').click(updateOptimizeId);
   $('#add-ingredient').click(addIngredient);
-  $('#ingredient-input').on('keyup', setUpEnterKey);
+  $('#cancel-recipe-input').click(clearRecipeInputs);
+  $('#recipe-form').submit(checkInputs);
+  // $('#ingredient-input').on('keyup', setUpEnterKey);
 }
 
 function renderImage() {
