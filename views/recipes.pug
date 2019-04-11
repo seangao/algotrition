@@ -13,8 +13,8 @@ block content
               br
               div.list-group
                 each recipe in userRecipes
-                  button.list-group-item.list-group-item-action(type='button', data-toggle='collapse', data-target='#' + recipe.title + recipe.id, role='button', aria-expanded="false" aria-controls=recipe.title + recipe.id)= recipe.title
-                  div.collapse(id=recipe.title + recipe.id)
+                  button.list-group-item.list-group-item-action(type='button', data-toggle='collapse', data-target='#a' + recipe.userid + '-' + recipe.id, role='button', aria-expanded="false" aria-controls='a' + recipe.userid + '-' + recipe.id)= recipe.title
+                  div.collapse(id='a' + recipe.userid + '-' + recipe.id)
                     div.card.card-body
                       h3 Ingredients Needed
                       br
