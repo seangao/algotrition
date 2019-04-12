@@ -1,5 +1,5 @@
 body {
-  padding: 10px;
+  padding-top: 65px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
   background: #EBEBEB
 }
@@ -40,54 +40,6 @@ h1 {
   width: 56px;
   display: block;
   text-align: center;
-}
-
-.header_bar {
-  padding: 5px;
-  text-align: left;
-  color: white;
-  background-repeat:no-repeat;
-  background-size:contain;
-  background-position:center;
-  display: block;
-}
-
-.menu_bar {
-    width: 100%;
-    height: auto;
-    display: block;
-}
-
-#header_logo {
-  max-width: 100%;
-  height: auto;
-}
-
-#main_menu {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-}
-
-#main_menu li {
-    display: block;
-    float: left;
-}
-
-#main_menu li a {
-    display: block;
-    color: pink;
-    text-align: center;
-    padding: 14px 16px;
-    text-decoration: none;
-}
-
-#main_menu li a:hover {
-    color: white;
-}
-
-.dropdown {
-    display: none;
 }
 
 .select-allergens {

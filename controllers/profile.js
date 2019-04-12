@@ -95,7 +95,7 @@ async function generateProfile(req, res) {
       ],
     },
   ];
-  res.render('profile', { title: 'My Profile', user });
+  res.render('profile', { title: 'Account', user });
 }
 
 async function updateProfile(req, res) {
