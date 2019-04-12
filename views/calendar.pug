@@ -17,8 +17,8 @@ block content
         .row.align-items-start
           each recipe in meal.recipes
             .col-md-3
-              .card.bg-dark.my-1(style='background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('+recipe.image+'); background-repeat: no-repeat; background-size: 100%; background-position: center top;')
-                h5.card-header.d-flex
+              .card.bg-dark.my-1
+                h5.card-header.d-flex(style='background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('+recipe.image+'); background-repeat: no-repeat; background-size: 100%; background-position: center center; background-clip: padding-box;')
                   a.mr-auto.text-white(data-toggle="collapse" href="#meal"+day.id+'-'+meal.id+"-"+recipe.id)= recipe.name
                   .drop-down
                     a.text-white(data-toggle="dropdown" href="#")
