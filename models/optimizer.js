@@ -250,6 +250,7 @@ function populateRecipeVariables(constraints, inputConstraints, recipeArray) {
     tempObj.ingredients = recipe.ingredients;
     tempObj.recipe_name = recipe.recipe_name;
     tempObj.source_recipe_url = recipe.source_recipe_url;
+    tempObj.image_url = recipe.image_url;
 
 
     let restrictionFriendly = true;
@@ -325,6 +326,7 @@ function returnMealsForCalendar(model, results) {
         ingredients: ingredientsArray,
         calories: recipe.energy,
         total_time_seconds: recipe.total_time_seconds,
+        image: recipe.image_url,
       };
 
       if (recipe.breakfast === 1) {
@@ -375,7 +377,6 @@ function incrementActiveMeal(path, calendar, eatenDay, eatenMeal) {
   calendar[eatenDay].meals[eatenMeal].eaten = true;
   // let the lint complain, otherwise we get 0 + 1 = 01
   eatenMeal++;
-  console.log(eatenMeal);
   if (eatenMeal < calendar[eatenDay].meals.length) {
     calendar[eatenDay].meals[eatenMeal].active = true;
   } else {

@@ -5,88 +5,35 @@ block content
     each day, week_index in week
       h3= day.name
       each meal, meal_index in day.meals
-        if meal.eaten
-          h4.text-secondary= meal.name
-          .row.align-items-start
-            each recipe in meal.recipes
-              .col-md-3
-                .card.border-secondary.my-1
-                  h5.card-header.d-flex
-                    a.mr-auto.text-secondary(data-toggle="collapse" href="#meal"+meal.id+"-"+recipe.id)= recipe.name
-                    .drop-down
-                      a.text-secondary(data-toggle="dropdown" href="#")
-                        i.fas.fa-ellipsis-h
-                      .dropdown-menu.dropdown-menu-right
-                        a.dropdown-item(href="#") Change date...
-                        a.dropdown-item(href="#") Delete...
-                  .card-text.collapse(id="meal"+meal.id+"-"+recipe.id)
-                    .text= "Calories: " + recipe.calories
-                    .text= "Total time: " + recipe.total_time_seconds + " s"
-                    .text= "Servings: " + recipe.servings
-                    ul.list-group
-                    each ingredient in recipe.ingredients
-                      li.text-secondary.text-capitalize.list-group-item= ingredient.name
-                    if recipe.link
-                      li.list-group-item.bg-light
-                        a.text-secondary(href=recipe.link, target="_blank") See recipe...
-                    //- li.list-group-item.bg-light
-                    //-   a.text-secondary(href="#") More options...
-        else if meal.active
-          h4.text-primary= meal.name
-            |
-            |
-            .btn-group(role="group")
-              a.btn.btn-success(href="/calendar?eaten_day="+week_index+"&eaten_meal="+meal_index)
-                i.fas.fa-check
-              a.btn.btn-secondary(href="#")
-                i.fas.fa-plus
-          .row.align-items-start
-            each recipe in meal.recipes
-              .col-md-3
-                .card.bg-primary.my-1
-                  h5.card-header.d-flex
-                    a.mr-auto.text-white(data-toggle="collapse" href="#meal"+meal.id+"-"+recipe.id)= recipe.name
-                    .drop-down
-                      a.text-white(data-toggle="dropdown" href="#")
-                        i.fas.fa-ellipsis-h
-                      .dropdown-menu.dropdown-menu-right
-                        a.dropdown-item(href="#") Change date...
-                        a.dropdown-item(href="#") Delete...
-                  .card-text.collapse.show(id="meal"+meal.id+"-"+recipe.id)
+        h4= meal.name
+        if meal.active && !meal.eaten
+          |
+          |
+          .btn-group(role="group")
+            a.btn.btn-success(href="/calendar?eaten_day="+week_index+"&eaten_meal="+meal_index)
+              i.fas.fa-check
+            a.btn.btn-secondary(href="#")
+              i.fas.fa-plus
+        .row.align-items-start
+          each recipe in meal.recipes
+            .col-md-3
+              .card.bg-dark.my-1(style='background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('+recipe.image+'); background-repeat: no-repeat; background-size: 100%; background-position: center top;')
+                h5.card-header.d-flex
+                  a.mr-auto.text-white(data-toggle="collapse" href="#meal"+day.id+'-'+meal.id+"-"+recipe.id)= recipe.name
+                  .drop-down
+                    a.text-white(data-toggle="dropdown" href="#")
+                      i.fas.fa-ellipsis-h
+                    .dropdown-menu.dropdown-menu-right
+                      a.dropdown-item(href="#") Change date...
+                      a.dropdown-item(href="#") Delete...
+                .card-text.collapse(id="meal"+day.id+'-'+meal.id+"-"+recipe.id)
+                  .bg-dark
                     .text-white= "Calories: " + recipe.calories
                     .text-white= "Total time: " + recipe.total_time_seconds + " s"
                     .text-white= "Servings: " + recipe.servings
-                    ul.list-group
-                    each ingredient in recipe.ingredients
-                      li.list-group-item.text-capitalize= ingredient.name
-                    if recipe.link
-                      li.list-group-item.bg-primary
-                        a.text-white(href=recipe.link, target="_blank") See recipe...
-                    //- li.list-group-item.bg-primary
-                    //-   a.text-white(href="#") More options...
-        else
-          h4= meal.name
-          .row.align-items-start
-            each recipe in meal.recipes
-              .col-md-3
-                .card.bg-dark.my-1
-                  h5.card-header.d-flex
-                    a.mr-auto.text-white(data-toggle="collapse" href="#meal"+meal.id+"-"+recipe.id)= recipe.name
-                    .drop-down
-                      a.text-white(data-toggle="dropdown" href="#")
-                        i.fas.fa-ellipsis-h
-                      .dropdown-menu.dropdown-menu-right
-                        a.dropdown-item(href="#") Change date...
-                        a.dropdown-item(href="#") Delete...
-                  .card-text.collapse(id="meal"+meal.id+"-"+recipe.id)
-                    .text-white= "Calories: " + recipe.calories
-                    .text-white= "Total time: " + recipe.total_time_seconds + " s"
-                    .text-white= "Servings: " + recipe.servings
-                    ul.list-group
-                    each ingredient in recipe.ingredients
-                      li.text-capitalize.list-group-item= ingredient.name
-                    if recipe.link
-                      li.list-group-item.bg-dark
-                        a.text-white(href=recipe.link, target="_blank") See recipe...
-                    //- li.list-group-item.bg-dark
-                    //-   a.text-white(href="#") More options...
+                  ul.list-group
+                  each ingredient in recipe.ingredients
+                    li.text-capitalize.list-group-item= ingredient.name
+                  if recipe.link
+                    li.list-group-item.bg-dark
+                      a.text-white(href=recipe.link, target="_blank") See recipe...
