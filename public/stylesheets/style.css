@@ -1,5 +1,5 @@
 body {
-  padding: 10px;
+  padding-top: 65px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
   background: #EBEBEB
 }
@@ -76,7 +76,7 @@ h1 {
 
 #main_menu li a {
     display: block;
-    color: pink;
+    color: white;
     text-align: center;
     padding: 14px 16px;
     text-decoration: none;
