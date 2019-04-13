@@ -7,14 +7,14 @@ block content
         h3= day.name
         each meal, meal_index in day.meals
           h4= meal.name
-          if meal.active && !meal.eaten
-            |
-            |
-            .btn-group(role="group")
-              a.btn.btn-success(href="/calendar?eaten_day="+week_index+"&eaten_meal="+meal_index)
-                i.fas.fa-check
-              a.btn.btn-secondary(href="#")
-                i.fas.fa-plus
+            if meal.active && !meal.eaten
+              |
+              |
+              .btn-group(role="group")
+                a.btn.btn-success(href="/calendar?eaten_day="+week_index+"&eaten_meal="+meal_index)
+                  i.fas.fa-check
+                a.btn.btn-secondary(href="#")
+                  i.fas.fa-plus
           each recipe in meal.recipes
             .card.bg-dark.my-1
               h5.card-header.d-flex(style='background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('+recipe.image+'); background-repeat: no-repeat; background-size: cover; background-position: center center; background-clip: padding-box;')
