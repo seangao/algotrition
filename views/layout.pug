@@ -21,23 +21,25 @@ html
           a.navbar-brand(class='nav-link' href='/')
             img(src='/images/algo_logo.svg' alt='Expand' height='30px')
         div.collapse.navbar-collapse#collapsibleNavbar
-          ul.navbar-nav.mr-auto 
+          ul.nav.navbar-nav.mr-auto 
+            li(class='nav-item'+(title === 'Calendar' ? ' active' : undefined)): a(class='nav-link' href='/calendar') Calendar
+            |
+            |
             if (user)
-              li(class='nav-item'+(title === 'Calendar' ? ' active' : undefined)): a(class='nav-link' href='/calendar') Calendar
-              |
-              |
               li(class='nav-item'+(title === 'Recipes' ? ' active' : undefined)): a(class='nav-link' href='/recipes') Recipes
               |
               |
-              li(class='nav-item'+(title === 'Plan Generator' ? ' active' : undefined)): a(class='nav-link' href='/generator') Generate meal plan
+            li(class='nav-item'+(title === 'Plan Generator' ? ' active' : undefined)): a(class='nav-link' href='/generator') Generate meal plan
+          ul.nav.navbar-nav.navbar-right.bg-dark
+            if (user)
+              li.nav-item.dropdown(class=(title === 'Account' ? 'active' : undefined))
+                a.nav-link.dropdown-toggle(href='#' data-toggle='dropdown' role='button') Profile
+                  span.caret
+                .dropdown-menu
+                  a.nav-item.dropdown-item(href='/profile') Account... 
+                  a.nav-item.dropdown-item(href='/logout') Log out
             else
-              li.nav-item.active: a.nav-link Welcome to Algotrition! Please Log in or Register.
-          ul.navbar-nav
-            li.nav-item.dropdown(class=(title === 'Account' ? 'active' : undefined))
-              a.nav-link.dropdown-toggle(href='#' data-toggle='dropdown' role='button') Profile
-                span.caret
-              .dropdown-menu
-                a.dropdown-item(href='/profile') Account... 
-                a.dropdown-item(href='/logout') Log out
+              li.nav-item: a.nav-link(href='/login') Log in
+              li.nav-item: a.nav-link(href='/register') Register
     .container
       block content

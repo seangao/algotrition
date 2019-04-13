@@ -9,7 +9,8 @@ const loginControllers = require('../controllers/login.js');
 const profileControllers = require('../controllers/profile.js');
 
 /* process login */
-router.post('/', urlencodedParser, loginControllers.loginProcess, profileControllers.generateProfile);
+router.get('/', loginControllers.login);
+router.post('/', urlencodedParser, loginControllers.loginProcess, (req, res) => {res.redirect('/')});
 
 /* process forgot password */
 router.post('/forgotpassword', urlencodedParser, loginControllers.forgotPassword);
