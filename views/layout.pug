@@ -23,13 +23,13 @@ html
         div.collapse.navbar-collapse#collapsibleNavbar
           ul.navbar-nav.mr-auto 
             if (user)
-              li(class='nav-item'+(title === 'Plan Generator' ? ' active' : undefined)): a(class='nav-link' href='/generator') Generate meal plan
-              |
-              |
               li(class='nav-item'+(title === 'Calendar' ? ' active' : undefined)): a(class='nav-link' href='/calendar') Calendar
               |
               |
               li(class='nav-item'+(title === 'Recipes' ? ' active' : undefined)): a(class='nav-link' href='/recipes') Recipes
+              |
+              |
+              li(class='nav-item'+(title === 'Plan Generator' ? ' active' : undefined)): a(class='nav-link' href='/generator') Generate meal plan
             else
               li.nav-item.active: a.nav-link Welcome to Algotrition! Please Log in or Register.
           ul.navbar-nav

@@ -18,6 +18,7 @@ const planGeneratorRouter = require('./routes/planGenerator');
 const calendarRouter = require('./routes/calendar');
 const recipesRouter = require('./routes/recipes');
 const logoutRouter = require('./routes/logout');
+const indexRouter = require('./routes/index');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -58,6 +59,7 @@ app.use('/profile', profileRouter);
 app.use('/generator', planGeneratorRouter);
 app.use('/calendar', calendarRouter);
 app.use('/recipes', recipesRouter);
+app.use('/', indexRouter);
 
 // middleware function to check for logged-in users
 const sessionChecker = (req, res, next) => {
@@ -69,7 +71,6 @@ const sessionChecker = (req, res, next) => {
 };
 
 // routers loading
-app.use('/', sessionChecker, loginRouter);
 app.use('/login', sessionChecker, loginRouter);
 app.use('/register', sessionChecker, registerRouter);
 app.use('/passwordReset', sessionChecker, passwordResetRouter);

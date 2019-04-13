@@ -8,9 +8,7 @@ const urlencodedParser = bodyParser.urlencoded({ extended: false });
 const profileControllers = require('../controllers/profile');
 const loginControllers = require('../controllers/login.js');
 
-router.get('/', loginControllers.login);
-router.get('/', profileControllers.generateProfile);
-
+router.get('/',profileControllers.generateProfile);
 router.post('/updateprofile', urlencodedParser, profileControllers.updateProfile);
 
 module.exports = router;
