@@ -33,7 +33,7 @@ block content
                       div(class='input-group-prepend')
                         span(class='input-group-text') #{item.name}
                           //- i(class=item.icon)
-                      select(class='custom-select', name='ft')
+                      select(class='custom-select', name='Shoop')
                         option(selected, disabled) #{item.feet}
                         option(value='0') 0
                         option(value='1') 1
@@ -104,5 +104,5 @@ block content
                     p= item.name + ": " + item.value
             div(class='text-center')
               button#save(type='submit', class='btn btn-outline-primary',
-                name='save') Save 
+                name='save', data-slide='next') Save 
       
