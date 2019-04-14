@@ -46,36 +46,48 @@ function generator(req, res) {
       short: 'K',
       id: 'potassium',
       units: 'g',
+      min: 3,
+      max: 4
     },
     {
       name: 'Sodium',
       short: 'Na',
       id: 'sodium',
       units: 'g',
+      min: 2,
+      max: 3
     },
     {
       name: 'Calcium',
       short: 'Ca',
       id: 'calcium',
       units: 'g',
+      min: 0,
+      max: 2
     },
     {
       name: 'Iron',
       short: 'Fe',
       id: 'iron',
       units: 'g',
+      min: 0,
+      max: 1
     },
     {
       name: 'Total Saturated Fat',
       short: 'Sat Fat',
       id: 'satfat',
       units: 'g',
+      min: 10,
+      max: 30
     },
     {
       name: 'Total Trans Fat',
       short: 'Trans Fat',
       id: 'transfat',
       units: 'g',
+      min: 0,
+      max: 10
     },
     {
       name: 'Total Sugars',
@@ -84,46 +96,48 @@ function generator(req, res) {
       units: 'g',
     },
     {
-      name: 'Carbohydrate (by difference)',
+      name: 'Carbohydrates',
       short: 'Carbs',
       id: 'carbs',
       units: 'g',
+      min: 200,
+      max: 400
     },
     {
       name: 'Fiber',
       short: 'Fiber',
       id: 'fiber',
       units: 'g',
+      min: 20,
+      max: 30
     },
     {
       name: 'Protein',
       short: 'Protein',
       id: 'protein',
       units: 'g',
+      min: 30,
+      max: 70
     },
+    // {
+    //   name: 'Vitamin A',
+    //   short: 'Vit A',
+    //   id: 'vita',
+    //   units: 'IU',
+    // },
+    // {
+    //   name: 'Vitamin C',
+    //   short: 'Vit C',
+    //   id: 'vitc',
+    //   units: 'g',
+    // },
     {
-      name: 'Vitamin A',
-      short: 'Vit A',
-      id: 'vita',
-      units: 'IU',
-    },
-    {
-      name: 'Vitamin C',
-      short: 'Vit C',
-      id: 'vitc',
-      units: 'g',
-    },
-    {
-      name: 'Energy',
-      short: 'Energy',
-      id: 'energy',
-      units: 'kcal',
-    },
-    {
-      name: 'Total Lipid (Fat)',
+      name: 'Total Fat',
       short: 'Fat',
       id: 'fat',
       units: 'g',
+      min: 50,
+      max: 80
     },
   ];
 
