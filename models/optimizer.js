@@ -15,11 +15,11 @@ function populateConstraints(inputConstraints) {
   output.dinner2 = { max: 1.1 };
 
 
-  if ('calories-min' in inputConstraints) {
+  if ('calories-min' in inputConstraints && inputConstraints.optParameter !== 'energy') {
     output.energy = { min: inputConstraints['calories-min'] };
   }
 
-  if ('calories-max' in inputConstraints) {
+  if ('calories-max' in inputConstraints && inputConstraints.optParameter !== 'energy') {
     output.energy2 = { max: inputConstraints['calories-max'] };
   }
 
@@ -127,6 +127,8 @@ function populateConstraints(inputConstraints) {
     output.fat2 = { max: inputConstraints['fat-max'] };
   }
 
+
+
   return output;
 }
 
@@ -147,7 +149,8 @@ function duplicateVariables(variables, servingsArray) {
     'sugar',
     'energy',
     'fat',
-    'vitamin_a'];
+    'vitamin_a',
+    'price_per_serving'];
 
 
   let i;
@@ -213,6 +216,10 @@ function populateRecipeVariables(constraints, inputConstraints, recipeArray) {
   for (i = 0; i < recipeArray.length; i += 1) {
     const recipe = recipeArray[i];
 
+    if(recipe.breakfast === 0 && recipe.lunch === 0 && recipe.dinner ===0){
+      continue;
+    }
+
     const tempObj = {};
     const constraintList = Object.keys(constraints);
     // loop over constraint list calling singleConstraint
@@ -225,7 +232,9 @@ function populateRecipeVariables(constraints, inputConstraints, recipeArray) {
       }
     }
 
-    // Chosing breakfast, lunch or dinner
+    
+
+    // Choosing breakfast, lunch or dinner
     if (recipe.breakfast === 1) {
       recipe.lunch = 0;
       recipe.dinner = 0;
@@ -247,10 +256,14 @@ function populateRecipeVariables(constraints, inputConstraints, recipeArray) {
     tempObj.dinner = recipe.dinner;
     tempObj.dinner2 = recipe.dinner;
     tempObj.total_time_seconds = recipe.total_time_seconds;
+    tempObj.price_per_serving = recipe.price_per_serving;
     tempObj.ingredients = recipe.ingredients;
     tempObj.recipe_name = recipe.recipe_name;
     tempObj.source_recipe_url = recipe.source_recipe_url;
     tempObj.image_url = recipe.image_url;
+    if(inputConstraints.optParameter === 'energy'){
+      tempObj.energy = recipe.energy;
+    }
 
 
     let restrictionFriendly = true;
@@ -401,12 +414,15 @@ function optimization(inputConstraints, recipes) {
   let i;
   let j;
 
-  inputConstraints.numberDays = 2;
+  // The hardcoded parameters in the following block will later be taken from user inputs 
+  inputConstraints.numberDays = 1;
+  inputConstraints.optParameter = 'total_time_seconds' //Options: 'total_time_seconds' 'price_per_serving', 'energy'
+  inputConstraints.optParameterType = 'min' //Options: 'min' 'max' 
 
   for (i = 0; i < inputConstraints.numberDays; i += 1) {
     const model = {
-      optimize: 'total_time_seconds',
-      opType: 'min',
+      optimize: inputConstraints.optParameter,
+      opType: inputConstraints.optParameterType,
     };
 
     model.constraints = populateConstraints(inputConstraints);
@@ -422,7 +438,9 @@ function optimization(inputConstraints, recipes) {
     model.variables = duplicateVariables(model.variables, servingNumbers);
     model.ints = populateInts(model.variables);
 
+
     const results = solver.Solve(model);
+    console.log(results);
     resultsArray.push(results);
     mealsArray.push(returnMealsForCalendar(model, results));
 
@@ -433,6 +451,7 @@ function optimization(inputConstraints, recipes) {
       }
     }
   }
+
 
   const calendar = returnCalendar(resultsArray, mealsArray);
 
