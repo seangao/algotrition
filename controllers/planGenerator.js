@@ -45,33 +45,33 @@ function generator(req, res) {
       name: 'Potassium',
       short: 'K',
       id: 'potassium',
-      units: 'g',
-      min: 3,
-      max: 4
+      units: 'mg',
+      min: 3000,
+      max: 4000
     },
     {
       name: 'Sodium',
       short: 'Na',
       id: 'sodium',
-      units: 'g',
-      min: 2,
-      max: 3
+      units: 'mg',
+      min: 2000,
+      max: 3000
     },
     {
       name: 'Calcium',
       short: 'Ca',
       id: 'calcium',
-      units: 'g',
+      units: 'mg',
       min: 0,
-      max: 2
+      max: 2000
     },
     {
       name: 'Iron',
       short: 'Fe',
       id: 'iron',
-      units: 'g',
+      units: 'mg',
       min: 0,
-      max: 1
+      max: 50
     },
     {
       name: 'Total Saturated Fat',
@@ -94,6 +94,8 @@ function generator(req, res) {
       short: 'Sugar',
       id: 'sugar',
       units: 'g',
+      min: 0,
+      max: 100
     },
     {
       name: 'Carbohydrates',
@@ -119,18 +121,22 @@ function generator(req, res) {
       min: 30,
       max: 70
     },
-    // {
-    //   name: 'Vitamin A',
-    //   short: 'Vit A',
-    //   id: 'vita',
-    //   units: 'IU',
-    // },
-    // {
-    //   name: 'Vitamin C',
-    //   short: 'Vit C',
-    //   id: 'vitc',
-    //   units: 'g',
-    // },
+    {
+      name: 'Vitamin A',
+      short: 'Vit A',
+      id: 'vita',
+      units: 'IU',
+      min: 4000,
+      max: 6000
+    },
+    {
+      name: 'Vitamin C',
+      short: 'Vit C',
+      id: 'vitc',
+      units: 'mg',
+      min: 40,
+      max: 80
+    },
     {
       name: 'Total Fat',
       short: 'Fat',
