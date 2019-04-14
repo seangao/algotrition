@@ -17,14 +17,13 @@ async function searchUserbyID(db, id) {
 }
 
 async function updateProfile(db, id, info) {
-  console.log(info)
   const stmt = `
         UPDATE users
         SET username = '$2:value', weight = $3, age = $4, gender = $5, height = $6
         WHERE id = $1
         RETURNING id, username, height, weight, age, gender
     `;
-  return db.oneOrNone(stmt, [id, info.Username, info.Weight, info.Age, info.gender, convertHeight(info.ft, info.in)]);
+  return db.oneOrNone(stmt, [id, info.username, info.weight, info.age, info.gender, convertHeight(info.ft, info.in)]);
 }
 
 module.exports = {
