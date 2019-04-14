@@ -56,7 +56,7 @@ async function generateProfile(req, res) {
         {
           name: 'Gender',
           value: query.gender,
-          icon: 'fas fa-genderless',
+          icon: 'fas fa-venus-mars',
           number: false,
           edit: true,
         },
