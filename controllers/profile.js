@@ -21,25 +21,25 @@ async function generateProfile(req, res) {
 
   const user = [
     {
-      name: 'General',
+      name: 'general',
       id: 0,
       items: [
         {
-          name: 'Username',
+          name: 'username',
           value: query.username,
           icon: 'fas fa-user',
           number: false,
           edit: true,
         },
         {
-          name: 'Height',
+          name: 'height',
           value: height,
           icon: 'fas fa-ruler-vertical',
           feet: feetInches[0],
           inch: feetInches[1],
         },
         {
-          name: 'Weight',
+          name: 'weight',
           value: `${query.weight} pounds`,
           icon: 'fas fa-weight',
           number: true,
@@ -47,14 +47,14 @@ async function generateProfile(req, res) {
 
         },
         {
-          name: 'Age',
+          name: 'age',
           value: query.age,
           icon: 'fas fa-birthday-cake',
           number: true,
           edit: true,
         },
         {
-          name: 'Gender',
+          name: 'gender',
           value: query.gender,
           icon: 'fas fa-venus-mars',
           number: false,
@@ -63,18 +63,18 @@ async function generateProfile(req, res) {
       ],
     },
     {
-      name: 'Nutritional Information',
+      name: 'nutritional information',
       id: 1,
       items: [
         {
-          name: 'Allergens',
+          name: 'allergens',
           value: 'None',
           icon: 'fas fa-exclamation-circle',
           number: false,
           edit: true,
         },
         {
-          name: 'Calorie Preference',
+          name: 'calorie preference',
           value: 2000,
           icon: 'fas fa-utensils',
           number: true,
@@ -83,7 +83,7 @@ async function generateProfile(req, res) {
       ],
     },
     {
-      name: 'History',
+      name: 'history',
       id: 2,
       items: [
         {
