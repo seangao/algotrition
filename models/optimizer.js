@@ -128,7 +128,6 @@ function populateConstraints(inputConstraints) {
   }
 
 
-
   return output;
 }
 
@@ -168,15 +167,14 @@ function duplicateVariables(variables, servingsArray, inputConstraints) {
 
   for (i = 0; i < k.length; i += 1) {
     for (j = 0; j < servingsArray.length; j += 1) {
-
       const tempObj = {};
       const recipe = variables[k[i]];
       const recipeFields = Object.keys(recipe);
 
       // Reject suggestions which take up too large or small a portion of the calories for even distribution across meals
       // Later the fraction of total calories should be dependent on the number of meals
-      if (inputConstraints.optParameter !== 'energy'){
-        if (recipe.energy*servingsArray[j] < .2*inputConstraints['calories-min'] || recipe.energy*servingsArray[j] > .4*inputConstraints['calories-max']){
+      if (inputConstraints.optParameter !== 'energy') {
+        if (recipe.energy * servingsArray[j] < 0.2 * inputConstraints['calories-min'] || recipe.energy * servingsArray[j] > 0.4 * inputConstraints['calories-max']) {
           continue;
         }
       }
@@ -226,7 +224,7 @@ function populateRecipeVariables(constraints, inputConstraints, recipeArray) {
   for (i = 0; i < recipeArray.length; i += 1) {
     const recipe = recipeArray[i];
 
-    if(recipe.breakfast === 0 && recipe.lunch === 0 && recipe.dinner ===0){
+    if (recipe.breakfast === 0 && recipe.lunch === 0 && recipe.dinner === 0) {
       continue;
     }
 
@@ -242,7 +240,6 @@ function populateRecipeVariables(constraints, inputConstraints, recipeArray) {
       }
     }
 
-    
 
     // Choosing breakfast, lunch or dinner
     if (recipe.breakfast === 1) {
@@ -271,7 +268,7 @@ function populateRecipeVariables(constraints, inputConstraints, recipeArray) {
     tempObj.recipe_name = recipe.recipe_name;
     tempObj.source_recipe_url = recipe.source_recipe_url;
     tempObj.image_url = recipe.image_url;
-    if(inputConstraints.optParameter === 'energy'){
+    if (inputConstraints.optParameter === 'energy') {
       tempObj.energy = recipe.energy;
     }
 
@@ -424,10 +421,10 @@ function optimization(inputConstraints, recipes) {
   let i;
   let j;
 
-  // The hardcoded parameters in the following block will later be taken from user inputs 
+  // The hardcoded parameters in the following block will later be taken from user inputs
   inputConstraints.numberDays = 1;
-  inputConstraints.optParameter = 'total_time_seconds' //Options: 'total_time_seconds' 'price_per_serving', 'energy'
-  inputConstraints.optParameterType = 'min' //Options: 'min' 'max' 
+  inputConstraints.optParameter = 'total_time_seconds'; // Options: 'total_time_seconds' 'price_per_serving', 'energy'
+  inputConstraints.optParameterType = 'min'; // Options: 'min' 'max'
 
   for (i = 0; i < inputConstraints.numberDays; i += 1) {
     const model = {

@@ -68,7 +68,7 @@ function checkInputs() {
   const has_ingredients = $('ul#ingredient-list li').length >= 1;
   const instruction = $('#instruction').val();
 
-  if (title == "" || !has_ingredients || instruction == "") {
+  if (title == '' || !has_ingredients || instruction == '') {
     alert('Error: one of the inputs is empty');
     return false;
   }
