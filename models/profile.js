@@ -13,7 +13,7 @@ async function updateProfile(db, id, info) {
         WHERE id = $1
         RETURNING id, username, height, weight, age, gender
     `;
-  return db.oneOrNone(stmt, [id, info.username, info.weight, info.age, info.gender]);
+  return db.oneOrNone(stmt, [id, info.Username, info.Weight, info.Age, info.Gender]);
 }
 
 module.exports = {
