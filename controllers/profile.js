@@ -100,7 +100,7 @@ async function generateProfile(req, res) {
 
 async function updateProfile(req, res) {
   await profileModels.updateProfile(req.app.locals.db, req.session.userid, req.body);
-  res.redirect('profile');
+  res.redirect('../profile');
 }
 
 module.exports = {
