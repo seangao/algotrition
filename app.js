@@ -72,8 +72,8 @@ app.use('/login', sessionChecker, loginRouter);
 app.use('/register', sessionChecker, registerRouter);
 app.use('/passwordReset', sessionChecker, passwordResetRouter);
 
-//middleware function to check for logged-out users
-function outSessionChecker(req,res,next) {
+// middleware function to check for logged-out users
+function outSessionChecker(req, res, next) {
   if (req.session.user && req.cookies.user_sid) {
     next();
   } else {

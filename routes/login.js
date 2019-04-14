@@ -10,7 +10,7 @@ const profileControllers = require('../controllers/profile.js');
 
 /* process login */
 router.get('/', loginControllers.login);
-router.post('/', urlencodedParser, loginControllers.loginProcess, (req, res) => {res.redirect('/')});
+router.post('/', urlencodedParser, loginControllers.loginProcess, (req, res) => { res.redirect('/'); });
 
 /* process forgot password */
 router.post('/forgotpassword', urlencodedParser, loginControllers.forgotPassword);
