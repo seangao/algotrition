@@ -133,7 +133,7 @@ function populateConstraints(inputConstraints) {
 }
 
 
-function duplicateVariables(variables, servingsArray) {
+function duplicateVariables(variables, servingsArray, inputConstraints) {
   const partialScaledParameters = [
     'potassium',
     'sodium',
@@ -168,9 +168,19 @@ function duplicateVariables(variables, servingsArray) {
 
   for (i = 0; i < k.length; i += 1) {
     for (j = 0; j < servingsArray.length; j += 1) {
+
       const tempObj = {};
       const recipe = variables[k[i]];
       const recipeFields = Object.keys(recipe);
+
+      // Reject suggestions which take up too large or small a portion of the calories for even distribution across meals
+      // Later the fraction of total calories should be dependent on the number of meals
+      if (inputConstraints.optParameter !== 'energy'){
+        if (recipe.energy*servingsArray[j] < .2*inputConstraints['calories-min'] || recipe.energy*servingsArray[j] > .4*inputConstraints['calories-max']){
+          continue;
+        }
+      }
+
 
       let m;
       for (m = 0; m < recipeFields.length; m += 1) {
@@ -435,7 +445,7 @@ function optimization(inputConstraints, recipes) {
     }
 
     const servingNumbers = [0.5, 1, 1.5, 2, 3];
-    model.variables = duplicateVariables(model.variables, servingNumbers);
+    model.variables = duplicateVariables(model.variables, servingNumbers, inputConstraints);
     model.ints = populateInts(model.variables);
 
 
