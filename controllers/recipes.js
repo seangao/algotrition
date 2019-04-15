@@ -17,19 +17,19 @@ async function saveRecipe(req, res, next) {
 }
 
 async function getUserRecipe(req, res) {
-    var userRecipes = await recipesModels.getUserRecipes(req.app.locals.db, req.session.userid);
-    userRecipes = JSON.parse(JSON.stringify(userRecipes));
-    for (var i=0; i < userRecipes.length; i++) {
-        var ingredients = userRecipes[i].ingredients;
-        ingredients = JSON.parse(ingredients);
-        userRecipes[i].ingredients = ingredients;
-    }
-    if (userRecipes.length == 0) {
-        res.render('recipes', { title: 'Recipes', userRecipes: null, user: req.session.user });
-    }
-    else {
-        res.render('recipes', { title: 'Recipes', userRecipes: userRecipes, user: req.session.user });
-    }
+  var userRecipes = await recipesModels.getUserRecipes(req.app.locals.db, req.session.userid);
+  userRecipes = JSON.parse(JSON.stringify(userRecipes));
+  for (var i=0; i < userRecipes.length; i++) {
+      var ingredients = userRecipes[i].ingredients;
+      ingredients = JSON.parse(ingredients);
+      userRecipes[i].ingredients = ingredients;
+  }
+  if (userRecipes.length == 0) {
+      res.render('recipes', { title: 'Recipes', userRecipes: null, user: req.session.user });
+  }
+  else {
+      res.render('recipes', { title: 'Recipes', userRecipes: userRecipes, user: req.session.user });
+  }
 }
 
 module.exports = {

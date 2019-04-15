@@ -63,9 +63,13 @@ block content
           div.form-group
             textarea#instruction.form-control(rows="5", name='instruction')
           div.text-center.pt-3
-            button#submit-recipe.btn.btn-outline-primary(type='submit', name='submit-recipe') Submit Recipe
+            a.btn.btn-outline-primary(href='#recipe-carousel', role='button', data-slide='next') Next
             a.btn.btn-outline-primary(href='#recipe-carousel', role='button', data-slide='prev') Back
 
-
-
-
+        div.carousel-item
+          div.custom-file
+            input#recipe-pic-file.custom-file-input(type='file')
+            label.custom-file-label(for='recipe-pic-file') Choose file
+          div.text-center.pt-3
+            button#submit-recipe.btn.btn-outline-primary(type='submit', name='submit-recipe') Submit Recipe
+            a.btn.btn-outline-primary(href='#recipe-carousel', role='button', data-slide='prev') Back

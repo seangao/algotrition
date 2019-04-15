@@ -21,7 +21,7 @@ html
           a.navbar-brand(class='nav-link' href='/')
             img(src='/images/algo_logo.png' alt='Expand' height='30px')
         div.collapse.navbar-collapse#collapsibleNavbar
-          ul.nav.navbar-nav.mr-auto 
+          ul.nav.navbar-nav.mr-auto
             li(class='nav-item'+(title === 'Calendar' ? ' active' : undefined)): a(class='nav-link' href='/calendar') Calendar
             |
             |
@@ -36,7 +36,7 @@ html
                 a.nav-link.dropdown-toggle(href='#' data-toggle='dropdown' role='button') Profile
                   span.caret
                 .dropdown-menu
-                  a.nav-item.dropdown-item(href='/profile') Account... 
+                  a.nav-item.dropdown-item(href='/profile') Account...
                   a.nav-item.dropdown-item(href='/logout') Log out
             else
               li.nav-item: a.nav-link(href='/login') Log in
