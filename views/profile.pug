@@ -18,7 +18,8 @@ block content
                 a.mr-auto.text-secondary(data-toggle="collapse" href="#category"+category.id)= category.name
               .card-text.collapse.text-secondary.show(id="category"+category.id)
                 each item in category.items
-                  p= item.name + ": " + item.value
+                  
+                  p= item.name.charAt(0).toUpperCase() + item.name.slice(1, item.name.length) + ": " + item.value
 
       div.carousel-item
         div#edit-form(class='list')
@@ -28,10 +29,10 @@ block content
                 a.mr-auto.text-secondary(data-toggle="collapse" href="#category"+category.id+"edit")= category.name
               .card-text.collapse.text-secondary.show(id="category"+category.id+"edit")
                 each item in category.items
-                  if item.name == 'Height'
+                  if item.name === 'height'
                     div(class='form-group input-group')
                       div(class='input-group-prepend')
-                        span(class='input-group-text') #{item.name}
+                        span(class='input-group-text text-capitalize') #{item.name}
                           //- i(class=item.icon)
                       select(class='custom-select', name='ft')
                         option(selected, disabled) #{item.feet}
@@ -66,16 +67,16 @@ block content
                       div(class='input-group-append')
                         span(class='input-group-text')
                           i(class=item.icon)
-                  else if item.name == 'Gender'
+                  else if item.name === 'Gender'
                     div(class='form-group input-group')
                       div(class='input-group-prepend')
-                        span(class='input-group-text') #{item.name}
+                        span(class='input-group-text text-capitalize') #{item.name}
                           //- i(class=item.icon) 
                       select(class='custom-select', name='gender')
                         option(selected, disabled) #{item.value}
-                        option(value='0') Male
-                        option(value='1') Female
-                        option(value='2') Other
+                        option(value='Male') Male
+                        option(value='Female') Female
+                        option(value='Other') Other
                       div(class='input-group-append')
                         span(class='input-group-text')
                           i(class=item.icon)
@@ -83,7 +84,7 @@ block content
                     if item.number
                       div(class='form-group input-group')
                         div(class='input-group-prepend')
-                          span(class='input-group-text') #{item.name}
+                          span(class='input-group-text text-capitalize') #{item.name}
                             //- i(class=item.icon) 
                         input.form-control(type='number', placeholder=item.value,
                           name=item.name)
@@ -93,7 +94,7 @@ block content
                     else
                       div(class='form-group input-group')
                         div(class='input-group-prepend')
-                          span(class='input-group-image input-group-text') #{item.name}
+                          span(class='input-group-image input-group-text text-capitalize') #{item.name}
                             //- i(class=item.icon) 
                         input.form-control(type='text', placeholder=item.value,
                           name=item.name)
@@ -104,5 +105,5 @@ block content
                     p= item.name + ": " + item.value
             div(class='text-center')
               button#save(type='submit', class='btn btn-outline-primary',
-                name='save') Save 
+                name='save', data-slide='next') Save 
       

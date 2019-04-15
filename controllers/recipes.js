@@ -7,9 +7,9 @@ async function recipes(req, res, next) {
 }
 
 async function saveRecipe(req, res, next) {
-  const title = req.body.title;
+  const { title } = req.body;
   const ingredients = JSON.stringify(req.body.ingredients);
-  const instruction = req.body.instruction;
+  const { instruction } = req.body;
   // console.log(req.session);
   // console.log(typeof ingredients);
   const test = await recipesModels.saveNewRecipe(req.app.locals.db, req.session.userid, title, ingredients, instruction);
@@ -17,18 +17,17 @@ async function saveRecipe(req, res, next) {
 }
 
 async function getUserRecipe(req, res) {
-  var userRecipes = await recipesModels.getUserRecipes(req.app.locals.db, req.session.userid);
+  let userRecipes = await recipesModels.getUserRecipes(req.app.locals.db, req.session.userid);
   userRecipes = JSON.parse(JSON.stringify(userRecipes));
-  for (var i=0; i < userRecipes.length; i++) {
-      var ingredients = userRecipes[i].ingredients;
-      ingredients = JSON.parse(ingredients);
-      userRecipes[i].ingredients = ingredients;
+  for (let i = 0; i < userRecipes.length; i++) {
+    let { ingredients } = userRecipes[i];
+    ingredients = JSON.parse(ingredients);
+    userRecipes[i].ingredients = ingredients;
   }
   if (userRecipes.length == 0) {
-      res.render('recipes', { title: 'Recipes', userRecipes: null, user: req.session.user });
-  }
-  else {
-      res.render('recipes', { title: 'Recipes', userRecipes: userRecipes, user: req.session.user });
+    res.render('recipes', { title: 'Recipes', userRecipes: null, user: req.session.user });
+  } else {
+    res.render('recipes', { title: 'Recipes', userRecipes, user: req.session.user });
   }
 }
 

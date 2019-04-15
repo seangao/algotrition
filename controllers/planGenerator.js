@@ -45,85 +45,105 @@ function generator(req, res) {
       name: 'Potassium',
       short: 'K',
       id: 'potassium',
-      units: 'g',
+      units: 'mg',
+      min: 3000,
+      max: 4000
     },
     {
       name: 'Sodium',
       short: 'Na',
       id: 'sodium',
-      units: 'g',
+      units: 'mg',
+      min: 2000,
+      max: 3000
     },
     {
       name: 'Calcium',
       short: 'Ca',
       id: 'calcium',
-      units: 'g',
+      units: 'mg',
+      min: 0,
+      max: 2000
     },
     {
       name: 'Iron',
       short: 'Fe',
       id: 'iron',
-      units: 'g',
+      units: 'mg',
+      min: 0,
+      max: 50
     },
     {
       name: 'Total Saturated Fat',
       short: 'Sat Fat',
       id: 'satfat',
       units: 'g',
+      min: 10,
+      max: 30
     },
     {
       name: 'Total Trans Fat',
       short: 'Trans Fat',
       id: 'transfat',
       units: 'g',
+      min: 0,
+      max: 10
     },
     {
       name: 'Total Sugars',
       short: 'Sugar',
       id: 'sugar',
       units: 'g',
+      min: 0,
+      max: 100
     },
     {
-      name: 'Carbohydrate (by difference)',
+      name: 'Carbohydrates',
       short: 'Carbs',
       id: 'carbs',
       units: 'g',
+      min: 200,
+      max: 400
     },
     {
       name: 'Fiber',
       short: 'Fiber',
       id: 'fiber',
       units: 'g',
+      min: 20,
+      max: 30
     },
     {
       name: 'Protein',
       short: 'Protein',
       id: 'protein',
       units: 'g',
+      min: 30,
+      max: 70
     },
     {
       name: 'Vitamin A',
       short: 'Vit A',
       id: 'vita',
       units: 'IU',
+      min: 4000,
+      max: 6000
     },
     {
       name: 'Vitamin C',
       short: 'Vit C',
       id: 'vitc',
-      units: 'g',
+      units: 'mg',
+      min: 40,
+      max: 80
     },
     {
-      name: 'Energy',
-      short: 'Energy',
-      id: 'energy',
-      units: 'kcal',
-    },
-    {
-      name: 'Total Lipid (Fat)',
+      name: 'Total Fat',
       short: 'Fat',
       id: 'fat',
       units: 'g',
+      min: 50,
+      max: 80
     },
   ];
 

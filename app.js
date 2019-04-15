@@ -6,6 +6,7 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const pgp = require('pg-promise')();
 const bodyParser = require('body-parser');
+const enforce = require('express-sslify');
 
 const app = express();
 
@@ -24,6 +25,9 @@ const indexRouter = require('./routes/index');
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
+
+// force HTTPS redirect
+app.use(enforce.HTTPS({ trustProtoHeader: true }));
 
 app.use(logger('dev'));
 app.use(express.json());
@@ -73,8 +77,8 @@ app.use('/login', sessionChecker, loginRouter);
 app.use('/register', sessionChecker, registerRouter);
 app.use('/passwordReset', sessionChecker, passwordResetRouter);
 
-//middleware function to check for logged-out users
-function outSessionChecker(req,res,next) {
+// middleware function to check for logged-out users
+function outSessionChecker(req, res, next) {
   if (req.session.user && req.cookies.user_sid) {
     next();
   } else {

@@ -3,6 +3,7 @@ extends layout
 block content
   div#generator-carousel.carousel.slide(data-ride='carousel', data-interval='false')
     div.carousel-inner
+      // desired nutritional requirements menu
       div.carousel-item.active
         div.dropdown-menu.login-menu
           div.dropdown-item.pb-2 Desired Nutritional Requirements
@@ -13,7 +14,8 @@ block content
           div.text-center.pt-2
             a#generator-nutr-button.btn.btn-outline-primary(href='#generator-carousel', role='button',
               data-slide='next') Next
-              
+          
+      // what to optimize for menu    
       div.carousel-item
         div.dropdown-menu.login-menu
           div.dropdown-item.pb-2 What to Optimize For
@@ -28,7 +30,8 @@ block content
           div.text-center.pt-2
             a#generator-opt-button.btn.btn-outline-primary(href='#generator-carousel', role='button',
               data-slide='next') Next
-              
+          
+      // enter parameters menu    
       div.carousel-item
         div#generator-form(class='dropdown-menu login-menu')
           form(method='POST', class='px-3 py-3', action='')
@@ -47,35 +50,35 @@ block content
                 div(class='input-group-append')
                   span(class='input-group-text nutr-options-append-primary') cal  
                   
-            div(class='form-group input-group')
-              div(class='input-group-prepend')
-                span(class='input-group-text input-group-icon')
-                  i(class='fas fa-stopwatch')
-              input#cook-time-min.form-control(type='number', placeholder='Cook time',
-                name='cook-time-min', value=0)
-              div(class='input-group-append input-group-prepend')
-                div(class='input-group-append input-group-prepend')
-                  span(class='input-group-text') -
-              input#cook-time-max.form-control(type='number', placeholder='Cook time',
-                name='cook-time-max', value=60)
-              div(class='input-group-append')
-                div(class='input-group-append')
-                  span(class='input-group-text nutr-options-append-primary') min
+            //- div(class='form-group input-group')
+            //-   div(class='input-group-prepend')
+            //-     span(class='input-group-text input-group-icon')
+            //-       i(class='fas fa-stopwatch')
+            //-   input#cook-time-min.form-control(type='number', placeholder='Cook time',
+            //-     name='cook-time-min', value=0)
+            //-   div(class='input-group-append input-group-prepend')
+            //-     div(class='input-group-append input-group-prepend')
+            //-       span(class='input-group-text') -
+            //-   input#cook-time-max.form-control(type='number', placeholder='Cook time',
+            //-     name='cook-time-max', value=60)
+            //-   div(class='input-group-append')
+            //-     div(class='input-group-append')
+            //-       span(class='input-group-text nutr-options-append-primary') min
                   
-            div(class='form-group input-group')
-              div(class='input-group-prepend')
-                span(class='input-group-text input-group-icon')
-                  i(class='fas fa-money-bill')
-              input#cost-min.form-control(type='number', placeholder='Cost',
-                name='cost-min', value=10)
-              div(class='input-group-append input-group-prepend')
-                div(class='input-group-append input-group-prepend')
-                  span(class='input-group-text') -
-              input#cost-max.form-control(type='number', placeholder='Cost',
-                name='cost-max', value=20)
-              div(class='input-group-append')
-                div(class='input-group-append')
-                  span(class='input-group-text nutr-options-append-primary') ($)
+            //- div(class='form-group input-group')
+            //-   div(class='input-group-prepend')
+            //-     span(class='input-group-text input-group-icon')
+            //-       i(class='fas fa-money-bill')
+            //-   input#cost-min.form-control(type='number', placeholder='Cost',
+            //-     name='cost-min', value=10)
+            //-   div(class='input-group-append input-group-prepend')
+            //-     div(class='input-group-append input-group-prepend')
+            //-       span(class='input-group-text') -
+            //-   input#cost-max.form-control(type='number', placeholder='Cost',
+            //-     name='cost-max', value=20)
+            //-   div(class='input-group-append')
+            //-     div(class='input-group-append')
+            //-       span(class='input-group-text nutr-options-append-primary') ($)
                   
             div(class='form-group input-group')
               div(class='input-group-prepend')
@@ -106,7 +109,7 @@ block content
               div(class='input-group-prepend')
                 span(class='input-group-text input-group-icon')
                   i(class='fas fa-utensils')
-              select#meals(class='custom-select')
+              select#meals(class='custom-select', name='meals')
                 option(value='1') 1
                 option(value='2') 2
                 option(value='3' selected) 3
@@ -121,7 +124,7 @@ block content
               div(class='input-group-prepend')
                 span(class='input-group-text input-group-icon')
                   i(class='fas fa-calendar')
-              select#days(class='custom-select')
+              select#days(name='days', class='custom-select')
                 option(value='1' selected) 1
                 option(value='2') 2
                 option(value='3') 3
@@ -136,17 +139,17 @@ block content
                 div.input-group-prepend
                   span.input-group-text.nutr-options-additional-prepend-primary #{nutr.short}
                 input.form-control(id=nutr.id + '-min', type='number', 
-                  placeholder=nutr.short, name=nutr.id + '-min', value=10)
+                  placeholder=nutr.short, name=nutr.id + '-min', value=nutr.min)
                 div.input-group-append.input-group-prepend
                   div.input-group-append.input-group-prepend
                     span.input-group-text -
                 input.form-control(id=nutr.id + '-max', type='number', 
-                  placeholder=nutr.short, name=nutr.id + '-max', value=20)
+                  placeholder=nutr.short, name=nutr.id + '-max', value=nutr.max)
                 div(class='input-group-append')
                   div(class='input-group-append')
                     span.nutr-options-additional-append-primary(class='input-group-text') #{nutr.units}
             
-            input#optimize-id(type='hidden', value=0)
+            input#optimize-id(type='hidden', name='optimize-id', value=0)
                     
             div.dropdown-divider
             div.text-center.pt-3
