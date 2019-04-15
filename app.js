@@ -6,6 +6,7 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const pgp = require('pg-promise')();
 const bodyParser = require('body-parser');
+const enforce = require('express-sslify');
 
 const app = express();
 
@@ -23,6 +24,9 @@ const indexRouter = require('./routes/index');
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
+
+// force HTTPS redirect
+app.use(enforce.HTTPS({ trustProtoHeader: true }));
 
 app.use(logger('dev'));
 app.use(express.json());
