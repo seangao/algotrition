@@ -26,19 +26,22 @@ describe('UI', () => {
     await driver.get(baseURL + '/generator');
     await driver.findElement(By.id('potassium-toggle')).click();
     await driver.findElement(By.id('generator-nutr-button')).click();
-    await driver.wait(until.elementLocated(By.id('generator-opt-button')), 10000);
-    await driver.findElement(By.id('generator-opt-button')).click();
-    await driver.wait(until.elementLocated(By.id('generate')), 10000);
-    await driver.findElement(By.id('generate')).click();
+    // await driver.wait(until.elementLocated(By.id('generator-opt-button')), 10000);
+    // await driver.findElement(By.id('generator-opt-button')).click();
+    // await driver.wait(until.elementLocated(By.id('generate')), 10000);
+    // await driver.findElement(By.id('generate')).click();
 
     await driver.wait(until.elementLocated(By.id('plan-calendar')), 10000);
     const title = await driver.getTitle();
     assert.equal(title, 'Calendar');
   });
 
-  it('load home', async () => {
-    await driver.get(baseURL);
-    // await driver.findElement(By.id('potassium-toggle')).click();
+  it('login', async () => {
+    await driver.get(baseURL + '/login');
+    await driver.findElement(By.id('username')).sendKeys('sean');
+    await driver.findElement(By.id('password')).sendKeys('test');
+    await driver.findElement(By.id(login')).click();
+
     const title = await driver.getTitle();
     assert.equal(title, 'Algotrition');
   });
