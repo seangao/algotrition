@@ -30,7 +30,6 @@ describe('UI', () => {
     await driver.findElement(By.id('generator-opt-button')).click();
     driver.manage().timeouts().implicitlyWait(1);
     await driver.findElement(By.id('generate')).click();
-
     await driver.wait(until.elementLocated(By.id('plan-calendar')), 10000);
     const title = await driver.getTitle();
     assert.equal(title, 'Calendar');
