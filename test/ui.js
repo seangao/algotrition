@@ -3,7 +3,7 @@ const { Builder, Key, By, until } = require('selenium-webdriver');
 const { assert } = require('chai');
 
 const baseURL = 'https://algotrition.herokuapp.com';
-const TIMEOUT = 1000;
+const TIMEOUT = 5000;
 
 describe('UI', () => {
   let driver;
