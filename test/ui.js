@@ -8,8 +8,14 @@ describe('UI', () => {
     driver = await new Builder().forBrowser('chrome').build();
   });
 
+  it('test', async () => {
+    await driver.get('http://google.com');
+    const title = await driver.getTitle();
+    assert.equal(title, 'Google');
+  });
+
   it('Load home', async () => {
-    await driver.get('https://localhost:3000/generator');
+    await driver.get('http://localhost:3000/generator');
     await driver.findElement(By.id('potassium-toggle')).click();
     const title = await driver.getTitle();
     assert.equal(title, 'Algotrition');
