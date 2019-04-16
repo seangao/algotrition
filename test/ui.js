@@ -9,7 +9,7 @@ describe('UI', () => {
   });
 
   it('Load home', async () => {
-    await driver.get('https://localhost');
+    await driver.get('https://localhost:3000');
     const title = await driver.getTitle();
     assert.equal(title, 'Algotrition');
   });
