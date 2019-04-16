@@ -26,7 +26,7 @@ describe('UI', () => {
     await driver.get(baseURL + '/generator');
     await driver.findElement(By.id('potassium-toggle')).click();
     await driver.findElement(By.id('generator-nutr-button')).click();
-    await driver.wait(until.elementLocated(By.id('generator-opt-button')), 10000);
+    driver.manage().timeouts().implicitlyWait(1);
     await driver.findElement(By.id('generator-opt-button')).click();
     // await driver.wait(until.elementLocated(By.id('generate')), 10000);
     // await driver.findElement(By.id('generate')).click();
