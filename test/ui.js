@@ -40,7 +40,7 @@ describe('UI', () => {
     await driver.get(baseURL + '/login');
     await driver.findElement(By.id('username')).sendKeys('sean');
     await driver.findElement(By.id('password')).sendKeys('test');
-    await driver.findElement(By.id(login')).click();
+    await driver.findElement(By.id('login')).click();
 
     const title = await driver.getTitle();
     assert.equal(title, 'Algotrition');
