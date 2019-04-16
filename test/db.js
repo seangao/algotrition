@@ -73,6 +73,8 @@ describe('database', () => {
       weight: 140,
       age: 30,
       gender: 'female',
+      ft: 5,
+      in: 10,
     });
     expect(data).to.satisfy(d => d.id === 1
         && d.username === 'test2'
