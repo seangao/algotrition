@@ -10,6 +10,7 @@ describe('UI', () => {
 
   it('Load home', async () => {
     await driver.get('https://localhost:3000/generator');
+    await driver.findElement(By.id('potassium-toggle')).click();
     const title = await driver.getTitle();
     assert.equal(title, 'Algotrition');
   });
