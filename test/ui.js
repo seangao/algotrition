@@ -3,6 +3,7 @@ const { Builder, Key, By, until } = require('selenium-webdriver');
 const { assert } = require('chai');
 
 const baseURL = 'https://algotrition.herokuapp.com';
+const TIMEOUT = 1000;
 
 describe('UI', () => {
   let driver;
@@ -26,9 +27,9 @@ describe('UI', () => {
     await driver.get(baseURL + '/generator');
     await driver.findElement(By.id('potassium-toggle')).click();
     await driver.findElement(By.id('generator-nutr-button')).click();
-    await driver.manage().setTimeouts(type='implicit', 1000);
+    await driver.manage().setTimeouts({ implicit: TIMEOUT, pageLoad: TIMEOUT, script: TIMEOUT });
     await driver.findElement(By.id('generator-opt-button')).click();
-    await driver.manage().setTimeouts(type='implicit', 1000);
+    await driver.manage().setTimeouts({ implicit: TIMEOUT, pageLoad: TIMEOUT, script: TIMEOUT });
     await driver.findElement(By.id('generate')).click();
     await driver.wait(until.elementLocated(By.id('plan-calendar')), 10000);
     const title = await driver.getTitle();
