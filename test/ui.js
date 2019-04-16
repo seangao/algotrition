@@ -12,6 +12,30 @@ describe('UI', () => {
 
   it('load home', async () => {
     await driver.get(baseURL);
+    const title = await driver.getTitle();
+    assert.equal(title, 'Algotrition');
+  });
+
+  it('access generator without logging in', async () => {
+    await driver.get(baseURL + '/generator');
+    const title = await driver.getTitle();
+    assert.equal(title, 'Plan Generator');
+  });
+
+  it('generate meal plan', async () => {
+    await driver.get(baseURL + '/generator');
+    await driver.findElement(By.id('potassium-toggle')).click();
+    await driver.findElement(By.id('generator-nutr-button')).click();
+    await driver.findElement(By.id('generator-opt-button')).click();
+    await driver.findElement(By.id('generate')).click();
+
+    await driver.wait(until.elementLocated(By.id('plan-calendar')), 10000);
+    const title = await driver.getTitle();
+    assert.equal(title, 'Calendar');
+  });
+
+  it('load home', async () => {
+    await driver.get(baseURL);
     // await driver.findElement(By.id('potassium-toggle')).click();
     const title = await driver.getTitle();
     assert.equal(title, 'Algotrition');
