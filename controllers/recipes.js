@@ -6,16 +6,6 @@ async function recipes(req, res, next) {
   // next();
 }
 
-async function saveRecipe(req, res, next) {
-  const { title } = req.body;
-  const ingredients = JSON.stringify(req.body.ingredients);
-  const { instruction } = req.body;
-  // console.log(req.session);
-  // console.log(typeof ingredients);
-  const test = await recipesModels.saveNewRecipe(req.app.locals.db, req.session.userid, title, ingredients, instruction);
-  next();
-}
-
 async function getUserRecipe(req, res) {
   let userRecipes = await recipesModels.getUserRecipes(req.app.locals.db, req.session.userid);
   userRecipes = JSON.parse(JSON.stringify(userRecipes));
@@ -31,6 +21,12 @@ async function getUserRecipe(req, res) {
   }
 }
 
+async function deleteRecipe(req, res, next) {
+  let deleteRecipeId = Object.keys(req.body)[0];
+  const result = await recipesModels.deleteRecipe(req.app.locals.db, deleteRecipeId);
+  next();
+}
+
 module.exports = {
-  recipes, saveRecipe, getUserRecipe,
+  recipes, getUserRecipe, deleteRecipe,
 };

@@ -52,7 +52,7 @@ function addIngredient() {
     return;
   }
   $('#ingredient-input').val('');
-  const markup = `<li class="list-group-item"><input type='hidden' name='ingredients[]' value='${input}' form='recipe-form'/><button type="button" class="close remove-ingredient" aria-label="Close"><span aria-hidden="true">&times;</span></button>${input}</li>`;
+  const markup = `<li class="list-group-item"><input type='hidden' name='ingredients[]' value='${input}' form='add-recipe-form'/><button type="button" class="close remove-ingredient" aria-label="Close"><span aria-hidden="true">&times;</span></button>${input}</li>`;
   $('#ingredient-list').append(markup);
   $('.remove-ingredient').click(removeIngredient);
 }
@@ -89,7 +89,7 @@ function main() {
   $('#generator-opt-button').click(updateOptimizeId);
   $('#add-ingredient').click(addIngredient);
   $('#cancel-recipe-input').click(clearRecipeInputs);
-  $('#recipe-form').submit(checkInputs);
+  $('#add-recipe-form').submit(checkInputs);
   // $('#ingredient-input').on('keyup', setUpEnterKey);
 }
 

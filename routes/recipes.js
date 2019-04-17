@@ -7,6 +7,6 @@ const recipesControllers = require('../controllers/recipes.js');
 router.get('/', recipesControllers.getUserRecipe);
 router.get('/', recipesControllers.recipes);
 
-router.post('/', recipesControllers.saveRecipe, (req, res) => res.redirect('back'));
+router.post('/', recipesControllers.deleteRecipe, (req, res) => res.redirect('back'));
 
 module.exports = router;
