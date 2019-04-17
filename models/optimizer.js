@@ -422,11 +422,10 @@ function optimization(inputConstraints, recipes) {
   let j;
 
   // The hardcoded parameters in the following block will later be taken from user inputs
-  inputConstraints.numberDays = 1;
   inputConstraints.optParameter = 'total_time_seconds'; // Options: 'total_time_seconds' 'price_per_serving', 'energy'
   inputConstraints.optParameterType = 'min'; // Options: 'min' 'max'
 
-  for (i = 0; i < inputConstraints.numberDays; i += 1) {
+  for (i = 0; i < inputConstraints.days; i += 1) {
     const model = {
       optimize: inputConstraints.optParameter,
       opType: inputConstraints.optParameterType,
