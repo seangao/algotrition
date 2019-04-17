@@ -1,5 +1,6 @@
 const optimizer = require('../models/optimizer.js');
 const recipesMod = require('../models/recipes.js');
+const planModel = require('../models/plan.js');
 
 function generator(req, res) {
   const optimizers = [
@@ -159,13 +160,17 @@ function generator(req, res) {
 
 async function saveGeneratorRequest(req, res, next) {
   // req.body contains the POST request in a JSON format
-  console.log(req.body);
+  // console.log(req.body);
   const recipes = await recipesMod.getAllRecipes(req.app.locals.db);
 
   const calendar = optimizer.optimization(req.body, recipes);
 
   if (calendar.length > 0) {
-    await optimizer.writeCalendarFile('./saved_plans/recipe1.txt', calendar);
+    if (req.session.user && req.cookies.user_sid) {
+      planModel.insertPlan(req.app.locals.db, req.session.userid, calendar);
+    } else {
+      await optimizer.writeCalendarFile('./saved_plans/recipe1.txt', calendar);
+    }
     next();
   } else {
     res.render('error', {
