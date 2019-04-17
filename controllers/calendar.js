@@ -1,11 +1,18 @@
 const url = require('url');
 const fs = require('fs');
 const optimizer = require('../models/optimizer.js');
+const planModel = require('../models/plan.js');
 
 function calendar(req, res) {
   // Code to read in the saved meal plan from a text file
-  const weekString = fs.readFileSync('./saved_plans/recipe1.txt').toString('utf-8');
-  let week = JSON.parse(weekString);
+  let week;
+  if (req.session.user && req.cookies.user_sid) {
+    const data = await planModel.retrievePlan(req.app.locals.db, req.cookies.user_sid);
+    week = JSON.parse(data.plan);
+  } else {
+    const weekString = fs.readFileSync('./saved_plans/recipe1.txt').toString('utf-8');
+    week = JSON.parse(weekString);
+  }
 
   const queryData = url.parse(req.url, true).query;
   if (queryData.eaten_day) {
