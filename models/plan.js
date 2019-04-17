@@ -90,5 +90,5 @@ async function getPlanMeal(db, id) {
 }
 
 module.exports = {
-  insertPlan, retrievePlan,
+  insertPlan, retrievePlan, setPlanDay, setPlanMeal, getPlanDay, getPlanMeal,
 }
