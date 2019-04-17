@@ -69,10 +69,12 @@ describe('database', () => {
 
   it('update profile', async () => {
     const data = await profileModel.updateProfile(db, 1, {
-      Username: 'test2',
-      Weight: 140,
-      Age: 30,
-      Gender: 'female',
+      username: 'test2',
+      weight: 140,
+      age: 30,
+      gender: 'female',
+      ft: 5,
+      in: 10,
     });
     expect(data).to.satisfy(d => d.id === 1
         && d.username === 'test2'
