@@ -1,5 +1,6 @@
 const solver = require('javascript-lp-solver');
 const fs = require('fs');
+const planModel = require('../models/plan');
 // const recipesModels = require('../models/recipes');
 
 
@@ -393,7 +394,7 @@ function writeCalendarFile(path, calendar) {
 }
 
 
-function incrementActiveMeal(path, calendar, eatenDay, eatenMeal) {
+async function incrementActiveMeal(db, id, calendar, eatenDay, eatenMeal) {
   calendar[eatenDay].meals[eatenMeal].eaten = true;
   // let the lint complain, otherwise we get 0 + 1 = 01
   eatenMeal++;

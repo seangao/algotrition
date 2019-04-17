@@ -3,11 +3,18 @@ const fs = require('fs');
 const optimizer = require('../models/optimizer.js');
 const planModel = require('../models/plan.js');
 
-function calendar(req, res) {
+async function calendar(req, res) {
   // Code to read in the saved meal plan from a text file
   let week;
   if (req.session.user && req.cookies.user_sid) {
-    const data = await planModel.retrievePlan(req.app.locals.db, req.cookies.user_sid);
+    const data = await planModel.retrievePlan(req.app.locals.db, req.session.userid);
+    if (data.plan === '') {
+      res.render('error', {
+        message: '',
+        error: { status: 'Meal plan does not exist. Please generate one!' },
+        user: req.session.user,
+      });
+    }
     week = JSON.parse(data.plan);
   } else {
     const weekString = fs.readFileSync('./saved_plans/recipe1.txt').toString('utf-8');

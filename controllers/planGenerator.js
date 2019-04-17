@@ -160,14 +160,14 @@ function generator(req, res) {
 
 async function saveGeneratorRequest(req, res, next) {
   // req.body contains the POST request in a JSON format
-  console.log(req.body);
+  // console.log(req.body);
   const recipes = await recipesMod.getAllRecipes(req.app.locals.db);
 
   const calendar = optimizer.optimization(req.body, recipes);
 
   if (calendar.length > 0) {
     if (req.session.user && req.cookies.user_sid) {
-      insertPlan(req.app.locals.db, req.cookies.user_sid, calendar);
+      planModel.insertPlan(req.app.locals.db, req.session.userid, calendar);
     } else {
       await optimizer.writeCalendarFile('./saved_plans/recipe1.txt', calendar);
     }
