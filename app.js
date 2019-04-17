@@ -26,7 +26,7 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
 // force HTTPS redirect
-if (req.app.get('env') === 'production') {
+if (app.get('env') === 'production') {
   app.use(enforce.HTTPS({ trustProtoHeader: true }));
 }
 
