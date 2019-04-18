@@ -1,6 +1,6 @@
 async function getAllRecipes(db) {
   const stmt = `
-        SELECT * FROM recipes_sp LIMIT 500
+        SELECT * FROM recipes_sp WHERE breakfast=1 OR lunch=1 OR dinner=1 LIMIT 500
     `;
   const recipes = await db.manyOrNone(stmt);
   return recipes;
