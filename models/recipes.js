@@ -30,6 +30,22 @@ async function getUserRecipes(db, userid) {
   return db.manyOrNone(stmt, [userid]);
 }
 
+async function getRecipeById(db, recipe_id) {
+  const stmt = `
+        SELECT * FROM user_recipes WHERE id = $1
+  `;
+  return db.oneOrNone(stmt, [recipe_id]);
+}
+
+async function updateRecipeById(db, recipe_id, title, ingredients, instructions) {
+  const stmt = `
+        UPDATE user_recipes
+        SET title = $2, ingredients = $3, instructions = $4
+        WHERE id = $1
+  `;
+  return db.oneOrNone(stmt, [recipe_id, title, ingredients, instructions]);
+}
+
 module.exports = {
-  getAllRecipes, saveNewRecipe, deleteRecipe, getUserRecipes,
+  getAllRecipes, saveNewRecipe, deleteRecipe, getUserRecipes, getRecipeById, updateRecipeById,
 };

@@ -27,6 +27,32 @@ async function deleteRecipe(req, res, next) {
   next();
 }
 
+async function editRecipe(req, res, next) {
+  let editRecipeId = Object.keys(req.body)[0];
+  let recipeInfo = await recipesModels.getRecipeById(req.app.locals.db, editRecipeId);
+  recipeInfo = JSON.parse(JSON.stringify(recipeInfo));
+  let { ingredients } = recipeInfo;
+  ingredients = JSON.parse(ingredients);
+  recipeInfo.ingredients = ingredients;
+  res.render('editRecipe', { title: 'editRecipe', user: req.session.user, recipe: recipeInfo, recipe_id: recipeInfo.id });
+  next();
+}
+
+async function saveChange(req, res, next) {
+  console.log(req.body);
+  const { recipe_id } = req.body;
+  const { title } = req.body;
+  const ingredients = JSON.stringify(req.body.ingredients);
+  const { instruction } = req.body;
+
+  console.log(recipe_id);
+  console.log(ingredients);
+  console.log(title);
+  console.log(instruction);
+  const result = await recipesModels.updateRecipeById(req.app.locals.db, recipe_id, title, ingredients, instruction);
+  next();
+}
+
 module.exports = {
-  recipes, getUserRecipe, deleteRecipe,
+  recipes, getUserRecipe, deleteRecipe, editRecipe, saveChange,
 };

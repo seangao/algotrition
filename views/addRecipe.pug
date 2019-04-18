@@ -5,9 +5,9 @@ block content
   div#recipe-carousel.carousel.slide(data-ride='carousel', data-interval='false')
     form#add-recipe-form(method='POST', action='')
       div.carousel-item.active
-        label(for="recipe-title") Please input a title for your recipe
+        label(for='title') Please input a title for your recipe
         div.input-group.mb-3
-          input#title.form-control(type='text', name='title', placeholder='Recipe Title', aria-label='Recipe Title', aria-descibedby="basic-addon2")
+          input#title.form-control(type='text', name='title', placeholder='Recipe Title', aria-label='Recipe Title', aria-descibedby='basic-addon2')
 
         div.text-center.pt-2
           a#check-title-button.btn.btn-outline-primary(href='#recipe-carousel', role='button', data-slide='next') Input Ingredients
@@ -28,7 +28,7 @@ block content
 
       div.carousel-item
         div.form-group
-          textarea#instruction.form-control(rows="5", name='instruction')
+          textarea#instruction.form-control(rows='5', name='instruction')
         div.text-center.pt-3
           a.btn.btn-outline-primary(href='#recipe-carousel', role='button', data-slide='next') Next
           a.btn.btn-outline-primary(href='#recipe-carousel', role='button', data-slide='prev') Back
