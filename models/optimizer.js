@@ -247,14 +247,15 @@ function populateRecipeVariables(constraints, inputConstraints, recipeArray) {
       recipe.lunch = 0;
       recipe.dinner = 0;
     }
-    if (recipe.lunch === 1) {
+
+    if (recipe.lunch === 1 && recipe.dinner === 1) {
       if (Math.random() < 0.5) {
         recipe.lunch = 1;
         recipe.dinner = 0;
       } else {
         recipe.lunch = 0;
         recipe.dinner = 1;
-      }
+        }
     }
 
     tempObj.breakfast = recipe.breakfast;
