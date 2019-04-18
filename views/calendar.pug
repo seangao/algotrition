@@ -18,7 +18,7 @@ block content
           each recipe in meal.recipes
             .card.bg-dark.my-1
               h5.card-header.d-flex(style='background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('+recipe.image+'); background-repeat: no-repeat; background-size: cover; background-position: center center; background-clip: padding-box;')
-                a.mr-auto.text-white(data-toggle="collapse" href="#meal"+day.id+'-'+meal.id+"-"+recipe.id)= recipe.name
+                a.mr-auto.text-white.text-capitalize(data-toggle="collapse" href="#meal"+day.id+'-'+meal.id+"-"+recipe.id)= recipe.name
                 .drop-down
                   a.text-white(data-toggle="dropdown" href="#")
                     i.fas.fa-ellipsis-h
