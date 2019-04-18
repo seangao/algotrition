@@ -8,7 +8,7 @@ async function calendar(req, res) {
   let week;
   if (req.session.user && req.cookies.user_sid) {
     const data = await planModel.retrievePlan(req.app.locals.db, req.session.userid);
-    if (data.plan === '') {
+    if (data.plan === null) {
       res.render('error', {
         message: '',
         error: { status: 'Meal plan does not exist. Please generate one!' },
