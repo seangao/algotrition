@@ -14,8 +14,9 @@ block content
           div.text-center.pt-2
             a#generator-nutr-button.btn.btn-outline-primary(href='#generator-carousel', role='button',
               data-slide='next') Next
-          
-      // what to optimize for menu    
+            a.btn.btn-outline-primary(href='/', role='button') Cancel
+
+      // what to optimize for menu
       div.carousel-item
         div.dropdown-menu.login-menu
           div.dropdown-item.pb-2 What to Optimize For
@@ -30,8 +31,8 @@ block content
           div.text-center.pt-2
             a#generator-opt-button.btn.btn-outline-primary(href='#generator-carousel', role='button',
               data-slide='next') Next
-          
-      // enter parameters menu    
+
+      // enter parameters menu
       div.carousel-item
         div#generator-form(class='dropdown-menu login-menu')
           form(method='POST', class='px-3 py-3', action='')
@@ -48,8 +49,8 @@ block content
                 name='calories-max', value=2200)
               div(class='input-group-append')
                 div(class='input-group-append')
-                  span(class='input-group-text nutr-options-append-primary') cal  
-                  
+                  span(class='input-group-text nutr-options-append-primary') cal
+
             //- div(class='form-group input-group')
             //-   div(class='input-group-prepend')
             //-     span(class='input-group-text input-group-icon')
@@ -64,7 +65,7 @@ block content
             //-   div(class='input-group-append')
             //-     div(class='input-group-append')
             //-       span(class='input-group-text nutr-options-append-primary') min
-                  
+
             //- div(class='form-group input-group')
             //-   div(class='input-group-prepend')
             //-     span(class='input-group-text input-group-icon')
@@ -79,23 +80,23 @@ block content
             //-   div(class='input-group-append')
             //-     div(class='input-group-append')
             //-       span(class='input-group-text nutr-options-append-primary') ($)
-                  
+
             div(class='form-group input-group')
               div(class='input-group-prepend')
                 span(class='input-group-text input-group-icon')
                   i(class='fas fa-allergies')
-              select#allergens-web(class='selectpicker select-allergens form-control d-none', 
-                multiple, data-mobile=true, data-none-selected-text='Allergens', 
+              select#allergens-web(class='selectpicker select-allergens form-control d-none',
+                multiple, data-mobile=true, data-none-selected-text='Allergens',
                 data-width:'auto', name='allergens' disabled)
                 each allergen in allergens
                     option(value=allergen.toLowerCase()) #{allergen}
-              select#allergens-mobile(class='custom-select form-control', 
-                multiple, data-mobile=true, data-none-selected-text='Allergens', 
+              select#allergens-mobile(class='custom-select form-control',
+                multiple, data-mobile=true, data-none-selected-text='Allergens',
                 data-width:'auto', name='allergens')
                 option(disabled) Allergens
                 each allergen in allergens
                     option(value=allergen.toLowerCase()) #{allergen}
-                    
+
             div(class='form-group input-group')
               div(class='input-group-prepend')
                 span(class='input-group-text input-group-icon')
@@ -104,7 +105,7 @@ block content
                 option(selected disabled) No dietary restrictions
                 each diet in diets
                     option(value=diet.toLowerCase()) #{diet}
-            
+
             div(class='form-group input-group')
               div(class='input-group-prepend')
                 span(class='input-group-text input-group-icon')
@@ -119,7 +120,7 @@ block content
               div(class='input-group-append')
                 div(class='input-group-append')
                   span(class='input-group-text') daily meals
-            
+
             div(class='form-group input-group')
               div(class='input-group-prepend')
                 span(class='input-group-text input-group-icon')
@@ -135,26 +136,26 @@ block content
               div(class='input-group-append')
                 div(class='input-group-append')
                   span(class='input-group-text') days to generate
-            
+
             div.dropdown-divider.pb-2
-            
+
             each nutr in nutrients
               div.form-group.input-group(id=nutr.id)
                 div.input-group-prepend
                   span.input-group-text.nutr-options-additional-prepend-primary #{nutr.short}
-                input.form-control(id=nutr.id + '-min', type='number', 
+                input.form-control(id=nutr.id + '-min', type='number',
                   placeholder=nutr.short, name=nutr.id + '-min', value=nutr.min)
                 div.input-group-append.input-group-prepend
                   div.input-group-append.input-group-prepend
                     span.input-group-text -
-                input.form-control(id=nutr.id + '-max', type='number', 
+                input.form-control(id=nutr.id + '-max', type='number',
                   placeholder=nutr.short, name=nutr.id + '-max', value=nutr.max)
                 div(class='input-group-append')
                   div(class='input-group-append')
                     span.nutr-options-additional-append-primary(class='input-group-text') #{nutr.units}
-            
+
             input#optimize-id(type='hidden', name='optimize-id', value=0)
-                    
+
             div.dropdown-divider
             div.text-center.pt-3
               button#generate.btn.btn-outline-primary(type='submit',
