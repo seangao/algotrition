@@ -8,6 +8,12 @@ block content
     h4 Welcome to Algotrition
   h6= 'Today is ' + date.day + ', ' + date.month + ' ' + date.date + ', ' + date.year
   br
+  if (nextMeal)
+    h4.text-light.card-header.d-flex(style='background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('+nextMeal.recipes[0].image+'); background-repeat: no-repeat; background-size: cover; background-position: center center; background-clip: padding-box;')= 'Today\'s ' + nextMeal.name
+    .card.card-body
+      ul.list-group
+        each recipe in nextMeal.recipes
+          .d-flex.list-group-item= recipe.name
   if ingredients
     button.list-group-item.list-group-item-action(type='button', data-toggle='collapse', data-target='#shopping-list', role='button', aria-expanded='false', aria-controls='shopping-list') Show Shopping List
     div.collapse(id='shopping-list')

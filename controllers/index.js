@@ -8,6 +8,7 @@ const monthNames = ["January", "February", "March", "April", "May", "June",
 async function index(req, res, next) {
   let week;
   let userData;
+  let nextMeal;
   if (req.session.user && req.cookies.user_sid) {
     userData = await profileModels.searchUserbyID(req.app.locals.db, req.session.userid);
     console.log(userData);
@@ -29,6 +30,10 @@ async function index(req, res, next) {
       let day = week[i];
       for (var j = 0; j < day.meals.length; j++) {
         let meal = day.meals[j];
+        if (meal.active && !meal.eaten) {
+          nextMeal = meal;
+          meal.day = day;
+        }
         for (var k = 0; k < meal.recipes.length; k++) {
           let recipe = meal.recipes[k];
           for (var m = 0; m < recipe.ingredients.length; m++) {
@@ -58,7 +63,14 @@ async function index(req, res, next) {
   date.date = d.getDate();
   date.day = d.getDay();
 
-  res.render('index', { title: 'Algotrition', ingredients: ingredients_list, date: date, user: req.session.user, userData: userData });
+  res.render('index', {
+    title: 'Algotrition',
+    ingredients: ingredients_list,
+    date: date,
+    user: req.session.user,
+    userData: userData,
+    nextMeal: nextMeal,
+  });
 }
 
 module.exports = {
