@@ -64,7 +64,7 @@ async function index(req, res, next) {
       }
     }
   }
-  console.log(ingredients_by_aisle);
+  // console.log(ingredients_by_aisle);
 
   // construct date object for display
   var d = new Date();

@@ -1,52 +1,69 @@
 extends layout
 
 block content
-  h1 Welcome to #{title}
-  
-  .container
-    .row
-      img(src='/images/choose-specify.svg' alt='Expand' height='300px')
-      h1 Choosing Nutrients
-      p From the given list of nutrients, select the ones for which you wish to
-      | ranges. Currently, we support specifying the following nutrients:      
-      for nutr in nutrients
-        p #{nutr.name}
-    .row
-      img(src='/images/choose-optimize.svg' alt='Expand' height='300px')
-      h1 This is the title
-      p this is some description text about some things
-    .row
-      img(src='/images/enter-param-screen.svg' alt='Expand' height='300px')
-  if user
-    h4= 'Welcome back to Algotrition '
-      span.text-success=userData.username
-  else
-    h4 Welcome to Algotrition
-  h6= 'Today is ' + date.day + ', ' + date.month + ' ' + date.date + ', ' + date.year
-  br
-  if nextMeal
-    h4.text-light.card-header.d-flex(style='background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('+nextMeal.recipes[0].image+'); background-repeat: no-repeat; background-size: cover; background-position: center center; background-clip: padding-box;')= 'Today\'s ' + nextMeal.name
-    .card.card-body
-      ul.list-group
-        each recipe in nextMeal.recipes
-          .d-flex.list-group-item= recipe.name
-  if ingredients
-    button.list-group-item.list-group-item-action(type='button', data-toggle='collapse', data-target='#shopping-list', role='button', aria-expanded='false', aria-controls='shopping-list') Show Shopping List
-    div.collapse(id='shopping-list')
-      div.card.card-body
+  div#no-tutorial
+    if user
+      h4= 'Welcome back to Algotrition '
+        span.text-success=userData.username
+    else
+      h4 Welcome to Algotrition
+    h6= 'Today is ' + date.day + ', ' + date.month + ' ' + date.date + ', ' + date.year
+    br
+    if nextMeal
+      h4.text-light.card-header.d-flex(style='background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('+nextMeal.recipes[0].image+'); background-repeat: no-repeat; background-size: cover; background-position: center center; background-clip: padding-box;')= 'Today\'s ' + nextMeal.name
+      .card.card-body
         ul.list-group
-          each aisle, key in ingredients
-            p.text-secondary= 'Suggested Aisle: ' + key
-            each ingredient in aisle
-              ul.list-group
-                button.list-group-item.d-flex.justify-content-between.align-items-center(type='button', role='button')= ingredient.ingredient_amount + ' ' + ingredient.ingredient_unit + ' ' + ingredient.ingredient_name
-            br
-    a.list-group-item.list-group-item-action(href='/generator', role='button') Create a new meal plan
+          each recipe in nextMeal.recipes
+            .d-flex.list-group-item= recipe.name
+    if ingredients
+      button.list-group-item.list-group-item-action(type='button', data-toggle='collapse', data-target='#shopping-list', role='button', aria-expanded='false', aria-controls='shopping-list') Show Shopping List
+      div.collapse(id='shopping-list')
+        div.card.card-body
+          ul.list-group
+            each aisle, key in ingredients
+              p.text-secondary= 'Suggested Aisle: ' + key
+              each ingredient in aisle
+                ul.list-group
+                  button.list-group-item.d-flex.justify-content-between.align-items-center(type='button', role='button')= ingredient.ingredient_amount + ' ' + ingredient.ingredient_unit + ' ' + ingredient.ingredient_name
+              br
+      a.list-group-item.list-group-item-action(href='/generator', role='button') Create a new meal plan
 
-  else
-    h6 You do not have a saved meal plan yet.
-    a.list-group-item.list-group-item-action(href='/generator', role='button') Create a meal plan
-  if user
-    a.list-group-item.list-group-item-action(href='/profile', role='button') View or Change Your Profile
-  else
-    a.list-group-item.list-group-item-action(href='/login', role='button') Log in or Register to save your meal plan
+    else
+      h6 You do not have a saved meal plan yet.
+      a.list-group-item.list-group-item-action(href='/generator', role='button') Create a meal plan
+    if user
+      a.list-group-item.list-group-item-action(href='/profile', role='button') View or Change Your Profile
+      button.list-group-item.list-group-item-action(type='button', data-toggle='collapse', data-target='#tutorial', role='button', aria-expanded='true', aria-controls='tutorial') See Tutorial
+      div#tutorial.container.collapse
+        div.card.card-body
+          .row
+            img(src='/images/choose-specify.svg' alt='Expand' height='300px')
+            h1 Choosing Nutrients
+            p From the given list of nutrients, select the ones for which you wish to
+            | ranges. Currently, we support specifying the following nutrients:
+            for nutr in nutrients
+              p #{nutr.name}
+          .row
+            img(src='/images/choose-optimize.svg' alt='Expand' height='300px')
+            h1 This is the title
+            p this is some description text about some things
+          .row
+            img(src='/images/enter-param-screen.svg' alt='Expand' height='300px')
+    else
+      a.list-group-item.list-group-item-action(href='/login', role='button') Log in or Register to save your meal plan
+      button.list-group-item.list-group-item-action(type='button', data-toggle='collapse', data-target='#tutorial', role='button', aria-expanded='true', aria-controls='tutorial') See Tutorial
+      div#tutorial.container.collapse.show
+        div.card.card-body
+          .row
+            img(src='/images/choose-specify.svg' alt='Expand' height='300px')
+            h1 Choosing Nutrients
+            p From the given list of nutrients, select the ones for which you wish to
+            | ranges. Currently, we support specifying the following nutrients:
+            for nutr in nutrients
+              p #{nutr.name}
+          .row
+            img(src='/images/choose-optimize.svg' alt='Expand' height='300px')
+            h1 This is the title
+            p this is some description text about some things
+          .row
+            img(src='/images/enter-param-screen.svg' alt='Expand' height='300px')
