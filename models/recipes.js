@@ -1,9 +1,22 @@
 async function getAllRecipes(db) {
   const stmt = `
-        SELECT * FROM recipes_sp WHERE breakfast=1 OR lunch=1 OR dinner=1 LIMIT 500
+        SELECT * FROM recipes_sp WHERE breakfast=1 OR lunch=1 OR dinner=1  LIMIT 500
     `;
   const recipes = await db.manyOrNone(stmt);
   return recipes;
+}
+
+async function getSpoonRecipeById(db, recipe_id) {
+  const stmt = `
+        SELECT * FROM recipes_sp WHERE id = $1
+  `;
+  return db.oneOrNone(stmt, [recipe_id])
+    .then(data => {
+      return data;
+    })
+    .catch(error => {
+      return error;
+    });
 }
 
 async function saveNewRecipe(db, userid, title, ingredients, instructions) {
@@ -77,5 +90,5 @@ async function updateRecipeById(db, recipe_id, title, ingredients, instructions)
 }
 
 module.exports = {
-  getAllRecipes, saveNewRecipe, deleteRecipe, getUserRecipes, getRecipeById, updateRecipeById,
+  getAllRecipes, getSpoonRecipeById, saveNewRecipe, deleteRecipe, getUserRecipes, getRecipeById, updateRecipeById,
 };
