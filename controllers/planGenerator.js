@@ -161,6 +161,7 @@ function generator(req, res) {
 async function saveGeneratorRequest(req, res, next) {
   // req.body contains the POST request in a JSON format
   // console.log(req.body);
+
   const recipes = await recipesMod.getAllRecipes(req.app.locals.db);
 
   const calendar = optimizer.optimization(req.body, recipes);
@@ -168,8 +169,12 @@ async function saveGeneratorRequest(req, res, next) {
   if (calendar.length > 0) {
     if (req.session.user && req.cookies.user_sid) {
       planModel.insertPlan(req.app.locals.db, req.session.userid, calendar);
+      planModel.insertConstraints(req.app.locals.db, req.session.userid, req.body);
+      planModel.insertRejectedRecipes(req.app.locals.db, req.session.userid, []);
     } else {
       await optimizer.writeCalendarFile('./saved_plans/recipe1.txt', calendar);
+      await optimizer.writeConstraintsFile('./saved_plans/constraints.txt', req.body);
+      await optimizer.writeRejectedRecipesFile('./saved_plans/rejectedRecipes.txt', []);
     }
     next();
   } else {
