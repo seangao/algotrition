@@ -11,6 +11,7 @@ async function saveRecipe(req, res, next) {
   const { instruction } = req.body;
   // console.log(req.session);
   // console.log(typeof ingredients);
+  // console.log(ingredients);
   const test = await recipesModels.saveNewRecipe(req.app.locals.db, req.session.userid, title, ingredients, instruction);
   next();
 }

@@ -6,7 +6,7 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const pgp = require('pg-promise')();
 const bodyParser = require('body-parser');
-// const enforce = require('express-sslify');
+const enforce = require('express-sslify');
 
 const app = express();
 
@@ -19,7 +19,6 @@ const planGeneratorRouter = require('./routes/planGenerator');
 const calendarRouter = require('./routes/calendar');
 const recipesRouter = require('./routes/recipes');
 const addRecipeRouter = require('./routes/addRecipe');
-const editRecipeRouter = require('./routes/editRecipe');
 const logoutRouter = require('./routes/logout');
 const indexRouter = require('./routes/index');
 
@@ -91,7 +90,6 @@ function outSessionChecker(req, res, next) {
 app.use('/logout', outSessionChecker, logoutRouter);
 app.use('/recipes', outSessionChecker, recipesRouter);
 app.use('/addRecipe', outSessionChecker, addRecipeRouter);
-app.use('/editRecipe', sessionChecker, editRecipeRouter);
 app.use('/profile', outSessionChecker, profileRouter);
 
 // catch 404 and forward to error handler
