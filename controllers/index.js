@@ -4,6 +4,7 @@ const fs = require('fs');
 const monthNames = ["January", "February", "March", "April", "May", "June",
   "July", "August", "September", "October", "November", "December"
 ];
+const dayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 
 async function index(req, res, next) {
   let week;
@@ -60,7 +61,7 @@ async function index(req, res, next) {
   date.year = d.getFullYear();
   date.month = monthNames[d.getMonth()];
   date.date = d.getDate();
-  date.day = d.getDay();
+  date.day = dayNames[d.getDay()];
 
   res.render('index', {
     title: 'Algotrition',

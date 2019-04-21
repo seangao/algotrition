@@ -1,6 +1,27 @@
 extends layout
 
 block content
+<<<<<<< HEAD
+  h1 Welcome to #{title}
+  
+  .container
+    .row
+      img(src='/images/choose-specify.svg' alt='Expand' height='300px')
+      h1 Choosing Nutrients
+      p From the given list of nutrients, select the ones for which you wish to
+      | ranges. Currently, we support specifying the following nutrients:
+      
+      for nutr in nutrients
+        p #{nutr.name}
+      
+    .row
+      img(src='/images/choose-optimize.svg' alt='Expand' height='300px')
+      h1 This is the title
+      p this is some description text about some things
+    
+    .row
+      img(src='/images/enter-param-screen.svg' alt='Expand' height='300px')
+=======
   if user
     h4= 'Welcome back to Algotrition '
       span.text-success=userData.username
@@ -30,3 +51,4 @@ block content
     a.list-group-item.list-group-item-action(href='/profile', role='button') View or Change Your Profile
   else
     a.list-group-item.list-group-item-action(href='/login', role='button') Log in or Register to save your meal plan
+>>>>>>> 8f8f57d2349cf00034195473969c458a0adb83fb
