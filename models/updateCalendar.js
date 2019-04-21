@@ -40,7 +40,7 @@ async function readRejectedRecipes(req) {
     	const rejectedRecipesString = fs.readFileSync('./saved_plans/rejectedRecipes.txt').toString('utf-8');
     	rejectedRecipes = JSON.parse(rejectedRecipesString);
   }
-	return calendar;
+	return rejectedRecipes;
 }
 
 async function writeCalendar(req, calendar) {
@@ -120,7 +120,6 @@ async function deleteRecipeFromCalendar(req, rejectedRecipeId) {
     model.variables = optimizer.duplicateVariables(model.variables, servingNumbers, inputConstraints);
     model.ints = optimizer.populateInts(model.variables);
     const results = solver.Solve(model);
-    console.log(results);
 
     // Generate output from solver
     if(results.feasible != true){
@@ -136,6 +135,7 @@ async function deleteRecipeFromCalendar(req, rejectedRecipeId) {
 			writeRejectedRecipes(req, rejectedRecipes);
     }
 
+		return calendar;
 }
 
 async function incrementActiveMeal(req, eatenDay, eatenMeal) {

@@ -26,6 +26,9 @@ async function calendar(req, res) {
   if (queryData.eaten_day) {
     week = await updateCalendar.incrementActiveMeal(req, queryData.eaten_day, queryData.eaten_meal);
   }
+  if (queryData.delete_id) {
+    week = await updateCalendar.deleteRecipeFromCalendar(req,queryData.delete_id);
+  }
   res.render('calendar', { title: 'Calendar', week, user: req.session.user });
 }
 
