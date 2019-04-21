@@ -303,6 +303,7 @@ function populateRecipeVariables(constraints, inputConstraints, recipeArray) {
       numDinnerRecipes = numDinnerRecipes + 1;
     }
 
+    tempObj.id = recipe.id;
     tempObj.total_time_seconds = recipe.total_time_seconds;
     tempObj.price_per_serving = recipe.price_per_serving;
     tempObj.ingredients = recipe.ingredients;
@@ -379,7 +380,7 @@ function returnMealsForCalendar(model, results, inputConstraints) {
 
 
       const singleRecipe = {
-        id: 1,
+        id: recipe.id,
         name: recipe.recipe_name,
         servings: recipe.num_recommended_servings,
         link: recipe.source_recipe_url,
@@ -581,5 +582,6 @@ function optimization(inputConstraints, recipes) {
 
 
 module.exports = {
-  optimization, returnCalendar, writeCalendarFile, writeConstraintsFile, writeRejectedRecipesFile, incrementActiveMeal,
+  optimization, returnCalendar, writeCalendarFile, writeConstraintsFile, writeRejectedRecipesFile, incrementActiveMeal, 
+  populateConstraints, populateRecipeVariables, duplicateVariables, populateInts, returnMealsForCalendar, 
 };
