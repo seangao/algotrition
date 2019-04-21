@@ -64,6 +64,7 @@ async function index(req, res, next) {
   date.day = dayNames[d.getDay()];
 
   res.render('index', {
+    nutrients: {},
     title: 'Algotrition',
     ingredients: ingredients_list,
     date: date,
