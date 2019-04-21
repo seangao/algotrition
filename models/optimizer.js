@@ -562,7 +562,7 @@ function optimization(inputConstraints, recipes) {
 
 
     const results = solver.Solve(model);
-    console.log(results);
+    // console.log(results);
     resultsArray.push(results);
     mealsArray.push(returnMealsForCalendar(model, results,inputConstraints));
 
