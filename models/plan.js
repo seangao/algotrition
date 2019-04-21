@@ -61,6 +61,36 @@ async function retrievePlan(db, id) {
     });
 }
 
+async function retrieveConstraints(db, id) {
+  const stmt = `
+    SELECT constraints from users
+    WHERE id = $1
+  `;
+  return db.oneOrNone(stmt, [id])
+    .then(data => {
+      return data;
+    })
+    .catch(error => {
+      console.log(error);
+      return error;
+    });
+}
+
+async function retrieveRejectedRecipes(db, id) {
+  const stmt = `
+    SELECT rejected_recipes from users
+    WHERE id = $1
+  `;
+  return db.oneOrNone(stmt, [id])
+    .then(data => {
+      return data;
+    })
+    .catch(error => {
+      console.log(error);
+      return error;
+    });
+}
+
 async function setPlanDay(db, id, day) {
   const stmt = `
     UPDATE users
@@ -122,5 +152,5 @@ async function getPlanMeal(db, id) {
 }
 
 module.exports = {
-  insertPlan, insertConstraints, insertRejectedRecipes, retrievePlan, setPlanDay, setPlanMeal, getPlanDay, getPlanMeal,
+  insertPlan, insertConstraints, insertRejectedRecipes, retrievePlan, retrieveConstraints, retrieveRejectedRecipes, setPlanDay, setPlanMeal, getPlanDay, getPlanMeal,
 }
