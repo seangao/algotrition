@@ -11,7 +11,6 @@ async function index(req, res, next) {
   let nextMeal;
   if (req.session.user && req.cookies.user_sid) {
     userData = await profileModels.searchUserbyID(req.app.locals.db, req.session.userid);
-    console.log(userData);
     const data = await planModel.retrievePlan(req.app.locals.db, req.session.userid);
     if (data.plan == null) {
       week = null;
