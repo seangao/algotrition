@@ -443,6 +443,18 @@ function writeCalendarFile(path, calendar) {
   });
 }
 
+function writeConstraintsFile(path, constraints) {
+  fs.writeFile(path, JSON.stringify(constraints), (err) => {
+    if (err) throw err;
+  });
+}
+
+function writeRejectedRecipesFile(path, recipes) {
+  fs.writeFile(path, JSON.stringify(recipes), (err) => {
+    if (err) throw err;
+  });
+}
+
 function getNumberEachCourse(inputConstraints){
   if (inputConstraints.meals == 1){
     inputConstraints.numBreakfasts = 0;
@@ -569,5 +581,5 @@ function optimization(inputConstraints, recipes) {
 
 
 module.exports = {
-  optimization, returnCalendar, writeCalendarFile, incrementActiveMeal,
+  optimization, returnCalendar, writeCalendarFile, writeConstraintsFile, writeRejectedRecipesFile, incrementActiveMeal,
 };

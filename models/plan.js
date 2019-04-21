@@ -14,6 +14,38 @@ async function insertPlan(db, id, plan) {
     });
 }
 
+async function insertConstraints(db, id, constraints) {
+  const json = JSON.stringify(constraints);
+  const stmt = `
+    UPDATE users
+    SET constraints = $2
+    WHERE id = $1
+  `;
+  return db.oneOrNone(stmt, [id, json])
+    .then(data => {
+      return;
+    })
+    .catch(error => {
+      return error;
+    });
+}
+
+async function insertRejectedRecipes(db, id, recipes) {
+  const json = JSON.stringify(recipes);
+  const stmt = `
+    UPDATE users
+    SET rejected_recipes = $2
+    WHERE id = $1
+  `;
+  return db.oneOrNone(stmt, [id, json])
+    .then(data => {
+      return;
+    })
+    .catch(error => {
+      return error;
+    });
+}
+
 async function retrievePlan(db, id) {
   const stmt = `
     SELECT plan from users
@@ -90,5 +122,5 @@ async function getPlanMeal(db, id) {
 }
 
 module.exports = {
-  insertPlan, retrievePlan, setPlanDay, setPlanMeal, getPlanDay, getPlanMeal,
+  insertPlan, insertConstraints, insertRejectedRecipes, retrievePlan, setPlanDay, setPlanMeal, getPlanDay, getPlanMeal,
 }
