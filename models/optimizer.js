@@ -414,7 +414,7 @@ function returnMealsForCalendar(model, results, inputConstraints) {
       }
 
     }
-  } 
+  }
 
   return meals;
 }
@@ -492,24 +492,6 @@ function getNumberEachCourse(inputConstraints){
 }
 
 
-async function incrementActiveMeal(db, id, calendar, eatenDay, eatenMeal) {
-  calendar[eatenDay].meals[eatenMeal].eaten = true;
-  // let the lint complain, otherwise we get 0 + 1 = 01
-  eatenMeal++;
-  if (eatenMeal < calendar[eatenDay].meals.length) {
-    calendar[eatenDay].meals[eatenMeal].active = true;
-  } else {
-    eatenDay++;
-    if (eatenDay < calendar.length) {
-      calendar[eatenDay].meals[0].active = true;
-    }
-  }
-  fs.writeFile(path, JSON.stringify(calendar), (err) => {
-    if (err) throw err;
-  });
-  return calendar;
-}
-
 // This is the primary function which is reads in user input and returns a meal plan
 function optimization(inputConstraints, recipes) {
   const resultsArray = [];
@@ -538,7 +520,7 @@ function optimization(inputConstraints, recipes) {
   if (inputConstraints["optimize-id"] == 3) {
     inputConstraints.optParameter = 'energy';
     inputConstraints.optParameterType = 'max';
-  } 
+  }
 
 
   for (i = 0; i < inputConstraints.days; i += 1) {
@@ -582,6 +564,14 @@ function optimization(inputConstraints, recipes) {
 
 
 module.exports = {
-  optimization, returnCalendar, writeCalendarFile, writeConstraintsFile, writeRejectedRecipesFile, incrementActiveMeal, 
-  populateConstraints, populateRecipeVariables, duplicateVariables, populateInts, returnMealsForCalendar, 
+  optimization,
+  returnCalendar,
+  writeCalendarFile,
+  writeConstraintsFile,
+  writeRejectedRecipesFile,
+  populateConstraints,
+  populateRecipeVariables,
+  duplicateVariables,
+  populateInts,
+  returnMealsForCalendar, 
 };

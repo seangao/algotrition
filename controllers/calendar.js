@@ -2,6 +2,7 @@ const url = require('url');
 const fs = require('fs');
 const optimizer = require('../models/optimizer.js');
 const planModel = require('../models/plan.js');
+const updateCalendar = require('../models/updateCalendar.js');
 
 async function calendar(req, res) {
   // Code to read in the saved meal plan from a text file
@@ -23,7 +24,7 @@ async function calendar(req, res) {
 
   const queryData = url.parse(req.url, true).query;
   if (queryData.eaten_day) {
-    week = optimizer.incrementActiveMeal('./saved_plans/recipe1.txt', week, queryData.eaten_day, queryData.eaten_meal);
+    week = await updateCalendar.incrementActiveMeal(req, queryData.eaten_day, queryData.eaten_meal);
   }
   res.render('calendar', { title: 'Calendar', week, user: req.session.user });
 }
