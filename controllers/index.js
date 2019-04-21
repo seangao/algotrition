@@ -42,7 +42,7 @@ async function index(req, res, next) {
             if (ingredient.name in Object.keys(ingredients_list)) {
               ingredients_list[ingredient_name].amount += ingredient_amount;
             } else {
-              var new_item = {}
+              var new_item = {};
               new_item.ingredient_name = ingredient.name;
               new_item.ingredient_amount = Math.round(ingredient.amount * 100) / 100;
               new_item.ingredient_unit = ingredient.unit;
@@ -53,7 +53,18 @@ async function index(req, res, next) {
         }
       }
     }
+
+    var ingredients_by_aisle = {};
+    for (ingredient in ingredients_list) {
+      if (ingredients_list[ingredient].ingredient_aisle in Object.keys(ingredients_by_aisle)) {
+        ingredients_by_aisle[ingredients_list[ingredient].ingredient_aisle].push(ingredients_list[ingredient]);
+      } else {
+        ingredients_by_aisle[ingredients_list[ingredient].ingredient_aisle] = []
+        ingredients_by_aisle[ingredients_list[ingredient].ingredient_aisle].push(ingredients_list[ingredient]);
+      }
+    }
   }
+  console.log(ingredients_by_aisle);
 
   // construct date object for display
   var d = new Date();
@@ -66,7 +77,7 @@ async function index(req, res, next) {
   res.render('index', {
     nutrients: {},
     title: 'Algotrition',
-    ingredients: ingredients_list,
+    ingredients: ingredients_by_aisle,
     date: date,
     user: req.session.user,
     userData: userData,
