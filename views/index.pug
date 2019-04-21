@@ -1,5 +1,22 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+  h1 Welcome to #{title}
+  
+  .container
+    .row
+      img(src='/images/choose-specify.svg' alt='Expand' height='300px')
+      h1 Choosing Nutrients
+      p From the given list of nutrients, select the ones for which you wish to
+      | ranges. Currently, we support specifying the following nutrients:
+      
+      for nutr in nutrients
+        p #{nutr.name}
+      
+    .row
+      img(src='/images/choose-optimize.svg' alt='Expand' height='300px')
+      h1 This is the title
+      p this is some description text about some things
+    
+    .row
+      img(src='/images/enter-param-screen.svg' alt='Expand' height='300px')
