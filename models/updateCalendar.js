@@ -33,9 +33,10 @@ async function readInputConstraints(req) {
 async function readRejectedRecipes(req) {
 	let rejectedRecipes;
 	if (req.session.user && req.cookies.user_sid) {
-		let rejectedRecipesString = await planModel.retrieveRejectedRecipes(req.app.locals.db, req.session.userid).rejected_recipes;
-		 rejectedRecipes = JSON.parse(rejectedRecipesString);
-  }
+		let rejectedRecipesString =
+			await planModel.retrieveRejectedRecipes(req.app.locals.db, req.session.userid);
+		rejectedRecipes = JSON.parse(rejectedRecipesString.rejected_recipes);
+	  }
 	else {
     	const rejectedRecipesString = fs.readFileSync('./saved_plans/rejectedRecipes.txt').toString('utf-8');
     	rejectedRecipes = JSON.parse(rejectedRecipesString);
@@ -78,7 +79,6 @@ async function deleteRecipeFromCalendar(req, rejectedRecipeId) {
    	for(i=0; i<calendar.length; i++){
    		for(j=0; j<calendar[i].meals.length; j++){
    			if (calendar[i].meals[j].recipes[0].id == rejectedRecipeId){
-   				console.log(calendar[i].meals[j].recipes[0].id);
    				dayIndex = i;
    				mealIndex = j;
    			}
