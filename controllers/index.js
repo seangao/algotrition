@@ -56,15 +56,15 @@ async function index(req, res, next) {
 
     var ingredients_by_aisle = {};
     for (ingredient in ingredients_list) {
-      if (ingredients_list[ingredient].ingredient_aisle in Object.keys(ingredients_by_aisle)) {
-        ingredients_by_aisle[ingredients_list[ingredient].ingredient_aisle].push(ingredients_list[ingredient]);
+      let ingredient_aisle = ingredients_list[ingredient].ingredient_aisle
+      .split(';')[0];
+      if (ingredients_by_aisle.hasOwnProperty(ingredient_aisle)) {
+        ingredients_by_aisle[ingredient_aisle].push(ingredients_list[ingredient]);
       } else {
-        ingredients_by_aisle[ingredients_list[ingredient].ingredient_aisle] = []
-        ingredients_by_aisle[ingredients_list[ingredient].ingredient_aisle].push(ingredients_list[ingredient]);
+        ingredients_by_aisle[ingredient_aisle] = [ingredients_list[ingredient]];
       }
     }
   }
-  // console.log(ingredients_by_aisle);
 
   // construct date object for display
   var d = new Date();
