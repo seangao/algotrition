@@ -8,20 +8,20 @@ const planModel = require('../models/plan');
 function populateConstraints(inputConstraints) {
   const output = {};
 
-  var i;
-  for (i=0; i<inputConstraints.numBreakfasts; i++) {
-    output["breakfast" + String(2*i+1)] = { min: 0.9 };
-    output["breakfast" + String(2*i+2)] = { max: 1.1 };
+  let i;
+  for (i = 0; i < inputConstraints.numBreakfasts; i++) {
+    output[`breakfast${String(2 * i + 1)}`] = { min: 0.9 };
+    output[`breakfast${String(2 * i + 2)}`] = { max: 1.1 };
   }
 
-  for (i=0; i<inputConstraints.numLunches; i++) {
-    output["lunch" + String(2*i+1)] = { min: 0.9 };
-    output["lunch" + String(2*i+2)] = { max: 1.1 };
+  for (i = 0; i < inputConstraints.numLunches; i++) {
+    output[`lunch${String(2 * i + 1)}`] = { min: 0.9 };
+    output[`lunch${String(2 * i + 2)}`] = { max: 1.1 };
   }
 
-  for (i=0; i<inputConstraints.numDinners; i++) {
-    output["dinner" + String(2*i+1)] = { min: 0.9 };
-    output["dinner" + String(2*i+2)] = { max: 1.1 };
+  for (i = 0; i < inputConstraints.numDinners; i++) {
+    output[`dinner${String(2 * i + 1)}`] = { min: 0.9 };
+    output[`dinner${String(2 * i + 2)}`] = { max: 1.1 };
   }
 
 
@@ -183,9 +183,9 @@ function duplicateVariables(variables, servingsArray, inputConstraints) {
 
       // Reject suggestions which take up too large or small a portion of the calories for even distribution across meals
       // Later the fraction of total calories should be dependent on the number of meals
-      let avgCaloriesPerMeel = inputConstraints['calories-min'] / (inputConstraints.numBreakfasts + inputConstraints.numLunches + inputConstraints.numDinners);
+      const avgCaloriesPerMeel = inputConstraints['calories-min'] / (inputConstraints.numBreakfasts + inputConstraints.numLunches + inputConstraints.numDinners);
       if (inputConstraints.optParameter !== 'energy') {
-        if (recipe.energy * servingsArray[j] < 0.5*avgCaloriesPerMeel || recipe.energy * servingsArray[j] > 1.5*avgCaloriesPerMeel) {
+        if (recipe.energy * servingsArray[j] < 0.5 * avgCaloriesPerMeel || recipe.energy * servingsArray[j] > 1.5 * avgCaloriesPerMeel) {
           continue;
         }
       }
@@ -256,19 +256,19 @@ function populateRecipeVariables(constraints, inputConstraints, recipeArray) {
 
     // Set all breakfast, lunch, dinner values to zero in tempObj
     let k;
-    for (k=0; k<inputConstraints.numBreakfasts; k++) {
-      tempObj["breakfast" + String(2*k+1)] = 0;
-      tempObj["breakfast" + String(2*k+2)] = 0;
+    for (k = 0; k < inputConstraints.numBreakfasts; k++) {
+      tempObj[`breakfast${String(2 * k + 1)}`] = 0;
+      tempObj[`breakfast${String(2 * k + 2)}`] = 0;
     }
 
-    for (k=0; k<inputConstraints.numLunches; k++) {
-      tempObj["lunch" + String(2*k+1)] = 0;
-      tempObj["lunch" + String(2*k+2)] = 0;
+    for (k = 0; k < inputConstraints.numLunches; k++) {
+      tempObj[`lunch${String(2 * k + 1)}`] = 0;
+      tempObj[`lunch${String(2 * k + 2)}`] = 0;
     }
 
-    for (k=0; k<inputConstraints.numDinners; k++) {
-      tempObj["dinner" + String(2*k+1)] = 0;
-      tempObj["dinner" + String(2*k+2)] = 0;
+    for (k = 0; k < inputConstraints.numDinners; k++) {
+      tempObj[`dinner${String(2 * k + 1)}`] = 0;
+      tempObj[`dinner${String(2 * k + 2)}`] = 0;
     }
 
     // Choosing breakfast, lunch or dinner for recipes matching multiple courses
@@ -283,24 +283,24 @@ function populateRecipeVariables(constraints, inputConstraints, recipeArray) {
       } else {
         recipe.lunch = 0;
         recipe.dinner = 1;
-        }
+      }
     }
 
     // Increment counter for appropriate course and set values for one meal to 1 in tempObj
     if (recipe.breakfast === 1) {
-      tempObj["breakfast" + String(2*(numBreakfastRecipes%inputConstraints.numBreakfasts) + 1)] = 1;
-      tempObj["breakfast" + String(2*(numBreakfastRecipes%inputConstraints.numBreakfasts) + 2)] = 1;
-      numBreakfastRecipes = numBreakfastRecipes + 1;
+      tempObj[`breakfast${String(2 * (numBreakfastRecipes % inputConstraints.numBreakfasts) + 1)}`] = 1;
+      tempObj[`breakfast${String(2 * (numBreakfastRecipes % inputConstraints.numBreakfasts) + 2)}`] = 1;
+      numBreakfastRecipes += 1;
     }
     if (recipe.lunch === 1) {
-      tempObj["lunch" + String(2*(numLunchRecipes%inputConstraints.numLunches) + 1)] = 1;
-      tempObj["lunch" + String(2*(numLunchRecipes%inputConstraints.numLunches) + 2)] = 1;
-      numLunchRecipes = numLunchRecipes + 1;
+      tempObj[`lunch${String(2 * (numLunchRecipes % inputConstraints.numLunches) + 1)}`] = 1;
+      tempObj[`lunch${String(2 * (numLunchRecipes % inputConstraints.numLunches) + 2)}`] = 1;
+      numLunchRecipes += 1;
     }
     if (recipe.dinner === 1) {
-      tempObj["dinner" + String(2*(numDinnerRecipes%inputConstraints.numDinners) + 1)] = 1;
-      tempObj["dinner" + String(2*(numDinnerRecipes%inputConstraints.numDinners) + 2)] = 1;
-      numDinnerRecipes = numDinnerRecipes + 1;
+      tempObj[`dinner${String(2 * (numDinnerRecipes % inputConstraints.numDinners) + 1)}`] = 1;
+      tempObj[`dinner${String(2 * (numDinnerRecipes % inputConstraints.numDinners) + 2)}`] = 1;
+      numDinnerRecipes += 1;
     }
 
     tempObj.id = recipe.id;
@@ -392,27 +392,26 @@ function returnMealsForCalendar(model, results, inputConstraints) {
 
 
       let j;
-      for(j=0; j < inputConstraints.numBreakfasts; j++){
-        if(recipe["breakfast" + String(2*j + 1)] === 1){
-          const meal = { name: 'Breakfast ' + String(j+1), id: (j+1), recipes: [singleRecipe] };
+      for (j = 0; j < inputConstraints.numBreakfasts; j++) {
+        if (recipe[`breakfast${String(2 * j + 1)}`] === 1) {
+          const meal = { name: `Breakfast ${String(j + 1)}`, id: (j + 1), recipes: [singleRecipe] };
           meals[meal.id - 1] = meal;
         }
       }
 
-      for(j=0; j < inputConstraints.numLunches; j++){
-        if(recipe["lunch" + String(2*j + 1)] === 1){
-          const meal = { name: 'Lunch ' + String(j+1), id: (inputConstraints.numBreakfasts + j + 1), recipes: [singleRecipe] };
+      for (j = 0; j < inputConstraints.numLunches; j++) {
+        if (recipe[`lunch${String(2 * j + 1)}`] === 1) {
+          const meal = { name: `Lunch ${String(j + 1)}`, id: (inputConstraints.numBreakfasts + j + 1), recipes: [singleRecipe] };
           meals[meal.id - 1] = meal;
         }
       }
 
-      for(j=0; j < inputConstraints.numDinners; j++){
-        if(recipe["dinner" + String(2*j + 1)] === 1){
-          const meal = { name: 'Dinner ' + String(j+1), id: (inputConstraints.numBreakfasts + inputConstraints.numLunches + j + 1), recipes: [singleRecipe] };
+      for (j = 0; j < inputConstraints.numDinners; j++) {
+        if (recipe[`dinner${String(2 * j + 1)}`] === 1) {
+          const meal = { name: `Dinner ${String(j + 1)}`, id: (inputConstraints.numBreakfasts + inputConstraints.numLunches + j + 1), recipes: [singleRecipe] };
           meals[meal.id - 1] = meal;
         }
       }
-
     }
   }
 
@@ -456,33 +455,33 @@ function writeRejectedRecipesFile(path, recipes) {
   });
 }
 
-function getNumberEachCourse(inputConstraints){
-  if (inputConstraints.meals == 1){
+function getNumberEachCourse(inputConstraints) {
+  if (inputConstraints.meals == 1) {
     inputConstraints.numBreakfasts = 0;
     inputConstraints.numLunches = 0;
     inputConstraints.numDinners = 1;
   }
-  if (inputConstraints.meals == 2){
+  if (inputConstraints.meals == 2) {
     inputConstraints.numBreakfasts = 0;
     inputConstraints.numLunches = 1;
     inputConstraints.numDinners = 1;
   }
-  if (inputConstraints.meals == 3){
+  if (inputConstraints.meals == 3) {
     inputConstraints.numBreakfasts = 1;
     inputConstraints.numLunches = 1;
     inputConstraints.numDinners = 1;
   }
-  if (inputConstraints.meals == 4){
+  if (inputConstraints.meals == 4) {
     inputConstraints.numBreakfasts = 1;
     inputConstraints.numLunches = 2;
     inputConstraints.numDinners = 1;
   }
-  if (inputConstraints.meals == 5){
+  if (inputConstraints.meals == 5) {
     inputConstraints.numBreakfasts = 1;
     inputConstraints.numLunches = 2;
     inputConstraints.numDinners = 2;
   }
-  if (inputConstraints.meals == 6){
+  if (inputConstraints.meals == 6) {
     inputConstraints.numBreakfasts = 1;
     inputConstraints.numLunches = 3;
     inputConstraints.numDinners = 2;
@@ -505,19 +504,19 @@ function optimization(inputConstraints, recipes) {
   inputConstraints = getNumberEachCourse(inputConstraints);
 
 
-  if (inputConstraints["optimize-id"] == 0) {
+  if (inputConstraints['optimize-id'] == 0) {
     inputConstraints.optParameter = 'total_time_seconds';
     inputConstraints.optType = 'min';
   }
-  if (inputConstraints["optimize-id"] == 1) {
+  if (inputConstraints['optimize-id'] == 1) {
     inputConstraints.optParameter = 'price_per_serving';
     inputConstraints.optType = 'min';
   }
-  if (inputConstraints["optimize-id"] == 2) {
+  if (inputConstraints['optimize-id'] == 2) {
     inputConstraints.optParameter = 'energy';
     inputConstraints.optType = 'min';
   }
-  if (inputConstraints["optimize-id"] == 3) {
+  if (inputConstraints['optimize-id'] == 3) {
     inputConstraints.optParameter = 'energy';
     inputConstraints.optParameterType = 'max';
   }
@@ -546,7 +545,7 @@ function optimization(inputConstraints, recipes) {
     const results = solver.Solve(model);
     // console.log(results);
     resultsArray.push(results);
-    mealsArray.push(returnMealsForCalendar(model, results,inputConstraints));
+    mealsArray.push(returnMealsForCalendar(model, results, inputConstraints));
 
     resultsKeys = Object.keys(results);
     for (j = 0; j < resultsKeys.length; j += 1) {
@@ -573,5 +572,5 @@ module.exports = {
   populateRecipeVariables,
   duplicateVariables,
   populateInts,
-  returnMealsForCalendar, 
+  returnMealsForCalendar,
 };

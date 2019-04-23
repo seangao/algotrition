@@ -48,7 +48,7 @@ function generator(req, res) {
       id: 'potassium',
       units: 'mg',
       min: 3000,
-      max: 4000
+      max: 4000,
     },
     {
       name: 'Sodium',
@@ -56,7 +56,7 @@ function generator(req, res) {
       id: 'sodium',
       units: 'mg',
       min: 2000,
-      max: 3000
+      max: 3000,
     },
     {
       name: 'Calcium',
@@ -64,7 +64,7 @@ function generator(req, res) {
       id: 'calcium',
       units: 'mg',
       min: 0,
-      max: 2000
+      max: 2000,
     },
     {
       name: 'Iron',
@@ -72,7 +72,7 @@ function generator(req, res) {
       id: 'iron',
       units: 'mg',
       min: 0,
-      max: 50
+      max: 50,
     },
     {
       name: 'Total Saturated Fat',
@@ -80,7 +80,7 @@ function generator(req, res) {
       id: 'satfat',
       units: 'g',
       min: 10,
-      max: 30
+      max: 30,
     },
     {
       name: 'Total Trans Fat',
@@ -88,7 +88,7 @@ function generator(req, res) {
       id: 'transfat',
       units: 'g',
       min: 0,
-      max: 10
+      max: 10,
     },
     {
       name: 'Total Sugars',
@@ -96,7 +96,7 @@ function generator(req, res) {
       id: 'sugar',
       units: 'g',
       min: 0,
-      max: 100
+      max: 100,
     },
     {
       name: 'Carbohydrates',
@@ -104,7 +104,7 @@ function generator(req, res) {
       id: 'carbs',
       units: 'g',
       min: 200,
-      max: 400
+      max: 400,
     },
     {
       name: 'Fiber',
@@ -112,7 +112,7 @@ function generator(req, res) {
       id: 'fiber',
       units: 'g',
       min: 20,
-      max: 30
+      max: 30,
     },
     {
       name: 'Protein',
@@ -120,7 +120,7 @@ function generator(req, res) {
       id: 'protein',
       units: 'g',
       min: 30,
-      max: 70
+      max: 70,
     },
     {
       name: 'Vitamin A',
@@ -128,7 +128,7 @@ function generator(req, res) {
       id: 'vita',
       units: 'IU',
       min: 4000,
-      max: 6000
+      max: 6000,
     },
     {
       name: 'Vitamin C',
@@ -136,7 +136,7 @@ function generator(req, res) {
       id: 'vitc',
       units: 'mg',
       min: 40,
-      max: 80
+      max: 80,
     },
     {
       name: 'Total Fat',
@@ -144,7 +144,7 @@ function generator(req, res) {
       id: 'fat',
       units: 'g',
       min: 50,
-      max: 80
+      max: 80,
     },
   ];
 

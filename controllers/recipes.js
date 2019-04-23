@@ -11,7 +11,7 @@ async function getUserRecipe(req, res) {
   if (userRecipes == null) {
     res.render('error', {
       message: '',
-      error: { status: 'Cannot get user recipes associated with this user!'},
+      error: { status: 'Cannot get user recipes associated with this user!' },
       user: req.session.user,
     });
   } else {
@@ -30,12 +30,12 @@ async function getUserRecipe(req, res) {
 }
 
 async function deleteRecipe(req, res, next) {
-  let deleteRecipeId = Object.keys(req.body)[0];
+  const deleteRecipeId = Object.keys(req.body)[0];
   const result = await recipesModels.deleteRecipe(req.app.locals.db, deleteRecipeId);
   if (result == null) {
     res.render('error', {
       message: '',
-      error: { status: 'Error deleting user recipe! '},
+      error: { status: 'Error deleting user recipe! ' },
       user: req.session.user,
     });
   } else {
@@ -44,12 +44,12 @@ async function deleteRecipe(req, res, next) {
 }
 
 async function editRecipe(req, res, next) {
-  let editRecipeId = Object.keys(req.body)[0];
+  const editRecipeId = Object.keys(req.body)[0];
   let recipeInfo = await recipesModels.getRecipeById(req.app.locals.db, editRecipeId);
   if (recipeInfo == null) {
     res.render('error', {
       message: '',
-      error: { status: 'Error editing user recipe! '},
+      error: { status: 'Error editing user recipe! ' },
       user: req.session.user,
     });
   } else {
@@ -57,7 +57,9 @@ async function editRecipe(req, res, next) {
     let { ingredients } = recipeInfo;
     ingredients = JSON.parse(ingredients);
     recipeInfo.ingredients = ingredients;
-    res.render('editRecipe', { title: 'editRecipe', user: req.session.user, recipe: recipeInfo, recipe_id: recipeInfo.id });
+    res.render('editRecipe', {
+      title: 'editRecipe', user: req.session.user, recipe: recipeInfo, recipe_id: recipeInfo.id,
+    });
   }
 }
 
@@ -70,7 +72,7 @@ async function saveChange(req, res, next) {
   if (recipesModels == null) {
     res.render('error', {
       message: '',
-      error: { status: 'Error saving user recipe! '},
+      error: { status: 'Error saving user recipe! ' },
       user: req.session.user,
     });
   } else {

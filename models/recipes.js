@@ -11,12 +11,8 @@ async function getSpoonRecipeById(db, recipe_id) {
         SELECT * FROM recipes_sp WHERE id = $1
   `;
   return db.oneOrNone(stmt, [recipe_id])
-    .then(data => {
-      return data;
-    })
-    .catch(error => {
-      return error;
-    });
+    .then(data => data)
+    .catch(error => error);
 }
 
 async function saveNewRecipe(db, userid, title, ingredients, instructions) {
@@ -26,12 +22,8 @@ async function saveNewRecipe(db, userid, title, ingredients, instructions) {
         RETURNING id
     `;
   return db.one(stmt, [userid, title, ingredients, instructions])
-    .then(data => {
-      return data;
-    })
-    .catch(error => {
-      return error;
-    });
+    .then(data => data)
+    .catch(error => error);
 }
 
 async function deleteRecipe(db, id) {
@@ -39,12 +31,8 @@ async function deleteRecipe(db, id) {
         DELETE FROM user_recipes WHERE id = $1
   `;
   return db.manyOrNone(stmt, [id])
-    .then(data => {
-      return data;
-    })
-    .catch(error => {
-      return error;
-    });
+    .then(data => data)
+    .catch(error => error);
 }
 
 async function getUserRecipes(db, userid) {
@@ -53,12 +41,8 @@ async function getUserRecipes(db, userid) {
     `;
 
   return db.manyOrNone(stmt, [userid])
-    .then(data => {
-      return data;
-    })
-    .catch(error => {
-      return error;
-    });
+    .then(data => data)
+    .catch(error => error);
 }
 
 async function getRecipeById(db, recipe_id) {
@@ -66,12 +50,8 @@ async function getRecipeById(db, recipe_id) {
         SELECT * FROM user_recipes WHERE id = $1
   `;
   return db.oneOrNone(stmt, [recipe_id])
-    .then(data => {
-      return data;
-    })
-    .catch(error => {
-      return error;
-    });
+    .then(data => data)
+    .catch(error => error);
 }
 
 async function updateRecipeById(db, recipe_id, title, ingredients, instructions) {
@@ -81,12 +61,8 @@ async function updateRecipeById(db, recipe_id, title, ingredients, instructions)
         WHERE id = $1
   `;
   return db.oneOrNone(stmt, [recipe_id, title, ingredients, instructions])
-    .then(data => {
-      return data;
-    })
-    .catch(error => {
-      return error;
-    });
+    .then(data => data)
+    .catch(error => error);
 }
 
 module.exports = {

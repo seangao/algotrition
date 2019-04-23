@@ -27,5 +27,5 @@ async function updateProfile(db, id, info) {
 }
 
 module.exports = {
-  searchUserbyID, updateProfile, convertHeight, reverseHeight
+  searchUserbyID, updateProfile, convertHeight, reverseHeight,
 };

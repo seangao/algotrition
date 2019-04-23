@@ -1,5 +1,7 @@
 require('chromedriver');
-const { Builder, Key, By, until } = require('selenium-webdriver');
+const {
+  Builder, Key, By, until,
+} = require('selenium-webdriver');
 const { assert } = require('chai');
 
 const baseURL = 'https://algotrition.herokuapp.com';
@@ -18,7 +20,7 @@ describe('UI', () => {
   });
 
   it('access generator without logging in', async () => {
-    await driver.get(baseURL + '/generator');
+    await driver.get(`${baseURL}/generator`);
     const title = await driver.getTitle();
     assert.equal(title, 'Plan Generator');
   });
@@ -37,7 +39,7 @@ describe('UI', () => {
   // });
 
   it('login', async () => {
-    await driver.get(baseURL + '/login');
+    await driver.get(`${baseURL}/login`);
     await driver.findElement(By.id('username')).sendKeys('sean');
     await driver.findElement(By.id('password')).sendKeys('test');
     await driver.findElement(By.id('login')).click();

@@ -6,12 +6,10 @@ async function insertPlan(db, id, plan) {
     WHERE id = $1
   `;
   return db.oneOrNone(stmt, [id, json])
-    .then(data => {
-      return;
+    .then((data) => {
+
     })
-    .catch(error => {
-      return error;
-    });
+    .catch(error => error);
 }
 
 async function insertConstraints(db, id, constraints) {
@@ -22,12 +20,10 @@ async function insertConstraints(db, id, constraints) {
     WHERE id = $1
   `;
   return db.oneOrNone(stmt, [id, json])
-    .then(data => {
-      return;
+    .then((data) => {
+
     })
-    .catch(error => {
-      return error;
-    });
+    .catch(error => error);
 }
 
 async function insertRejectedRecipes(db, id, recipes) {
@@ -38,12 +34,10 @@ async function insertRejectedRecipes(db, id, recipes) {
     WHERE id = $1
   `;
   return db.oneOrNone(stmt, [id, json])
-    .then(data => {
-      return;
+    .then((data) => {
+
     })
-    .catch(error => {
-      return error;
-    });
+    .catch(error => error);
 }
 
 async function retrievePlan(db, id) {
@@ -52,10 +46,8 @@ async function retrievePlan(db, id) {
     WHERE id = $1
   `;
   return db.oneOrNone(stmt, [id])
-    .then(data => {
-      return data;
-    })
-    .catch(error => {
+    .then(data => data)
+    .catch((error) => {
       console.log(error);
       return error;
     });
@@ -67,10 +59,8 @@ async function retrieveConstraints(db, id) {
     WHERE id = $1
   `;
   return db.oneOrNone(stmt, [id])
-    .then(data => {
-      return data;
-    })
-    .catch(error => {
+    .then(data => data)
+    .catch((error) => {
       console.log(error);
       return error;
     });
@@ -82,10 +72,8 @@ async function retrieveRejectedRecipes(db, id) {
     WHERE id = $1
   `;
   return db.oneOrNone(stmt, [id])
-    .then(data => {
-      return data;
-    })
-    .catch(error => {
+    .then(data => data)
+    .catch((error) => {
       console.log(error);
       return error;
     });
@@ -98,12 +86,10 @@ async function setPlanDay(db, id, day) {
     WHERE id = $1
   `;
   return db.oneOrNone(stmt, [id, day])
-    .then(data => {
-      return;
+    .then((data) => {
+
     })
-    .catch(error => {
-      return error;
-    });
+    .catch(error => error);
 }
 
 async function setPlanMeal(db, id, meal) {
@@ -113,12 +99,10 @@ async function setPlanMeal(db, id, meal) {
     WHERE id = $1
   `;
   return db.oneOrNone(stmt, [id, meal])
-    .then(data => {
-      return;
+    .then((data) => {
+
     })
-    .catch(error => {
-      return error;
-    });
+    .catch(error => error);
 }
 
 async function getPlanDay(db, id) {
@@ -127,10 +111,8 @@ async function getPlanDay(db, id) {
     WHERE id = $1
   `;
   return db.oneOrNone(stmt, [id])
-    .then(data => {
-      return parseInt(data.plan_day);
-    })
-    .catch(error => {
+    .then(data => parseInt(data.plan_day))
+    .catch((error) => {
       console.log(error);
       return error;
     });
@@ -142,10 +124,8 @@ async function getPlanMeal(db, id) {
     WHERE id = $1
   `;
   return db.oneOrNone(stmt, [id])
-    .then(data => {
-      return parseInt(data.plan_meal);
-    })
-    .catch(error => {
+    .then(data => parseInt(data.plan_meal))
+    .catch((error) => {
       console.log(error);
       return error;
     });
@@ -153,4 +133,4 @@ async function getPlanMeal(db, id) {
 
 module.exports = {
   insertPlan, insertConstraints, insertRejectedRecipes, retrievePlan, retrieveConstraints, retrieveRejectedRecipes, setPlanDay, setPlanMeal, getPlanDay, getPlanMeal,
-}
+};

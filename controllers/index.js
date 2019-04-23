@@ -1,10 +1,11 @@
+const fs = require('fs');
 const planModel = require('../models/plan.js');
 const profileModels = require('../models/profile');
-const fs = require('fs');
-const monthNames = ["January", "February", "March", "April", "May", "June",
-  "July", "August", "September", "October", "November", "December"
+
+const monthNames = ['January', 'February', 'March', 'April', 'May', 'June',
+  'July', 'August', 'September', 'October', 'November', 'December',
 ];
-const dayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+const dayNames = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
 async function index(req, res, next) {
   let week;
@@ -26,23 +27,23 @@ async function index(req, res, next) {
     var ingredients_list = null;
   } else {
     var ingredients_list = {};
-    for (var i = 0; i < week.length; i++) {
-      let day = week[i];
-      for (var j = 0; j < day.meals.length; j++) {
-        let meal = day.meals[j];
+    for (let i = 0; i < week.length; i++) {
+      const day = week[i];
+      for (let j = 0; j < day.meals.length; j++) {
+        const meal = day.meals[j];
         if (meal.active && !meal.eaten) {
           nextMeal = meal;
           meal.day = day;
         }
-        for (var k = 0; k < meal.recipes.length; k++) {
-          let recipe = meal.recipes[k];
-          for (var m = 0; m < recipe.ingredients.length; m++) {
-            let ingredient = recipe.ingredients[m];
+        for (let k = 0; k < meal.recipes.length; k++) {
+          const recipe = meal.recipes[k];
+          for (let m = 0; m < recipe.ingredients.length; m++) {
+            const ingredient = recipe.ingredients[m];
             const ingredient_amount = ingredient.amount;
             if (ingredient.name in Object.keys(ingredients_list)) {
               ingredients_list[ingredient_name].amount += ingredient_amount;
             } else {
-              var new_item = {};
+              const new_item = {};
               new_item.ingredient_name = ingredient.name;
               new_item.ingredient_amount = Math.round(ingredient.amount * 100) / 100;
               new_item.ingredient_unit = ingredient.unit;
@@ -56,8 +57,8 @@ async function index(req, res, next) {
 
     var ingredients_by_aisle = {};
     for (ingredient in ingredients_list) {
-      let ingredient_aisle = ingredients_list[ingredient].ingredient_aisle
-      .split(';')[0];
+      const ingredient_aisle = ingredients_list[ingredient].ingredient_aisle
+        .split(';')[0];
       if (ingredients_by_aisle.hasOwnProperty(ingredient_aisle)) {
         ingredients_by_aisle[ingredient_aisle].push(ingredients_list[ingredient]);
       } else {
@@ -67,8 +68,8 @@ async function index(req, res, next) {
   }
 
   // construct date object for display
-  var d = new Date();
-  var date = {};
+  const d = new Date();
+  const date = {};
   date.year = d.getFullYear();
   date.month = monthNames[d.getMonth()];
   date.date = d.getDate();
@@ -78,10 +79,10 @@ async function index(req, res, next) {
     nutrients: {},
     title: 'Algotrition',
     ingredients: ingredients_by_aisle,
-    date: date,
+    date,
     user: req.session.user,
-    userData: userData,
-    nextMeal: nextMeal,
+    userData,
+    nextMeal,
   });
 }
 
