@@ -14,7 +14,7 @@ async function calendar(req, res, next) {
     }
     week = JSON.parse(data.plan);
   } else {
-    if (!req.session.calendar) {next();}
+    if (!req.session.calendar) { next(); }
     week = req.session.calendar;
   }
 

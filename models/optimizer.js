@@ -1,8 +1,4 @@
 const solver = require('javascript-lp-solver');
-const fs = require('fs');
-const planModel = require('../models/plan');
-// const recipesModels = require('../models/recipes');
-
 
 // This function creates the constraints object within the solver object
 function populateConstraints(inputConstraints) {
@@ -181,11 +177,13 @@ function duplicateVariables(variables, servingsArray, inputConstraints) {
       const recipe = variables[k[i]];
       const recipeFields = Object.keys(recipe);
 
-      // Reject suggestions which take up too large or small a portion of the calories for even distribution across meals
+      // Reject suggestions which take up too large or small a portion
+      // of the calories for even distribution across meals
       // Later the fraction of total calories should be dependent on the number of meals
       const avgCaloriesPerMeel = inputConstraints['calories-min'] / (inputConstraints.numBreakfasts + inputConstraints.numLunches + inputConstraints.numDinners);
       if (inputConstraints.optParameter !== 'energy') {
-        if (recipe.energy * servingsArray[j] < 0.5 * avgCaloriesPerMeel || recipe.energy * servingsArray[j] > 1.5 * avgCaloriesPerMeel) {
+        if (recipe.energy * servingsArray[j] < 0.5 * avgCaloriesPerMeel
+          || recipe.energy * servingsArray[j] > 1.5 * avgCaloriesPerMeel) {
           continue;
         }
       }
@@ -438,32 +436,32 @@ function returnCalendar(resultsArray, mealsArray) {
 }
 
 function getNumberEachCourse(inputConstraints) {
-  if (inputConstraints.meals == 1) {
+  if (inputConstraints.meals === 1) {
     inputConstraints.numBreakfasts = 0;
     inputConstraints.numLunches = 0;
     inputConstraints.numDinners = 1;
   }
-  if (inputConstraints.meals == 2) {
+  if (inputConstraints.meals === 2) {
     inputConstraints.numBreakfasts = 0;
     inputConstraints.numLunches = 1;
     inputConstraints.numDinners = 1;
   }
-  if (inputConstraints.meals == 3) {
+  if (inputConstraints.meals === 3) {
     inputConstraints.numBreakfasts = 1;
     inputConstraints.numLunches = 1;
     inputConstraints.numDinners = 1;
   }
-  if (inputConstraints.meals == 4) {
+  if (inputConstraints.meals === 4) {
     inputConstraints.numBreakfasts = 1;
     inputConstraints.numLunches = 2;
     inputConstraints.numDinners = 1;
   }
-  if (inputConstraints.meals == 5) {
+  if (inputConstraints.meals === 5) {
     inputConstraints.numBreakfasts = 1;
     inputConstraints.numLunches = 2;
     inputConstraints.numDinners = 2;
   }
-  if (inputConstraints.meals == 6) {
+  if (inputConstraints.meals === 6) {
     inputConstraints.numBreakfasts = 1;
     inputConstraints.numLunches = 3;
     inputConstraints.numDinners = 2;
@@ -486,19 +484,19 @@ function optimization(inputConstraints, recipes) {
   inputConstraints = getNumberEachCourse(inputConstraints);
 
 
-  if (inputConstraints['optimize-id'] == 0) {
+  if (inputConstraints['optimize-id'] === 0) {
     inputConstraints.optParameter = 'total_time_seconds';
     inputConstraints.optType = 'min';
   }
-  if (inputConstraints['optimize-id'] == 1) {
+  if (inputConstraints['optimize-id'] === 1) {
     inputConstraints.optParameter = 'price_per_serving';
     inputConstraints.optType = 'min';
   }
-  if (inputConstraints['optimize-id'] == 2) {
+  if (inputConstraints['optimize-id'] === 2) {
     inputConstraints.optParameter = 'energy';
     inputConstraints.optType = 'min';
   }
-  if (inputConstraints['optimize-id'] == 3) {
+  if (inputConstraints['optimize-id'] === 3) {
     inputConstraints.optParameter = 'energy';
     inputConstraints.optParameterType = 'max';
   }
@@ -541,7 +539,6 @@ function optimization(inputConstraints, recipes) {
 
   return calendar;
 }
-
 
 module.exports = {
   optimization,
