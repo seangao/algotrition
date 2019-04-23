@@ -371,6 +371,7 @@ function returnMealsForCalendar(model, results, inputConstraints) {
 
   const meals = [];
 
+
   for (i = 0; i < keys.length; i += 1) {
     if (keys[i] !== 'feasible' && keys[i] !== 'result' && keys[i] !== 'bounded' && results[keys[i]] > 0) {
       const recipe = model.variables[keys[i]];
@@ -387,7 +388,6 @@ function returnMealsForCalendar(model, results, inputConstraints) {
         total_time_seconds: recipe.total_time_seconds,
         image: recipe.image_url,
       };
-
 
       let j;
       for (j = 0; j < inputConstraints.numBreakfasts; j++) {
@@ -436,38 +436,39 @@ function returnCalendar(resultsArray, mealsArray) {
 }
 
 function getNumberEachCourse(inputConstraints) {
-  if (inputConstraints.meals === 1) {
+
+  if (inputConstraints.meals === '1') {
     inputConstraints.numBreakfasts = 0;
     inputConstraints.numLunches = 0;
     inputConstraints.numDinners = 1;
   }
-  if (inputConstraints.meals === 2) {
+  if (inputConstraints.meals === '2') {
     inputConstraints.numBreakfasts = 0;
     inputConstraints.numLunches = 1;
     inputConstraints.numDinners = 1;
   }
-  if (inputConstraints.meals === 3) {
+  if (inputConstraints.meals === '3') {
     inputConstraints.numBreakfasts = 1;
     inputConstraints.numLunches = 1;
     inputConstraints.numDinners = 1;
   }
-  if (inputConstraints.meals === 4) {
+  if (inputConstraints.meals === '4') {
     inputConstraints.numBreakfasts = 1;
     inputConstraints.numLunches = 2;
     inputConstraints.numDinners = 1;
   }
-  if (inputConstraints.meals === 5) {
+  if (inputConstraints.meals === '5') {
     inputConstraints.numBreakfasts = 1;
     inputConstraints.numLunches = 2;
     inputConstraints.numDinners = 2;
   }
-  if (inputConstraints.meals === 6) {
+  if (inputConstraints.meals === '6') {
     inputConstraints.numBreakfasts = 1;
     inputConstraints.numLunches = 3;
     inputConstraints.numDinners = 2;
   }
 
-  return inputConstraints;
+  //return inputConstraints;
 }
 
 
@@ -481,8 +482,7 @@ function optimization(inputConstraints, recipes) {
   let i;
   let j;
 
-  inputConstraints = getNumberEachCourse(inputConstraints);
-
+  getNumberEachCourse(inputConstraints);
 
   if (inputConstraints['optimize-id'] === 0) {
     inputConstraints.optParameter = 'total_time_seconds';
@@ -533,7 +533,6 @@ function optimization(inputConstraints, recipes) {
       }
     }
   }
-
 
   const calendar = returnCalendar(resultsArray, mealsArray);
 
