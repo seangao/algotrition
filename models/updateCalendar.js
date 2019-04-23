@@ -163,4 +163,5 @@ async function incrementActiveMeal(req, eatenDay, eatenMeal) {
 module.exports = {
   deleteRecipeFromCalendar,
   incrementActiveMeal,
+	readCalendar,
 };

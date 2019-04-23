@@ -1,22 +1,6 @@
 extends layout
 
 block content
-  //- h1 Welcome to #{title}
-  //-
-  //- .container
-  //-   .row
-  //-     img(src='/images/choose-specify.svg' alt='Expand' height='300px')
-  //-     h1 Choosing Nutrients
-  //-     p From the given list of nutrients, select the ones for which you wish to
-  //-     | ranges. Currently, we support specifying the following nutrients:
-  //-     for nutr in nutrients
-  //-       p #{nutr.name}
-  //-   .row
-  //-     img(src='/images/choose-optimize.svg' alt='Expand' height='300px')
-  //-     h1 This is the title
-  //-     p this is some description text about some things
-  //-   .row
-  //-     img(src='/images/enter-param-screen.svg' alt='Expand' height='300px')
   if user
     h4= 'Welcome back to Algotrition '
       span.text-success=userData.username
@@ -25,11 +9,24 @@ block content
   h6= 'Today is ' + date.day + ', ' + date.month + ' ' + date.date + ', ' + date.year
   br
   if nextMeal
-    h4.text-light.card-header.d-flex(style='background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('+nextMeal.recipes[0].image+'); background-repeat: no-repeat; background-size: cover; background-position: center center; background-clip: padding-box;')= 'Today\'s ' + nextMeal.name
-    .card.card-body
+    button.text-light.list-group-item.list-group-item-action.card-header.bg-dark(type='button', data-toggle='collapse', data-target='#next-meal', role='button')= 'Today\'s ' + nextMeal.name
+    .card.card-body.collapse#next-meal
       ul.list-group
         each recipe in nextMeal.recipes
           .d-flex.list-group-item= recipe.name
+          .card-text(id="meal"+recipe.id)
+            .bg-dark
+              .text-light= "Calories: " + recipe.calories
+              .text-light= "Total time: " + recipe.total_time_seconds + " s"
+              .text-light= "Servings: " + recipe.servings
+            ul.list-group
+            each ingredient in recipe.ingredients
+              li.text-capitalize.list-group-item= ingredient.name
+            if recipe.link
+              li.list-group-item.bg-dark
+                a.text-light(href=recipe.link, target="_blank") See recipe...
+            li.list-group-item.bg-success
+                a.text-light(href="/index?eaten_day="+nextMeal.weekId+"&eaten_meal="+nextMeal.mealId) Next meal
   if ingredients
     button.list-group-item.list-group-item-action(type='button', data-toggle='collapse', data-target='#shopping-list', role='button', aria-expanded='false', aria-controls='shopping-list') Show Shopping List
     div.collapse(id='shopping-list')

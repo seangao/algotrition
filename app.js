@@ -64,6 +64,7 @@ app.use((req, res, next) => {
 app.use('/generator', planGeneratorRouter);
 app.use('/calendar', calendarRouter);
 app.use('/', indexRouter);
+app.use('/index', indexRouter);
 
 // middleware function to check for logged-in users
 const sessionChecker = (req, res, next) => {

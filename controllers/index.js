@@ -1,6 +1,8 @@
+const url = require('url');
 const fs = require('fs');
 const planModel = require('../models/plan.js');
 const profileModels = require('../models/profile');
+const updateCalendar = require('../models/updateCalendar.js');
 
 const monthNames = ['January', 'February', 'March', 'April', 'May', 'June',
   'July', 'August', 'September', 'October', 'November', 'December',
@@ -9,19 +11,17 @@ const dayNames = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Frida
 
 async function index(req, res, next) {
   let week;
-  let userData;
   let nextMeal;
+  let userData;
   if (req.session.user && req.cookies.user_sid) {
     userData = await profileModels.searchUserbyID(req.app.locals.db, req.session.userid);
-    const data = await planModel.retrievePlan(req.app.locals.db, req.session.userid);
-    if (data.plan == null) {
-      week = null;
-    } else {
-      week = JSON.parse(data.plan);
-    }
-  } else {
-    const weekString = fs.readFileSync('./saved_plans/recipe1.txt').toString('utf-8');
-    week = JSON.parse(weekString);
+  };
+  const queryData = url.parse(req.url, true).query;
+  if (queryData.eaten_day) {
+    week = await updateCalendar.incrementActiveMeal(req, queryData.eaten_day, queryData.eaten_meal);
+  }
+  else {
+    week = await updateCalendar.readCalendar(req);
   }
   if (week == null) {
     var ingredients_list = null;
@@ -33,7 +33,8 @@ async function index(req, res, next) {
         const meal = day.meals[j];
         if (meal.active && !meal.eaten) {
           nextMeal = meal;
-          meal.day = day;
+          nextMeal.weekId = i;
+          nextMeal.mealId = j;
         }
         for (let k = 0; k < meal.recipes.length; k++) {
           const recipe = meal.recipes[k];
