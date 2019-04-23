@@ -11,9 +11,11 @@ block content
               |
               |
               .btn-group(role="group")
-                a.btn.btn-success(href="/calendar?eaten_day="+week_index+"&eaten_meal="+meal_index)
-                  i.fas.fa-check
-                a.btn.btn-secondary(href="#")
+                a.btn.btn-success(href="/calendar?eaten_day="+week_index+"&eaten_meal="+meal_index) next
+                  |
+                  |
+                  i.fas.fa-arrow-right
+                //-a.btn.btn-secondary(href="#")
                   i.fas.fa-plus
           each recipe in meal.recipes
             .card.bg-dark.my-1
@@ -23,8 +25,8 @@ block content
                   a.text-white(data-toggle="dropdown" href="#")
                     i.fas.fa-ellipsis-h
                   .dropdown-menu.dropdown-menu-right
-                    a.dropdown-item(href="#") Change date...
-                    a.dropdown-item(href="/calendar?delete_id="+recipe.id) Delete...
+                    //- a.dropdown-item(href="#") Change date...
+                    a.dropdown-item(href="/calendar?delete_id="+recipe.id) Remove...
               .card-text.collapse(id="meal"+day.id+'-'+meal.id+"-"+recipe.id)
                 .bg-dark
                   .text-white= "Calories: " + recipe.calories

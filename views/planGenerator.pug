@@ -12,9 +12,9 @@ block content
               button.list-group-item.list-group-item-action.generator-options-item.py-2(id=nutr.id+'-toggle',
                 type='button') #{nutr.name}
           div.text-center.pt-2
-            a#generator-nutr-button.btn.btn-outline-primary(href='#generator-carousel', role='button',
-              data-slide='next') Next
-            a.btn.btn-outline-primary(href='/', role='button') Cancel
+            .btn-group(role="group")
+              a.btn.btn-outline-primary(href='/', role='button') Cancel
+              a#generator-nutr-button.btn.btn-outline-primary(href='#generator-carousel', role='button', data-slide='next') Next
 
       // what to optimize for menu
       div.carousel-item
