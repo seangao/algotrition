@@ -74,6 +74,30 @@ function checkInputs() {
   }
 }
 
+function checkEditProfileInputs() {
+  let valid = true;
+  $('.edit-profile-input').each( function() {
+    if (!$(this).val()) {
+      alert('Error: inputs cannot be empty');
+      valid = false;
+      return false;
+    }
+  });
+  return valid;
+}
+
+function checkGeneratorInputs() {
+  let valid = true;
+  $('#generator-form input').each( function() {
+    $(this).removeClass('is-invalid');
+    if (!$(this).val()) {
+      $(this).addClass('is-invalid');
+      valid = false;
+    }
+  });
+  return valid;
+}
+
 // function setUpEnterKey(event) {
 //   if (event.key === 'Enter') {
 //     if ($('#ingredient-input:focus')) {
@@ -90,6 +114,8 @@ function main() {
   $('#add-ingredient').click(addIngredient);
   $('#cancel-recipe-input').click(clearRecipeInputs);
   $('#add-recipe-form').submit(checkInputs);
+  $('#edit-profile-form').submit(checkEditProfileInputs);
+  $('#generator-form').submit(checkGeneratorInputs);
   // $('#ingredient-input').on('keyup', setUpEnterKey);
 }
 

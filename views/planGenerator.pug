@@ -29,13 +29,15 @@ block content
                 button.list-group-item.list-group-item-action.generator-optimizer-item.py-2(id='optimize-'+opt.id,
                   type='button') #{opt.desc}
           div.text-center.pt-2
-            a#generator-opt-button.btn.btn-outline-primary(href='#generator-carousel', role='button',
-              data-slide='next') Next
+            div.btn-group
+              a#generator-opt-button-prev.btn.btn-outline-primary(href='#generator-carousel', role='button', data-slide='prev') Prev
+              a#generator-opt-button.btn.btn-outline-primary(href='#generator-carousel', role='button',
+                data-slide='next') Next
 
       // enter parameters menu
       div.carousel-item
-        div#generator-form(class='dropdown-menu login-menu')
-          form(method='POST', class='px-3 py-3', action='')
+        div(class='dropdown-menu login-menu')
+          form#generator-form(method='POST', class='px-3 py-3', action='')
             div(class='form-group input-group')
               div(class='input-group-prepend')
                 span(class='input-group-text input-group-icon')
@@ -50,52 +52,56 @@ block content
               div(class='input-group-append')
                 div(class='input-group-append')
                   span(class='input-group-text nutr-options-append-primary') cal
+              div.invalid-feedback Input cannot be empty.
 
-            //- div(class='form-group input-group')
-            //-   div(class='input-group-prepend')
-            //-     span(class='input-group-text input-group-icon')
-            //-       i(class='fas fa-stopwatch')
-            //-   input#cook-time-min.form-control(type='number', placeholder='Cook time',
-            //-     name='cook-time-min', value=0)
-            //-   div(class='input-group-append input-group-prepend')
-            //-     div(class='input-group-append input-group-prepend')
-            //-       span(class='input-group-text') -
-            //-   input#cook-time-max.form-control(type='number', placeholder='Cook time',
-            //-     name='cook-time-max', value=60)
-            //-   div(class='input-group-append')
-            //-     div(class='input-group-append')
-            //-       span(class='input-group-text nutr-options-append-primary') min
+            if enableCookTime
+              div(class='form-group input-group')
+                div(class='input-group-prepend')
+                  span(class='input-group-text input-group-icon')
+                    i(class='fas fa-stopwatch')
+                input#cook-time-min.form-control(type='number', placeholder='Cook time',
+                  name='cook-time-min', value=0)
+                div(class='input-group-append input-group-prepend')
+                  div(class='input-group-append input-group-prepend')
+                    span(class='input-group-text') -
+                input#cook-time-max.form-control(type='number', placeholder='Cook time',
+                  name='cook-time-max', value=60)
+                div(class='input-group-append')
+                  div(class='input-group-append')
+                    span(class='input-group-text nutr-options-append-primary') min
 
-            //- div(class='form-group input-group')
-            //-   div(class='input-group-prepend')
-            //-     span(class='input-group-text input-group-icon')
-            //-       i(class='fas fa-money-bill')
-            //-   input#cost-min.form-control(type='number', placeholder='Cost',
-            //-     name='cost-min', value=10)
-            //-   div(class='input-group-append input-group-prepend')
-            //-     div(class='input-group-append input-group-prepend')
-            //-       span(class='input-group-text') -
-            //-   input#cost-max.form-control(type='number', placeholder='Cost',
-            //-     name='cost-max', value=20)
-            //-   div(class='input-group-append')
-            //-     div(class='input-group-append')
-            //-       span(class='input-group-text nutr-options-append-primary') ($)
+            if enableCost
+              div(class='form-group input-group')
+                div(class='input-group-prepend')
+                  span(class='input-group-text input-group-icon')
+                    i(class='fas fa-money-bill')
+                input#cost-min.form-control(type='number', placeholder='Cost',
+                  name='cost-min', value=10)
+                div(class='input-group-append input-group-prepend')
+                  div(class='input-group-append input-group-prepend')
+                    span(class='input-group-text') -
+                input#cost-max.form-control(type='number', placeholder='Cost',
+                  name='cost-max', value=20)
+                div(class='input-group-append')
+                  div(class='input-group-append')
+                    span(class='input-group-text nutr-options-append-primary') ($)
 
-            div(class='form-group input-group')
-              div(class='input-group-prepend')
-                span(class='input-group-text input-group-icon')
-                  i(class='fas fa-allergies')
-              select#allergens-web(class='selectpicker select-allergens form-control d-none',
-                multiple, data-mobile=true, data-none-selected-text='Allergens',
-                data-width:'auto', name='allergens' disabled)
-                each allergen in allergens
-                    option(value=allergen.toLowerCase()) #{allergen}
-              select#allergens-mobile(class='custom-select form-control',
-                multiple, data-mobile=true, data-none-selected-text='Allergens',
-                data-width:'auto', name='allergens')
-                option(disabled) Allergens
-                each allergen in allergens
-                    option(value=allergen.toLowerCase()) #{allergen}
+            if enableAllergens
+              div(class='form-group input-group')
+                div(class='input-group-prepend')
+                  span(class='input-group-text input-group-icon')
+                    i(class='fas fa-allergies')
+                select#allergens-web(class='selectpicker select-allergens form-control d-none',
+                  multiple, data-mobile=true, data-none-selected-text='Allergens',
+                  data-width:'auto', name='allergens' disabled)
+                  each allergen in allergens
+                      option(value=allergen.toLowerCase()) #{allergen}
+                select#allergens-mobile(class='custom-select form-control',
+                  multiple, data-mobile=true, data-none-selected-text='Allergens',
+                  data-width:'auto', name='allergens')
+                  option(disabled) Allergens
+                  each allergen in allergens
+                      option(value=allergen.toLowerCase()) #{allergen}
 
             div(class='form-group input-group')
               div(class='input-group-prepend')
@@ -153,10 +159,13 @@ block content
                 div(class='input-group-append')
                   div(class='input-group-append')
                     span.nutr-options-additional-append-primary(class='input-group-text') #{nutr.units}
+                div.invalid-feedback Input cannot be empty.
 
             input#optimize-id(type='hidden', name='optimize-id', value=0)
 
             div.dropdown-divider
             div.text-center.pt-3
-              button#generate.btn.btn-outline-primary(type='submit',
-                name='generate') Generate Meal Plan
+              div.btn-group
+                a#generator-button-prev.btn.btn-outline-primary(href='#generator-carousel', role='button', data-slide='prev') Prev
+                button#generate.btn.btn-outline-primary(type='submit',
+                  name='generate') Generate Meal Plan
