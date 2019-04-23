@@ -62,7 +62,7 @@ async function deleteRecipeFromCalendar(req, rejectedRecipeId) {
   for (i = 0; i < calendar.length; i++) {
     for (j = 0; j < calendar[i].meals.length; j++) {
       const recipe = calendar[i].meals[j].recipes[0];
-      if (recipe.id === rejectedRecipeId) {
+      if (recipe.id == rejectedRecipeId) { //bad lint
         dayIndex = i;
         mealIndex = j;
         activeMeal = recipe.active;
