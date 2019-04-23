@@ -27,6 +27,9 @@ block content
                 a.text-light(href=recipe.link, target="_blank") See recipe...
             li.list-group-item.bg-success
                 a.text-light(href="/index?eaten_day="+nextMeal.weekId+"&eaten_meal="+nextMeal.mealId) Next meal
+                  |
+                  |
+                  i.fas.fa-arrow-right
   if ingredients
     button.list-group-item.list-group-item-action(type='button', data-toggle='collapse', data-target='#shopping-list', role='button', aria-expanded='false', aria-controls='shopping-list') Show Shopping List
     div.collapse(id='shopping-list')

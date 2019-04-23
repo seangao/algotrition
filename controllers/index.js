@@ -10,12 +10,12 @@ const monthNames = ['January', 'February', 'March', 'April', 'May', 'June',
 const dayNames = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
 async function index(req, res, next) {
-  let week = req.session.calendar;
+  const week = req.session.calendar;
   let nextMeal;
   let userData;
   if (req.session.user && req.cookies.user_sid) {
     userData = await profileModels.searchUserbyID(req.app.locals.db, req.session.userid);
-  };
+  }
   const queryData = url.parse(req.url, true).query;
   if (queryData.eaten_day) {
     updateCalendar.incrementActiveMeal(req, queryData.eaten_day, queryData.eaten_meal);

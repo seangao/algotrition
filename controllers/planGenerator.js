@@ -160,11 +160,9 @@ function generator(req, res) {
 
 async function saveGeneratorRequest(req, res, next) {
   // req.body contains the POST request in a JSON format
-  // console.log(req.body);
 
   const recipes = await recipesMod.getAllRecipes(req.app.locals.db);
-
-  let calendar = optimizer.optimization(req.body, recipes);
+  const calendar = optimizer.optimization(req.body, recipes);
 
   if (calendar.length > 0) {
     if (req.session.user && req.cookies.user_sid) {
