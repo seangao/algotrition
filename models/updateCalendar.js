@@ -72,11 +72,16 @@ async function deleteRecipeFromCalendar(req, rejectedRecipeId) {
    	let j;
    	let dayIndex;
    	let mealIndex;
+		let activeMeal;
+		let eatenMeal;
    	for (i = 0; i < calendar.length; i++) {
    		for (j = 0; j < calendar[i].meals.length; j++) {
-   			if (calendar[i].meals[j].recipes[0].id == rejectedRecipeId) {
+				let recipe = calendar[i].meals[j].recipes[0];
+   			if (recipe.id == rejectedRecipeId) {
    				dayIndex = i;
    				mealIndex = j;
+					activeMeal = recipe.active;
+					eatenMeal = recipe.eaten;
    			}
    		}
    	}
@@ -126,6 +131,8 @@ async function deleteRecipeFromCalendar(req, rejectedRecipeId) {
     });
   } else {
     	const meals = optimizer.returnMealsForCalendar(model, results, inputConstraints);
+			console.log(meals[mealIndex]);
+			meals[mealIndex].recipes[0].active = activeMeal;
     	calendar[dayIndex].meals = meals;
     writeCalendar(req, calendar);
     writeRejectedRecipes(req, rejectedRecipes);
