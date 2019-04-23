@@ -5,7 +5,7 @@ body {
 }
 
 a {
-  color: #00B7FF;
+  color: #ffffff;
 }
 
 h1 {
@@ -74,6 +74,63 @@ h1 {
 
 button:focus {
   outline:0;
+}
+
+.profile-header {
+  background-color: #ffffff;
+  border-top-style: none;
+  border-right-style: none;
+  border-left-style: none;
+  border-bottom-style: solid;
+  color: black;
+  padding: 15px 32px;
+  text-align: left;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 6px 0px;
+  cursor: pointer;
+}
+
+.profile-header:hover {
+  background-color: #4CAF50; /* Green */
+  color: white;
+}
+
+.profile-body{
+  background-color: #ffffff;
+  border: none;
+  color: black;
+  padding: 5px 32px;
+  text-align: left;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 6px 0px;
+  cursor: pointer;
+}
+
+.tutorial-header:hover {
+  background-color: #4CAF50; /* Green */
+  color: white;
+}
+
+.tutorial-body{
+  background-color: #ffffff;
+  border: none;
+  color: black;
+  padding: 60px 30px;
+  text-align: left;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 6px 0px;
+  cursor: pointer;
+}
+
+.tutorial-container{
+  display: flex;
+  flex-direction: row;
 }
 
 .flexbox {

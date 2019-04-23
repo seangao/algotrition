@@ -21,7 +21,7 @@ async function generateProfile(req, res) {
 
   const user = [
     {
-      name: 'general',
+      name: 'General',
       id: 0,
       items: [
         {
@@ -63,7 +63,7 @@ async function generateProfile(req, res) {
       ],
     },
     {
-      name: 'nutritional information',
+      name: 'Nutritional Information',
       id: 1,
       items: [
         {
@@ -83,7 +83,7 @@ async function generateProfile(req, res) {
       ],
     },
     {
-      name: 'history',
+      name: 'History',
       id: 2,
       items: [
         {
