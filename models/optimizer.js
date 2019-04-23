@@ -392,21 +392,30 @@ function returnMealsForCalendar(model, results, inputConstraints) {
       let j;
       for (j = 0; j < inputConstraints.numBreakfasts; j++) {
         if (recipe[`breakfast${String(2 * j + 1)}`] === 1) {
-          const meal = { name: `Breakfast ${String(j + 1)}`, id: (j + 1), recipes: [singleRecipe] };
+          const name = (inputConstraints.numBreakfasts === 1) ?
+            'Breakfast':
+            `Breakfast ${String(j + 1)}`;
+          const meal = { name: name, id: (j + 1), recipes: [singleRecipe] };
           meals[meal.id - 1] = meal;
         }
       }
 
       for (j = 0; j < inputConstraints.numLunches; j++) {
         if (recipe[`lunch${String(2 * j + 1)}`] === 1) {
-          const meal = { name: `Lunch ${String(j + 1)}`, id: (inputConstraints.numBreakfasts + j + 1), recipes: [singleRecipe] };
+          const name = (inputConstraints.numLunches === 1) ?
+            'Lunch':
+            `Lunch ${String(j + 1)}`;
+          const meal = { name: name, id: (inputConstraints.numBreakfasts + j + 1), recipes: [singleRecipe] };
           meals[meal.id - 1] = meal;
         }
       }
 
       for (j = 0; j < inputConstraints.numDinners; j++) {
         if (recipe[`dinner${String(2 * j + 1)}`] === 1) {
-          const meal = { name: `Dinner ${String(j + 1)}`, id: (inputConstraints.numBreakfasts + inputConstraints.numLunches + j + 1), recipes: [singleRecipe] };
+          const name = (inputConstraints.numDinners === 1) ?
+            'Dinner':
+            `Dinner ${String(j + 1)}`;
+          const meal = { name: name, id: (inputConstraints.numBreakfasts + inputConstraints.numLunches + j + 1), recipes: [singleRecipe] };
           meals[meal.id - 1] = meal;
         }
       }
