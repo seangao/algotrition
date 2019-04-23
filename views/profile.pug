@@ -14,7 +14,7 @@ block content
           //-   span Download
         div.list
           each category in user
-              h5.card-header.d-flex
+              h5.card-header.d-flex.text-capitalize
                 a.mr-auto.text-secondary(data-toggle="collapse" href="#category"+category.id)= category.name
               .card-text.collapse.text-secondary.show(id="category"+category.id)
                 each item in category.items
@@ -23,9 +23,9 @@ block content
 
       div.carousel-item
         div#edit-form(class='list')
-          form(method='POST', class='px-3 py-3', action='/profile/updateprofile')
+          form#edit-profile-form(method='POST', class='px-3 py-3', action='/profile/updateprofile')
             each category in user
-              h5.card-header.d-flex
+              h5.card-header.d-flex.text-capitalize
                 a.mr-auto.text-secondary(data-toggle="collapse" href="#category"+category.id+"edit")= category.name
               .card-text.collapse.text-secondary.show(id="category"+category.id+"edit")
                 each item in category.items
@@ -34,8 +34,8 @@ block content
                       div(class='input-group-prepend')
                         span(class='input-group-text text-capitalize') #{item.name}
                           //- i(class=item.icon)
-                      select(class='custom-select', name='ft')
-                        option(selected, disabled) #{item.feet}
+                      select.edit-profile-input(class='custom-select', name='ft')
+                        option(selected, value=item.inch) #{item.feet}
                         option(value='0') 0
                         option(value='1') 1
                         option(value='2') 2
@@ -47,8 +47,8 @@ block content
                       div(class='input-group-append input-group-prepend')
                         div(class='input-group-append input-group-prepend')
                           span(class='input-group-text') feet
-                      select(class='custom-select', name='in')
-                        option(selected, disabled) #{item.inch}
+                      select.edit-profile-input(class='custom-select', name='in')
+                        option(selected, value=item.inch) #{item.inch}
                         option(value='0') 0
                         option(value='1') 1
                         option(value='2') 2
@@ -67,13 +67,13 @@ block content
                       div(class='input-group-append')
                         span(class='input-group-text')
                           i(class=item.icon)
-                  else if item.name === 'Gender'
+                  else if item.name === 'gender'
                     div(class='form-group input-group')
                       div(class='input-group-prepend')
                         span(class='input-group-text text-capitalize') #{item.name}
                           //- i(class=item.icon) 
-                      select(class='custom-select', name='gender')
-                        option(selected, disabled) #{item.value}
+                      select.edit-profile-input(class='custom-select', name='gender')
+                        option(value=item.value) #{item.value}
                         option(value='Male') Male
                         option(value='Female') Female
                         option(value='Other') Other
@@ -81,12 +81,22 @@ block content
                         span(class='input-group-text')
                           i(class=item.icon)
                   else if item.edit
-                    if item.number
+                    if item.name === 'weight'
                       div(class='form-group input-group')
                         div(class='input-group-prepend')
                           span(class='input-group-text text-capitalize') #{item.name}
                             //- i(class=item.icon) 
-                        input.form-control(type='number', placeholder=item.value,
+                        input.form-control.edit-profile-input(type='number', value=item.value.split(' ')[0],
+                          name=item.name)
+                        div(class='input-group-append')
+                          span(class='input-group-text')
+                            i(class=item.icon)
+                    else if item.number
+                      div(class='form-group input-group')
+                        div(class='input-group-prepend')
+                          span(class='input-group-text text-capitalize') #{item.name}
+                            //- i(class=item.icon) 
+                        input.form-control.edit-profile-input(type='number', value=item.value,
                           name=item.name)
                         div(class='input-group-append')
                           span(class='input-group-text')
@@ -96,7 +106,7 @@ block content
                         div(class='input-group-prepend')
                           span(class='input-group-image input-group-text text-capitalize') #{item.name}
                             //- i(class=item.icon) 
-                        input.form-control(type='text', placeholder=item.value,
+                        input.form-control.edit-profile-input(type='text', value=item.value,
                           name=item.name)
                         div(class='input-group-append')
                           span(class='input-group-text')
