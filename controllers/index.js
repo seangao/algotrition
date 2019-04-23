@@ -10,7 +10,7 @@ const monthNames = ['January', 'February', 'March', 'April', 'May', 'June',
 const dayNames = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
 async function index(req, res, next) {
-  let week;
+  let week = req.session.calendar;
   let nextMeal;
   let userData;
   if (req.session.user && req.cookies.user_sid) {
@@ -18,10 +18,7 @@ async function index(req, res, next) {
   };
   const queryData = url.parse(req.url, true).query;
   if (queryData.eaten_day) {
-    week = await updateCalendar.incrementActiveMeal(req, queryData.eaten_day, queryData.eaten_meal);
-  }
-  else {
-    week = await updateCalendar.readCalendar(req);
+    updateCalendar.incrementActiveMeal(req, queryData.eaten_day, queryData.eaten_meal);
   }
   if (week == null) {
     var ingredients_list = null;

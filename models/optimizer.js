@@ -437,24 +437,6 @@ function returnCalendar(resultsArray, mealsArray) {
   return week;
 }
 
-function writeCalendarFile(path, calendar) {
-  fs.writeFile(path, JSON.stringify(calendar), (err) => {
-    if (err) throw err;
-  });
-}
-
-function writeConstraintsFile(path, constraints) {
-  fs.writeFile(path, JSON.stringify(constraints), (err) => {
-    if (err) throw err;
-  });
-}
-
-function writeRejectedRecipesFile(path, recipes) {
-  fs.writeFile(path, JSON.stringify(recipes), (err) => {
-    if (err) throw err;
-  });
-}
-
 function getNumberEachCourse(inputConstraints) {
   if (inputConstraints.meals == 1) {
     inputConstraints.numBreakfasts = 0;
@@ -543,7 +525,6 @@ function optimization(inputConstraints, recipes) {
 
 
     const results = solver.Solve(model);
-    // console.log(results);
     resultsArray.push(results);
     mealsArray.push(returnMealsForCalendar(model, results, inputConstraints));
 
@@ -565,9 +546,6 @@ function optimization(inputConstraints, recipes) {
 module.exports = {
   optimization,
   returnCalendar,
-  writeCalendarFile,
-  writeConstraintsFile,
-  writeRejectedRecipesFile,
   populateConstraints,
   populateRecipeVariables,
   duplicateVariables,

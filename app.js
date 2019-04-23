@@ -48,18 +48,9 @@ app.use(session({
   key: 'user_sid',
   secret: 'somerandonstuffs',
   resave: false,
-  saveUninitialized: false,
+  saveUninitialized: true,
   cookie: { expires: 600000 },
 }));
-
-// This middleware will check if user's cookie is still saved in browser and
-// user is not set, then automatically log the user out.
-// This usually happens when you stop your express server after login, your
-// cookie still remains saved in the browser.
-app.use((req, res, next) => {
-  if (req.cookies.user_sid && !req.session.user) res.clearCookie('user_sid');
-  next();
-});
 
 app.use('/generator', planGeneratorRouter);
 app.use('/calendar', calendarRouter);

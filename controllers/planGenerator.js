@@ -164,18 +164,17 @@ async function saveGeneratorRequest(req, res, next) {
 
   const recipes = await recipesMod.getAllRecipes(req.app.locals.db);
 
-  const calendar = optimizer.optimization(req.body, recipes);
+  let calendar = optimizer.optimization(req.body, recipes);
 
   if (calendar.length > 0) {
     if (req.session.user && req.cookies.user_sid) {
       planModel.insertPlan(req.app.locals.db, req.session.userid, calendar);
       planModel.insertConstraints(req.app.locals.db, req.session.userid, req.body);
       planModel.insertRejectedRecipes(req.app.locals.db, req.session.userid, []);
-    } else {
-      await optimizer.writeCalendarFile('./saved_plans/recipe1.txt', calendar);
-      await optimizer.writeConstraintsFile('./saved_plans/constraints.txt', req.body);
-      await optimizer.writeRejectedRecipesFile('./saved_plans/rejectedRecipes.txt', []);
     }
+    req.session.calendar = calendar;
+    req.session.constraints = req.body;
+    req.session.rejectedRecipes = [];
     next();
   } else {
     res.render('error', {

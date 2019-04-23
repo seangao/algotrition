@@ -14,8 +14,8 @@ async function calendar(req, res, next) {
     }
     week = JSON.parse(data.plan);
   } else {
-    const weekString = fs.readFileSync('./saved_plans/recipe1.txt').toString('utf-8');
-    week = JSON.parse(weekString);
+    if (!req.session.calendar) {next();}
+    week = req.session.calendar;
   }
 
   const queryData = url.parse(req.url, true).query;

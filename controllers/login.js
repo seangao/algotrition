@@ -1,5 +1,6 @@
 const bcrypt = require('bcrypt');
 const loginModels = require('../models/login');
+const updateCalendar = require('../models/updateCalendar');
 
 function login(req, res, next) {
   if (!req.session.user) {
@@ -17,6 +18,9 @@ async function loginProcess(req, res, next) {
     req.session.user = true;
     req.session.userid = userAns.id;
     res.locals.user = true;
+    await updateCalendar.readCalendar(req);
+    await updateCalendar.readInputConstraints(req);
+    await updateCalendar.readRejectedRecipes(req);
     next();
   }
 }

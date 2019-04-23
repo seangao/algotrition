@@ -5,62 +5,43 @@ const planModel = require('./plan.js');
 const recipesMod = require('./recipes.js');
 
 async function readCalendar(req) {
-  let calendar;
-  if (req.session.user && req.cookies.user_sid) {
+  if (!req.session.calendar && req.session.user && req.cookies.user_sid) {
     const calendarString = (await planModel.retrievePlan(req.app.locals.db, req.session.userid)).plan;
-    calendar = JSON.parse(calendarString);
-  } else {
-    	const calendarString = fs.readFileSync('./saved_plans/recipe1.txt').toString('utf-8');
-    	calendar = JSON.parse(calendarString);
+    req.session.calendar = JSON.parse(calendarString);
   }
-  return calendar;
 }
 
 async function readInputConstraints(req) {
-  let inputConstraints;
   if (req.session.user && req.cookies.user_sid) {
     const inputConstraintsString = (await planModel.retrieveConstraints(req.app.locals.db, req.session.userid)).constraints;
-    inputConstraints = JSON.parse(inputConstraintsString);
-  } else {
-    	const inputConstraintsString = fs.readFileSync('./saved_plans/constraints.txt').toString('utf-8');
-    	inputConstraints = JSON.parse(inputConstraintsString);
+    req.session.constraints = JSON.parse(inputConstraintsString);
   }
-  return inputConstraints;
 }
 
 async function readRejectedRecipes(req) {
-  let rejectedRecipes;
   if (req.session.user && req.cookies.user_sid) {
-    const rejectedRecipesString =			await planModel.retrieveRejectedRecipes(req.app.locals.db, req.session.userid);
-    rejectedRecipes = JSON.parse(rejectedRecipesString.rejected_recipes);
-	  } else {
-    	const rejectedRecipesString = fs.readFileSync('./saved_plans/rejectedRecipes.txt').toString('utf-8');
-    	rejectedRecipes = JSON.parse(rejectedRecipesString);
-  }
-  return rejectedRecipes;
+    const rejectedRecipesString = await planModel.retrieveRejectedRecipes(req.app.locals.db, req.session.userid);
+    req.session.rejectedRecipes = JSON.parse(rejectedRecipesString.rejected_recipes);
+		console.log(req.session.rejectedRecipes);
+	  }
 }
 
 async function writeCalendar(req, calendar) {
   if (req.session.user && req.cookies.user_sid) {
     planModel.insertPlan(req.app.locals.db, req.session.userid, calendar);
-  } else {
-    await optimizer.writeCalendarFile('./saved_plans/recipe1.txt', calendar);
   }
 }
 
 async function writeRejectedRecipes(req, rejectedRecipes) {
   if (req.session.user && req.cookies.user_sid) {
     planModel.insertRejectedRecipes(req.app.locals.db, req.session.userid, rejectedRecipes);
-  } else {
-    await optimizer.writeRejectedRecipesFile('./saved_plans/rejectedRecipes.txt', rejectedRecipes);
   }
 }
 
 async function deleteRecipeFromCalendar(req, rejectedRecipeId) {
-  const calendar = await readCalendar(req);
-  const inputConstraints = await readInputConstraints(req);
-  const rejectedRecipes = await readRejectedRecipes(req);
-
+  const calendar = req.session.calendar;
+  const inputConstraints = req.session.constraints;
+  const rejectedRecipes = req.session.rejectedRecipes;
   // Add new rejected recipe to list and update database
   if (!rejectedRecipes.includes(rejectedRecipeId)) {
     	rejectedRecipes.push(rejectedRecipeId);
@@ -124,6 +105,7 @@ async function deleteRecipeFromCalendar(req, rejectedRecipeId) {
 
   // Generate output from solver
   if (results.feasible != true) {
+			rejectedRecipes.pop();
     	res.render('error', {
       	message: 'Solution cannot be found without the rejected recipe',
       	error: { status: 'No Solution' },
@@ -131,7 +113,6 @@ async function deleteRecipeFromCalendar(req, rejectedRecipeId) {
     });
   } else {
     	const meals = optimizer.returnMealsForCalendar(model, results, inputConstraints);
-			console.log(meals[mealIndex]);
 			meals[mealIndex].recipes[0].active = activeMeal;
     	calendar[dayIndex].meals = meals;
     writeCalendar(req, calendar);
@@ -142,7 +123,7 @@ async function deleteRecipeFromCalendar(req, rejectedRecipeId) {
 }
 
 async function incrementActiveMeal(req, eatenDay, eatenMeal) {
-  const calendar = await readCalendar(req);
+  const calendar = req.session.calendar;
   calendar[eatenDay].meals[eatenMeal].eaten = true;
   calendar[eatenDay].meals[eatenMeal].active = false;
   // let the lint complain, otherwise we get 0 + 1 = 01
@@ -164,4 +145,6 @@ module.exports = {
   deleteRecipeFromCalendar,
   incrementActiveMeal,
 	readCalendar,
+	readInputConstraints,
+	readRejectedRecipes,
 };
