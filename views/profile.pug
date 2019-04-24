@@ -14,9 +14,9 @@ block content
           //-   span Download
         div.list
           each category in user
-              h5.card-header.d-flex.text-capitalize
-                a.mr-auto.text-secondary(data-toggle="collapse" href="#category"+category.id)= category.name
-              .card-text.collapse.text-secondary.show(id="category"+category.id)
+            button.list-group-item.profile-header.list-group-item-action(type='button', data-toggle='collapse', data-target='#category'+category.id, role='button', aria-expanded='true', aria-controls='general') #{category.name}
+            div.container.collapse.show(id='category'+category.id)
+              div.card.card-body.profile-body
                 each item in category.items
                   
                   p(id=item.name)= item.name.charAt(0).toUpperCase() + item.name.slice(1, item.name.length) + ": " + item.value
@@ -25,9 +25,9 @@ block content
         div#edit-form(class='list')
           form#edit-profile-form(method='POST', class='px-3 py-3', action='/profile/updateprofile')
             each category in user
-              h5.card-header.d-flex.text-capitalize
-                a.mr-auto.text-secondary(data-toggle="collapse" href="#category"+category.id+"edit")= category.name
-              .card-text.collapse.text-secondary.show(id="category"+category.id+"edit")
+              button.list-group-item.profile-header.list-group-item-action(type='button', data-toggle='collapse', data-target='#category'+category.id+'edit', role='button', aria-expanded='true', aria-controls='general') #{category.name}
+              div.container.collapse.show(id='category'+category.id+'edit')
+                div.card.card-body.profile-body
                 each item in category.items
                   if item.name === 'height'
                     div(class='form-group input-group')
