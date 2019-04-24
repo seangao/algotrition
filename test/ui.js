@@ -25,6 +25,12 @@ describe('UI', () => {
     assert.equal(title, 'Plan Generator');
   });
 
+  it('calendar redirects to generator when there is no plan', async () => {
+    await driver.get(`${baseURL}/calendar`);
+    const title = await driver.getTitle();
+    assert.equal(title, 'Plan Generator');
+  });
+
   // it('generate meal plan', async () => {
   //   await driver.get(baseURL + '/generator');
   //   await driver.findElement(By.id('potassium-toggle')).click();
@@ -78,6 +84,20 @@ describe('UI', () => {
     it('view allergens', async () => {
       assert.isTrue(driver.findElement(By.id('allergens')).isDisplayed());
     });
+  });
+
+  it('view calendar', async () => {
+    await driver.get(`${baseURL}/calendar`);
+
+    const title = await driver.getTitle();
+    assert.equal(title, 'Calendar');
+  });
+
+  it('view recipes', async () => {
+    await driver.get(`${baseURL}/recipes`);
+
+    const title = await driver.getTitle();
+    assert.equal(title, 'Recipes');
   });
 
   after(() => driver && driver.quit());
