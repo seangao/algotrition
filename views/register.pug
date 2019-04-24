@@ -9,15 +9,14 @@ block content
             i(class='fas fa-user')
 
 
-        //-
-           a variable called registerlogin will be passed to here if username already exist
-           someone implement the conditional here? same as the login one
+        // display error if registererr set
         if (locals.registererr)
           input#username.form-control.is-invalid(type='text', placeholder='Username', name='username')
         else
           input#username.form-control(type='text', placeholder='Username',
           name='username')
         div.invalid-feedback #{locals.registererr}
+        
       div(class='form-group input-group')
         div(class='input-group-prepend')
           span(class='input-group-text input-group-icon')

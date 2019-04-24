@@ -38,6 +38,7 @@ block content
       div.carousel-item
         div(class='dropdown-menu login-menu')
           form#generator-form(method='POST', class='px-3 py-3', action='')
+            // calories
             div(class='form-group input-group')
               div(class='input-group-prepend')
                 span(class='input-group-text input-group-icon')
@@ -54,6 +55,7 @@ block content
                   span(class='input-group-text nutr-options-append-primary') cal
               div.invalid-feedback Input cannot be empty.
 
+            // cook time, cost, allergens currently disabled here
             if enableCookTime
               div(class='form-group input-group')
                 div(class='input-group-prepend')
@@ -103,6 +105,7 @@ block content
                   each allergen in allergens
                       option(value=allergen.toLowerCase()) #{allergen}
 
+            // dietary restrictions
             div(class='form-group input-group')
               div(class='input-group-prepend')
                 span(class='input-group-text input-group-icon')
@@ -112,6 +115,7 @@ block content
                 each diet in diets
                     option(value=diet.toLowerCase()) #{diet}
 
+            // # of daily meals
             div(class='form-group input-group')
               div(class='input-group-prepend')
                 span(class='input-group-text input-group-icon')
@@ -127,6 +131,7 @@ block content
                 div(class='input-group-append')
                   span(class='input-group-text') daily meals
 
+            // # of days to generate
             div(class='form-group input-group')
               div(class='input-group-prepend')
                 span(class='input-group-text input-group-icon')
@@ -145,6 +150,7 @@ block content
 
             div.dropdown-divider.pb-2
 
+            // nutritional requirements specified on first slide
             each nutr in nutrients
               div.form-group.input-group(id=nutr.id)
                 div.input-group-prepend
@@ -163,6 +169,7 @@ block content
 
             input#optimize-id(type='hidden', name='optimize-id', value=0)
 
+            // submit divider
             div.dropdown-divider
             div.text-center.pt-3
               div.btn-group

@@ -27,7 +27,7 @@ async function loginProcess(req, res, next) {
 
 async function forgotPassword(req, res) {
   await loginModels.changePasswordbyUsername(req.app.locals.db, req.body);
-  res.render('login', { note: 'Password reset. Please log in again.' });
+  res.render('login', { title: 'Login', note: 'Password reset. Please log in again.' });
 }
 
 module.exports = {

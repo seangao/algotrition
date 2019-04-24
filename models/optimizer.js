@@ -405,30 +405,30 @@ function returnMealsForCalendar(model, results, inputConstraints) {
       let j;
       for (j = 0; j < inputConstraints.numBreakfasts; j++) {
         if (recipe[`breakfast${String(2 * j + 1)}`] === 1) {
-          const name = (inputConstraints.numBreakfasts === 1) ?
-            'Breakfast':
-            `Breakfast ${String(j + 1)}`;
-          const meal = { name: name, id: (j + 1), recipes: [singleRecipe] };
+          const name = (inputConstraints.numBreakfasts === 1)
+            ? 'Breakfast'
+            : `Breakfast ${String(j + 1)}`;
+          const meal = { name, id: (j + 1), recipes: [singleRecipe] };
           meals[meal.id - 1] = meal;
         }
       }
 
       for (j = 0; j < inputConstraints.numLunches; j++) {
         if (recipe[`lunch${String(2 * j + 1)}`] === 1) {
-          const name = (inputConstraints.numLunches === 1) ?
-            'Lunch':
-            `Lunch ${String(j + 1)}`;
-          const meal = { name: name, id: (inputConstraints.numBreakfasts + j + 1), recipes: [singleRecipe] };
+          const name = (inputConstraints.numLunches === 1)
+            ? 'Lunch'
+            : `Lunch ${String(j + 1)}`;
+          const meal = { name, id: (inputConstraints.numBreakfasts + j + 1), recipes: [singleRecipe] };
           meals[meal.id - 1] = meal;
         }
       }
 
       for (j = 0; j < inputConstraints.numDinners; j++) {
         if (recipe[`dinner${String(2 * j + 1)}`] === 1) {
-          const name = (inputConstraints.numDinners === 1) ?
-            'Dinner':
-            `Dinner ${String(j + 1)}`;
-          const meal = { name: name, id: (inputConstraints.numBreakfasts + inputConstraints.numLunches + j + 1), recipes: [singleRecipe] };
+          const name = (inputConstraints.numDinners === 1)
+            ? 'Dinner'
+            : `Dinner ${String(j + 1)}`;
+          const meal = { name, id: (inputConstraints.numBreakfasts + inputConstraints.numLunches + j + 1), recipes: [singleRecipe] };
           meals[meal.id - 1] = meal;
         }
       }
@@ -462,7 +462,6 @@ function returnCalendar(resultsArray, mealsArray) {
 // Based on the number of desired meals per day, determines the number of recipes
 // which are categorized as different courses (breakfast, lunch, dinner)
 function getNumberEachCourse(inputConstraints) {
-
   if (inputConstraints.meals === '1') {
     inputConstraints.numBreakfasts = 0;
     inputConstraints.numLunches = 0;
@@ -494,7 +493,7 @@ function getNumberEachCourse(inputConstraints) {
     inputConstraints.numDinners = 2;
   }
 
-  //return inputConstraints;
+  // return inputConstraints;
 }
 
 

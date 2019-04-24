@@ -7,6 +7,8 @@ block content
         div(class='input-group-prepend')
           span(class='input-group-text input-group-icon')
             i(class='fas fa-user')
+              
+        // display error or notification if set
         if (locals.loginerr)
           input#username.form-control.is-invalid(type='text', 
             placeholder='Username', name='username')
@@ -18,6 +20,7 @@ block content
             name='username')
         div.valid-feedback #{locals.note}
         div.invalid-feedback #{locals.loginerr}
+        
       div(class='form-group input-group')
         div(class='input-group-prepend')
           span(class='input-group-text input-group-icon')

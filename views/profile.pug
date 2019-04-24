@@ -19,7 +19,7 @@ block content
               div.card.card-body.profile-body
                 each item in category.items
                   
-                  p= item.name.charAt(0).toUpperCase() + item.name.slice(1, item.name.length) + ": " + item.value
+                  p(id=item.name)= item.name.charAt(0).toUpperCase() + item.name.slice(1, item.name.length) + ": " + item.value
 
       div.carousel-item
         div#edit-form(class='list')
