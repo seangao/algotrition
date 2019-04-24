@@ -1,3 +1,8 @@
+/**
+ * Toggle nutritional requirement visibility.
+ * @param {integer} i - index
+ * @param {object} obj - selected object
+ */
 function updateNutrOption(i, obj) {
   const id = $(obj).attr('id');
   const inputId = id.slice(0, -7);
@@ -11,10 +16,12 @@ function updateNutrOption(i, obj) {
   }
 }
 
+/** Display selected nutritional requirements. */
 function updateNutrOptions() {
   $('.generator-options-item').each(updateNutrOption);
 }
 
+/** Toggle dropdown button selected. */
 function toggleDropdownButton() {
   if ($(this).is('.active')) {
     $(this).removeClass('active');
@@ -23,17 +30,20 @@ function toggleDropdownButton() {
   }
 }
 
+/** Clear dropdown button if selected. */
 function clearDropdownButton(i, obj) {
   if ($(obj).is('.active')) {
     $(obj).removeClass('active');
   }
 }
 
+/** Display optimize option as selected. */
 function selectOptimizerButton() {
   $('.generator-optimizer-item').each(clearDropdownButton);
   $(this).addClass('active');
 }
 
+/** Update form optimize id. */
 function updateOptimizeId() {
   const id = $('.generator-optimizer-item.active')
     .attr('id')
@@ -41,10 +51,12 @@ function updateOptimizeId() {
   $('#optimize-id').val(id);
 }
 
+/** Remove selected ingredient. */
 function removeIngredient() {
   $(this).parent().remove();
 }
 
+/** Add ingredient. */
 function addIngredient() {
   const input = $('#ingredient-input').val();
   if (!input) {
@@ -57,12 +69,14 @@ function addIngredient() {
   $('.remove-ingredient').click(removeIngredient);
 }
 
+/** Remove all recipe input values. */
 function clearRecipeInputs() {
   $('#title').val('');
   $('#ingredient-list').empty();
   $('#instruction').val('');
 }
 
+/** Check if add recipe form inputs are valid. */
 function checkInputs() {
   const title = $('#title').val();
   const has_ingredients = $('ul#ingredient-list li').length >= 1;
@@ -74,6 +88,7 @@ function checkInputs() {
   }
 }
 
+/** Check if edit profile inputs are valid. */
 function checkEditProfileInputs() {
   let valid = true;
   $('.edit-profile-input').each( function() {
@@ -86,6 +101,7 @@ function checkEditProfileInputs() {
   return valid;
 }
 
+/** Check if meal plan generator inputs are valid. */
 function checkGeneratorInputs() {
   let valid = true;
   $('#generator-form input').each( function() {
@@ -106,6 +122,7 @@ function checkGeneratorInputs() {
 //   }
 // }
 
+/** Main function to load on document ready. */
 function main() {
   $('.generator-options-item').click(toggleDropdownButton);
   $('.generator-optimizer-item').click(selectOptimizerButton);
@@ -119,6 +136,7 @@ function main() {
   // $('#ingredient-input').on('keyup', setUpEnterKey);
 }
 
+/** Render header image. */
 function renderImage() {
   const windowWidth = $(window).width();
   $('.header_bar').css('background-image', 'url(../images/header_background.jpg)');
