@@ -1,9 +1,21 @@
+/*
+This model performs the meal plan computation. The primary function is called optimization.
+It reads in input constraints and an array of recipes. It returns a formatted
+meal plan which is passed to the calendar. For details on the solver view the online 
+documentation for javascript-lp-solver. It consists of three main components: 
+1) An optimization parameter (cost, time, calories)
+2) A set of variables (recipes)
+3) A set of constraints (nutritional ranges)
+*/
+
 const solver = require('javascript-lp-solver');
 
 // This function creates the constraints object within the solver object
 function populateConstraints(inputConstraints) {
   const output = {};
 
+  // Using dummy variables, set a constraint which restricts the number of
+  // recipes for each meal to 1
   let i;
   for (i = 0; i < inputConstraints.numBreakfasts; i++) {
     output[`breakfast${String(2 * i + 1)}`] = { min: 0.9 };
@@ -19,7 +31,6 @@ function populateConstraints(inputConstraints) {
     output[`dinner${String(2 * i + 1)}`] = { min: 0.9 };
     output[`dinner${String(2 * i + 2)}`] = { max: 1.1 };
   }
-
 
   if ('calories-min' in inputConstraints && inputConstraints.optParameter !== 'energy') {
     output.energy = { min: inputConstraints['calories-min'] };
@@ -138,7 +149,10 @@ function populateConstraints(inputConstraints) {
 }
 
 
+// Duplicates entries in the variables object passed to the solver to 
+// include entries with different serving numbers
 function duplicateVariables(variables, servingsArray, inputConstraints) {
+  // Parameters which change based on the number of servings
   const partialScaledParameters = [
     'potassium',
     'sodium',
@@ -157,7 +171,7 @@ function duplicateVariables(variables, servingsArray, inputConstraints) {
     'vitamin_a',
     'price_per_serving'];
 
-
+  // Dummy variables so that min and max values can be set
   let i;
   const scaledParameters = [];
   for (i = 0; i < partialScaledParameters.length; i += 1) {
@@ -167,10 +181,8 @@ function duplicateVariables(variables, servingsArray, inputConstraints) {
 
 
   const variables2 = {};
-
   let j;
   const k = Object.keys(variables);
-
   for (i = 0; i < k.length; i += 1) {
     for (j = 0; j < servingsArray.length; j += 1) {
       const tempObj = {};
@@ -179,7 +191,6 @@ function duplicateVariables(variables, servingsArray, inputConstraints) {
 
       // Reject suggestions which take up too large or small a portion
       // of the calories for even distribution across meals
-      // Later the fraction of total calories should be dependent on the number of meals
       const avgCaloriesPerMeel = inputConstraints['calories-min'] / (inputConstraints.numBreakfasts + inputConstraints.numLunches + inputConstraints.numDinners);
       if (inputConstraints.optParameter !== 'energy') {
         if (recipe.energy * servingsArray[j] < 0.5 * avgCaloriesPerMeel
@@ -209,7 +220,7 @@ function duplicateVariables(variables, servingsArray, inputConstraints) {
 }
 
 
-// Updates a single field in tempObj with data from the recipe that corresponds to the constraint
+// Called in populate variables. Updates a single field in tempObj with data from the recipe that corresponds to the constraint
 function singleConstraint(constraintName, recipe, tempObj) {
   if (constraintName in recipe) {
     if (recipe[constraintName] !== 'NaN') {
@@ -312,7 +323,7 @@ function populateRecipeVariables(constraints, inputConstraints, recipeArray) {
       tempObj.energy = recipe.energy;
     }
 
-
+    // Filter out recipes which do not satisfy allergens and dietary constraints 
     let restrictionFriendly = true;
     if ('allergens' in inputConstraints) {
       const { allergens } = inputConstraints;
@@ -365,6 +376,7 @@ function populateInts(variables) {
   return ints;
 }
 
+// In the returned calendar object, each day contains a field called meals which includes recipe info 
 function returnMealsForCalendar(model, results, inputConstraints) {
   const keys = Object.keys(results);
   let i;
@@ -389,6 +401,7 @@ function returnMealsForCalendar(model, results, inputConstraints) {
         image: recipe.image_url,
       };
 
+      //  The following blocks title each meal as breakfast, lunch, or dinner
       let j;
       for (j = 0; j < inputConstraints.numBreakfasts; j++) {
         if (recipe[`breakfast${String(2 * j + 1)}`] === 1) {
@@ -425,6 +438,7 @@ function returnMealsForCalendar(model, results, inputConstraints) {
   return meals;
 }
 
+// Generates the calendar object which contains a full meal plan
 function returnCalendar(resultsArray, mealsArray) {
   const week = [];
   let counter = 1;
@@ -444,6 +458,9 @@ function returnCalendar(resultsArray, mealsArray) {
   return week;
 }
 
+
+// Based on the number of desired meals per day, determines the number of recipes
+// which are categorized as different courses (breakfast, lunch, dinner)
 function getNumberEachCourse(inputConstraints) {
 
   if (inputConstraints.meals === '1') {
@@ -481,8 +498,9 @@ function getNumberEachCourse(inputConstraints) {
 }
 
 
-// This is the primary function which is reads in user input and returns a meal plan
+// This is the primary function which reads in user input and returns a meal plan
 function optimization(inputConstraints, recipes) {
+
   const resultsArray = [];
   const usedRecipeNames = [];
   const mealsArray = [];
@@ -493,6 +511,7 @@ function optimization(inputConstraints, recipes) {
 
   getNumberEachCourse(inputConstraints);
 
+  // Sets optimiziation parameter and min/max based on input
   if (inputConstraints['optimize-id'] === 0) {
     inputConstraints.optParameter = 'total_time_seconds';
     inputConstraints.optType = 'min';
@@ -510,7 +529,7 @@ function optimization(inputConstraints, recipes) {
     inputConstraints.optParameterType = 'max';
   }
 
-
+  // Each iteration of the loop plans one day. Recipes used in one day cannot be used in subsequent days.
   for (i = 0; i < inputConstraints.days; i += 1) {
     const model = {
       optimize: inputConstraints.optParameter,
@@ -519,6 +538,8 @@ function optimization(inputConstraints, recipes) {
 
     model.constraints = populateConstraints(inputConstraints);
     model.variables = populateRecipeVariables(model.constraints, inputConstraints, recipes);
+
+    // Remove previously used recipes from the model 
     variablesKeys = Object.keys(model.variables);
     for (j = 0; j < variablesKeys.length; j += 1) {
       if (usedRecipeNames.includes(model.variables[variablesKeys[j]].recipe_name)) {
@@ -526,15 +547,22 @@ function optimization(inputConstraints, recipes) {
       }
     }
 
+    // Based on the recipes which are already analyzed, make duplicate entries which vary 
+    // in the number of recommended servings 
     const servingNumbers = [0.5, 1, 1.5, 2, 3];
     model.variables = duplicateVariables(model.variables, servingNumbers, inputConstraints);
+
+    // This forces the solver to return integer solutions 
     model.ints = populateInts(model.variables);
 
-
+    // Run the solver and add the results for that day to an array
     const results = solver.Solve(model);
     resultsArray.push(results);
+
+    // There is a 'meals' element for each day which will later be paired with additional data (day #, etc.)
     mealsArray.push(returnMealsForCalendar(model, results, inputConstraints));
 
+    // Update the list of used recipe names so they will not be returned in subsequent days
     resultsKeys = Object.keys(results);
     for (j = 0; j < resultsKeys.length; j += 1) {
       if (resultsKeys[j] !== 'feasible' && resultsKeys[j] !== 'result' && resultsKeys[j] !== 'bounded' && results[resultsKeys[j]] > 0) {
