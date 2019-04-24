@@ -114,7 +114,7 @@ button:focus {
   background-color: #ffffff;
   border: none;
   color: black;
-  padding: 15px 30px;
+  padding: 0px 0px;
   text-align: center;
   text-decoration: none;
   font-size: 16px;
@@ -128,7 +128,7 @@ button:focus {
   background-color: #ffffff;
   border: none;
   color: black;
-  padding: 60px 30px;
+  padding: 20px 30px;
   text-align: center;
   text-decoration: none;
   font-size: 16px;
