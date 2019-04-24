@@ -9,27 +9,29 @@ block content
   h6= 'Today is ' + date.day + ', ' + date.month + ' ' + date.date + ', ' + date.year
   br
   if nextMeal
-    button.text-light.list-group-item.list-group-item-action.card-header.bg-dark(type='button', data-toggle='collapse', data-target='#next-meal', role='button')= 'Today\'s ' + nextMeal.name
-    .card.card-body.collapse#next-meal
-      ul.list-group
-        each recipe in nextMeal.recipes
-          .d-flex.list-group-item= recipe.name
-          .card-text(id="meal"+recipe.id)
-            .bg-dark
-              .text-light= "Calories: " + recipe.calories
-              .text-light= "Total time: " + recipe.total_time_seconds + " s"
-              .text-light= "Servings: " + recipe.servings
-            ul.list-group
-            each ingredient in recipe.ingredients
-              li.text-capitalize.list-group-item= ingredient.name
-            if recipe.link
-              li.list-group-item.bg-dark
-                a.text-light(href=recipe.link, target="_blank") See recipe...
-            li.list-group-item.bg-success
-                a.text-light(href="/index?eaten_day="+nextMeal.weekId+"&eaten_meal="+nextMeal.mealId) Next meal
-                  |
-                  |
-                  i.fas.fa-arrow-right
+    button.text-light.list-group-item.list-group-item-action.bg-dark(type='button', data-toggle='collapse', data-target='#next-meal', role='button')= 'Today\'s ' + nextMeal.name
+    .collapse#next-meal
+      each recipe in nextMeal.recipes
+        div(style='height: 50px; overflow: hidden; background: url('+recipe.image+'); background-repeat: no-repeat; background-size: cover; background-position: center center; background-clip: padding-box;')
+        .d-flex.list-group-item= recipe.name
+        .card-text(id="meal"+recipe.id)
+          .bg-dark
+            .text-light= "Calories: " + recipe.calories
+            .text-light= "Total time: " + recipe.total_time_seconds + "s"
+            .text-light= "Servings: " + recipe.servings
+          ul.list-group
+          each ingredient in recipe.ingredients
+            li.list-group-item.d-flex
+              .text-capitalize.mr-auto= ingredient.name 
+              .text-nowrap= ingredient.amount + ' ' + ingredient.unit
+          if recipe.link
+            li.list-group-item.bg-dark
+              a.text-light(href=recipe.link, target="_blank") See recipe...
+          li.list-group-item.bg-success
+              a.text-light(href="/index?eaten_day="+nextMeal.weekId+"&eaten_meal="+nextMeal.mealId) Next meal
+                |
+                |
+                i.fas.fa-arrow-right
   if ingredients
     button.list-group-item.list-group-item-action(type='button', data-toggle='collapse', data-target='#shopping-list', role='button', aria-expanded='false', aria-controls='shopping-list') Show Shopping List
     div.collapse(id='shopping-list')
