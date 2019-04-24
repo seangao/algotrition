@@ -54,11 +54,11 @@ block content
     button.list-group-item.list-group-item-action(type='button', data-toggle='collapse', data-target='#tutorial', role='button', aria-expanded='true', aria-controls='tutorial') See Tutorial
   
   div#tutorial.container.collapse.hide
-    div.card.card-body.profile-body
+    div.card.card-body.tutorial-body
       .tutorial-container
         div
-          img(src='/images/choose-specify.svg' alt='Expand' height='300px')
-        div.tutorial-body
+          img(src='/images/choose-specify.svg' alt='Choose Specify' height='300px' class = 'center')
+        div.tutorial-text
           h2 Choosing Your Nutrients
           p.
             Tell us what you want from your food! From the given list of nutrients, 
@@ -68,17 +68,17 @@ block content
             we'll take care of the rest.
       .tutorial-container
         div
-          img(src='/images/choose-optimize.svg' alt='Expand' height='300px')
-        div.tutorial-body
-          h2 Choose a Parameter to Optomize
+          img(src='/images/choose-optimize.svg' alt='Choose Optimize' height='300px' class='center')
+        div.tutorial-text
+          h2 Choose a Parameter to Optimize
           p.
             Tell our optomizer what you care about most! Your options are to: minimize cost, 
             maximize calories, minimize calories, or minimize cooking time. Our generator will 
             returnt the plan that does that while sticking to your input specifications.
       .tutorial-container
         div
-          img(src='/images/enter-param-screen.svg' alt='Expand' height='300px')
-        div.tutorial-body
+          img(src='/images/enter-param-screen.svg' alt='Param Screen' height='300px' class='center')
+        div.tutorial-text
           h2 Input Your Ranges
           p.
             Tell us what you want! Fill in the information about how you eat, including
