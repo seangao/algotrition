@@ -46,13 +46,9 @@ describe('UI', () => {
 
   it('reset password', async () => {
     await driver.get(`${baseURL}/passwordReset`);
-    await driver.findElement(By.id('username')).sendKeys('sean');
-    await driver.findElement(By.id('password')).sendKeys('test');
-    await driver.findElement(By.id('password-confirm')).sendKeys('test');
-    await driver.findElement(By.id('password-reset')).click();
 
     const title = await driver.getTitle();
-    assert.equal(title, 'Login');
+    assert.equal(title, 'Reset Password');
   });
 
   it('login', async () => {
