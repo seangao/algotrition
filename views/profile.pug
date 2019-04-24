@@ -9,77 +9,25 @@ block content
           data-slide='next') 
             span.glyphicon.glyphicon-pencil
             | Edit Profile
-<<<<<<< HEAD
-=======
           //- a#profile-animated-button-next.btn.btn-info.btn-sm.btn-collapsible
           //-   i.fa.fa-cloud-download
           //-   span Download
         div.list
           each category in user
-              h5.card-header.d-flex.text-capitalize
-                a.mr-auto.text-secondary(data-toggle="collapse" href="#category"+category.id)= category.name
-              .card-text.collapse.text-secondary.show(id="category"+category.id)
+            button.list-group-item.profile-header.list-group-item-action(type='button', data-toggle='collapse', data-target='#category'+category.id, role='button', aria-expanded='true', aria-controls='general') #{category.name}
+            div.container.collapse.show(id='category'+category.id)
+              div.card.card-body.profile-body
                 each item in category.items
->>>>>>> e398aa44e11810e0b0323afb0aee65a059c05397
                   
-        div.list  
-          each category in user 
-              button.list-group-item.profile-header.list-group-item-action(type='button', data-toggle='collapse', data-target='#category'+category.id, role='button', aria-expanded='true', aria-controls='general') #{category.name}
-              div.container.collapse.show(id='category'+category.id)
-                div.card.card-body.profile-body
-                  each item in category.items
-                    h6= item.name.charAt(0).toUpperCase() + item.name.slice(1, item.name.length) + ": " + item.value
+                  p= item.name.charAt(0).toUpperCase() + item.name.slice(1, item.name.length) + ": " + item.value
 
       div.carousel-item
         div#edit-form(class='list')
-<<<<<<< HEAD
-          form(method='POST', class='px-3 py-3', action='/profile/updateprofile')
-            each category in user 
-                button.list-group-item.profile-header.list-group-item-action(type='button', data-toggle='collapse', data-target='#category'+category.id+'edit', role='button', aria-expanded='true', aria-controls='general') #{category.name}
-                div.container.collapse.show(id='category'+category.id+'edit')
-                  div.card.card-body.profile-body
-                  each item in category.items
-                    if item.name === 'height'
-                      div(class='form-group input-group')
-                        div(class='input-group-prepend')
-                          span(class='input-group-text text-capitalize') #{item.name}
-                            //- i(class=item.icon)
-                        select(class='custom-select', name='ft')
-                          option(selected, disabled) #{item.feet}
-                          option(value='0') 0
-                          option(value='1') 1
-                          option(value='2') 2
-                          option(value='3') 3
-                          option(value='4') 4
-                          option(value='5') 5
-                          option(value='6') 6
-                          option(value='7') 7
-                        div(class='input-group-append input-group-prepend')
-                          div(class='input-group-append input-group-prepend')
-                            span(class='input-group-text') feet
-                        select(class='custom-select', name='in')
-                          option(selected, disabled) #{item.inch}
-                          option(value='0') 0
-                          option(value='1') 1
-                          option(value='2') 2
-                          option(value='3') 3
-                          option(value='4') 4
-                          option(value='5') 5
-                          option(value='6') 6
-                          option(value='7') 7
-                          option(value='8') 8
-                          option(value='9') 9
-                          option(value='10') 10
-                          option(value='11') 11
-                          option(value='12') 12
-                        div(class='input-group-append')
-                          span(class='input-group-text') inches
-=======
           form#edit-profile-form(method='POST', class='px-3 py-3', action='/profile/updateprofile')
             each category in user
-              h5.card-header.d-flex.text-capitalize
-                a.mr-auto.text-secondary(data-toggle="collapse" href="#category"+category.id+"edit")= category.name
-              .card-text.collapse.text-secondary.show(id="category"+category.id+"edit")
+              button.list-group-item.profile-header.list-group-item-action(type='button', data-toggle='collapse', data-target='#category'+category.id+'edit', role='button', aria-expanded='true', aria-controls='general') #{category.name}
+              div.container.collapse.show(id='category'+category.id+'edit')
+                div.card.card-body.profile-body
                 each item in category.items
                   if item.name === 'height'
                     div(class='form-group input-group')
@@ -150,51 +98,21 @@ block content
                             //- i(class=item.icon) 
                         input.form-control.edit-profile-input(type='number', value=item.value,
                           name=item.name)
->>>>>>> e398aa44e11810e0b0323afb0aee65a059c05397
                         div(class='input-group-append')
                           span(class='input-group-text')
                             i(class=item.icon)
-                    else if item.name === 'Gender'
+                    else
                       div(class='form-group input-group')
                         div(class='input-group-prepend')
-                          span(class='input-group-text text-capitalize') #{item.name}
+                          span(class='input-group-image input-group-text text-capitalize') #{item.name}
                             //- i(class=item.icon) 
-<<<<<<< HEAD
-                        select(class='custom-select', name='gender')
-                          option(selected, disabled) #{item.value}
-                          option(value='Male') Male
-                          option(value='Female') Female
-                          option(value='Other') Other
-=======
                         input.form-control.edit-profile-input(type='text', value=item.value,
                           name=item.name)
->>>>>>> e398aa44e11810e0b0323afb0aee65a059c05397
                         div(class='input-group-append')
                           span(class='input-group-text')
                             i(class=item.icon)
-                    else if item.edit
-                      if item.number
-                        div(class='form-group input-group')
-                          div(class='input-group-prepend')
-                            span(class='input-group-text text-capitalize') #{item.name}
-                              //- i(class=item.icon) 
-                          input.form-control(type='number', placeholder=item.value,
-                            name=item.name)
-                          div(class='input-group-append')
-                            span(class='input-group-text')
-                              i(class=item.icon)
-                      else
-                        div(class='form-group input-group')
-                          div(class='input-group-prepend')
-                            span(class='input-group-image input-group-text text-capitalize') #{item.name}
-                              //- i(class=item.icon) 
-                          input.form-control(type='text', placeholder=item.value,
-                            name=item.name)
-                          div(class='input-group-append')
-                            span(class='input-group-text')
-                              i(class=item.icon)
-                    else
-                      p= item.name + ": " + item.value
+                  else
+                    p= item.name + ": " + item.value
             div(class='text-center')
               button#save(type='submit', class='btn btn-outline-primary',
                 name='save', data-slide='next') Save 
