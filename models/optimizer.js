@@ -512,29 +512,32 @@ function optimization(inputConstraints, recipes) {
   getNumberEachCourse(inputConstraints);
 
   // Sets optimiziation parameter and min/max based on input
-  if (inputConstraints['optimize-id'] === 0) {
+  if (inputConstraints['optimize-id'] == 0) {
     inputConstraints.optParameter = 'total_time_seconds';
     inputConstraints.optType = 'min';
   }
-  if (inputConstraints['optimize-id'] === 1) {
+  if (inputConstraints['optimize-id'] == 1) {
     inputConstraints.optParameter = 'price_per_serving';
     inputConstraints.optType = 'min';
   }
-  if (inputConstraints['optimize-id'] === 2) {
+  if (inputConstraints['optimize-id'] == 2) {
     inputConstraints.optParameter = 'energy';
     inputConstraints.optType = 'min';
   }
-  if (inputConstraints['optimize-id'] === 3) {
+  if (inputConstraints['optimize-id'] == 3) {
     inputConstraints.optParameter = 'energy';
-    inputConstraints.optParameterType = 'max';
+    inputConstraints.optType = 'max';
   }
 
   // Each iteration of the loop plans one day. Recipes used in one day cannot be used in subsequent days.
   for (i = 0; i < inputConstraints.days; i += 1) {
+    console.log(inputConstraints);
     const model = {
       optimize: inputConstraints.optParameter,
-      opType: inputConstraints.optParameterType,
+      opType: inputConstraints.optType,
     };
+
+    console.log(model);
 
     model.constraints = populateConstraints(inputConstraints);
     model.variables = populateRecipeVariables(model.constraints, inputConstraints, recipes);
@@ -557,6 +560,7 @@ function optimization(inputConstraints, recipes) {
 
     // Run the solver and add the results for that day to an array
     const results = solver.Solve(model);
+    console.log(results);
     resultsArray.push(results);
 
     // There is a 'meals' element for each day which will later be paired with additional data (day #, etc.)
