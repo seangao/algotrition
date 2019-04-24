@@ -44,6 +44,17 @@ describe('UI', () => {
   //   assert.equal(title, 'Calendar');
   // });
 
+  it('reset password', async () => {
+    await driver.get(`${baseURL}/passwordReset`);
+    await driver.findElement(By.id('username')).sendKeys('sean');
+    await driver.findElement(By.id('password')).sendKeys('test');
+    await driver.findElement(By.id('password-confirm')).sendKeys('test');
+    await driver.findElement(By.id('password-reset')).click();
+
+    const title = await driver.getTitle();
+    assert.equal(title, 'Login');
+  });
+
   it('login', async () => {
     await driver.get(`${baseURL}/login`);
     await driver.findElement(By.id('username')).sendKeys('sean');
@@ -52,13 +63,6 @@ describe('UI', () => {
 
     const title = await driver.getTitle();
     assert.equal(title, 'Algotrition');
-  });
-
-  it('reset password', async () => {
-    await driver.get(`${baseURL}/passwordReset`);
-
-    const title = await driver.getTitle();
-    assert.equal(title, 'Reset Password');
   });
 
   describe('profile', async () => {
