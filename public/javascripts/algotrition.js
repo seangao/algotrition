@@ -82,7 +82,7 @@ function checkInputs() {
   const has_ingredients = $('ul#ingredient-list li').length >= 1;
   const instruction = $('#instruction').val();
 
-  if (title == '' || !has_ingredients || instruction == '') {
+  if (title === '' || !has_ingredients || instruction === '') {
     alert('Error: one of the inputs is empty');
     return false;
   }
@@ -91,7 +91,7 @@ function checkInputs() {
 /** Check if edit profile inputs are valid. */
 function checkEditProfileInputs() {
   let valid = true;
-  $('.edit-profile-input').each( function() {
+  $('.edit-profile-input').each(function () {
     if (!$(this).val()) {
       alert('Error: inputs cannot be empty');
       valid = false;
@@ -104,7 +104,7 @@ function checkEditProfileInputs() {
 /** Check if meal plan generator inputs are valid. */
 function checkGeneratorInputs() {
   let valid = true;
-  $('#generator-form input').each( function() {
+  $('#generator-form input').each(function () {
     $(this).removeClass('is-invalid');
     if (!$(this).val()) {
       $(this).addClass('is-invalid');
@@ -113,14 +113,6 @@ function checkGeneratorInputs() {
   });
   return valid;
 }
-
-// function setUpEnterKey(event) {
-//   if (event.key === 'Enter') {
-//     if ($('#ingredient-input:focus')) {
-//       $('#add-ingredient').trigger('click');
-//     }
-//   }
-// }
 
 /** Main function to load on document ready. */
 function main() {
@@ -133,7 +125,6 @@ function main() {
   $('#add-recipe-form').submit(checkInputs);
   $('#edit-profile-form').submit(checkEditProfileInputs);
   $('#generator-form').submit(checkGeneratorInputs);
-  // $('#ingredient-input').on('keyup', setUpEnterKey);
 }
 
 /** Render header image. */

@@ -4,10 +4,10 @@ const planModel = require('../models/plan.js');
 
 /** Load generate plan form. */
 function generator(req, res) {
-  const optimizers = planModel.optimizers;
-  const allergens = planModel.allergens;
-  const diets = planModel.diets;
-  const nutrients = planModel.nutrients;
+  const { optimizers } = planModel;
+  const { allergens } = planModel;
+  const { diets } = planModel;
+  const { nutrients } = planModel;
 
   res.render('planGenerator', {
     title: 'Plan Generator',

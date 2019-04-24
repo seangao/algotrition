@@ -62,7 +62,7 @@ async function deleteRecipeFromCalendar(req, rejectedRecipeId) {
   for (i = 0; i < calendar.length; i++) {
     for (j = 0; j < calendar[i].meals.length; j++) {
       const recipe = calendar[i].meals[j].recipes[0];
-      if (recipe.id == rejectedRecipeId) { //bad lint
+      if (recipe.id == rejectedRecipeId) { // bad lint
         dayIndex = i;
         mealIndex = j;
         activeMeal = recipe.active;
@@ -97,7 +97,7 @@ async function deleteRecipeFromCalendar(req, rejectedRecipeId) {
   model.constraints = optimizer.populateConstraints(inputConstraints);
   const recipes = await recipesMod.getAllRecipes(req.app.locals.db);
   model.variables = optimizer.populateRecipeVariables(model.constraints, inputConstraints, recipes);
-  let variablesKeys = Object.keys(model.variables);
+  const variablesKeys = Object.keys(model.variables);
   for (j = 0; j < variablesKeys.length; j += 1) {
     if (usedRecipeNames.includes(model.variables[variablesKeys[j]].recipe_name)) {
       delete model.variables[variablesKeys[j]];
