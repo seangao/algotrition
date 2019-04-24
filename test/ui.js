@@ -59,7 +59,7 @@ describe('UI', () => {
     await driver.findElement(By.id('username')).sendKeys('sean');
     await driver.findElement(By.id('password')).sendKeys('test');
     await driver.findElement(By.id('password-confirm')).sendKeys('test');
-    await driver.findElement(By.id('login')).click();
+    await driver.findElement(By.id('password-reset')).click();
 
     const title = await driver.getTitle();
     assert.equal(title, 'Login');
