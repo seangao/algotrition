@@ -48,5 +48,37 @@ describe('UI', () => {
     assert.equal(title, 'Algotrition');
   });
 
+  it('reset password', async () => {
+    await driver.get(`${baseURL}/passwordReset`);
+    await driver.findElement(By.id('username')).sendKeys('sean');
+    await driver.findElement(By.id('password')).sendKeys('test');
+    await driver.findElement(By.id('password-confirm')).sendKeys('test');
+    await driver.findElement(By.id('login')).click();
+
+    const title = await driver.getTitle();
+    assert.equal(title, 'Login');
+  });
+
+  describe('profile', () => {
+    it('view username', async () => {
+      assert.isTrue(driver.findElement(By.id('username')).isDisplayed());
+    });
+    it('view height', async () => {
+      assert.isTrue(driver.findElement(By.id('height')).isDisplayed());
+    });
+    it('view weight', async () => {
+      assert.isTrue(driver.findElement(By.id('weight')).isDisplayed());
+    });
+    it('view age', async () => {
+      assert.isTrue(driver.findElement(By.id('age')).isDisplayed());
+    });
+    it('view gender', async () => {
+      assert.isTrue(driver.findElement(By.id('gender')).isDisplayed());
+    });
+    it('view allergens', async () => {
+      assert.isTrue(driver.findElement(By.id('allergens')).isDisplayed());
+    });
+  });
+
   after(() => driver && driver.quit());
 });
