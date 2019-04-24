@@ -66,6 +66,7 @@ describe('UI', () => {
   });
 
   describe('profile', () => {
+    await driver.get(`${baseURL}/profile`);
     it('view username', async () => {
       assert.isTrue(driver.findElement(By.id('username')).isDisplayed());
     });
