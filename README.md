@@ -15,3 +15,4 @@ To avoid reloading the app each time you make changes, run `DEBUG=algotrition:* 
 
 ## Testing
 Run `npm test`
+
