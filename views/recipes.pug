@@ -1,0 +1,36 @@
+extends layout
+
+block content
+  div.carousel-item.active
+    if userRecipes
+      div#has-user-recipes
+        br
+        h2 Your Saved Recipes
+        br
+        div.list-group
+          each recipe in userRecipes
+            button.list-group-item.list-group-item-action(type='button', data-toggle='collapse', data-target='#a' + recipe.userid + '-' + recipe.id, role='button', aria-expanded="false" aria-controls='a' + recipe.userid + '-' + recipe.id)= recipe.title
+            div.collapse(id='a' + recipe.userid + '-' + recipe.id)
+              div.card.card-body
+                h3 Ingredients Needed
+                br
+                ul.list-group
+                  each ingredient in recipe.ingredients
+                    li.list-group-item= ingredient
+                br
+                h3 Detailed Instruction
+                p= recipe.instructions
+                br
+                div.text-center.text-primary.pt-3
+                    form#recipe-form-edit.d-inline(method='POST', action='/recipes/edit')
+                      button.btn.btn-outline-primary(id='edit' + recipe.userid + '-' + recipe.id, name=recipe.id) Edit Recipe
+                    form#recipe-form-delete.d-inline(method='POST', action='/recipes/delete')
+                      button.btn.btn-outline-primary(id='delete' + recipe.userid + '-' + recipe.id, name=recipe.id) Delete Recipe
+    else
+      div#no-user-recipes
+        br
+        h2 You do not have any saved recipes.
+        br
+
+    div.text-center.pt-3
+      a.btn.btn-outline-primary(href='/addRecipe', role='button') Add Recipe

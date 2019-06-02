@@ -1,0 +1,40 @@
+extends layout
+
+block content
+  .container.row#plan-calendar
+    each day, week_index in week
+      .col-md-6.col-lg-3
+        h3= day.name
+        each meal, meal_index in day.meals
+          h4= meal.name
+            if meal.active && !meal.eaten
+              |
+              |
+              .btn-group(role="group")
+                a.btn.btn-success(href="/calendar?eaten_day="+week_index+"&eaten_meal="+meal_index) next
+                  |
+                  |
+                  i.fas.fa-arrow-right
+                //-a.btn.btn-secondary(href="#")
+                  i.fas.fa-plus
+          each recipe in meal.recipes
+            .card.bg-dark.my-1
+              h5.card-header.d-flex(style='background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('+recipe.image+'); background-repeat: no-repeat; background-size: cover; background-position: center center; background-clip: padding-box;')
+                a.mr-auto.text-white.text-capitalize(data-toggle="collapse" href="#meal"+day.id+'-'+meal.id+"-"+recipe.id)= recipe.name
+                .drop-down
+                  a.text-white(data-toggle="dropdown" href="#")
+                    i.fas.fa-ellipsis-h
+                  .dropdown-menu.dropdown-menu-right
+                    //- a.dropdown-item(href="#") Change date...
+                    a.dropdown-item(href="/calendar?delete_id="+recipe.id) Remove...
+              .card-text.collapse(id="meal"+day.id+'-'+meal.id+"-"+recipe.id)
+                .bg-dark
+                  .text-white= "Calories: " + recipe.calories
+                  .text-white= "Total time: " + recipe.total_time_seconds + " s"
+                  .text-white= "Servings: " + recipe.servings
+                ul.list-group
+                each ingredient in recipe.ingredients
+                  li.text-capitalize.list-group-item= ingredient.name
+                if recipe.link
+                  li.list-group-item.bg-dark
+                    a.text-white(href=recipe.link, target="_blank") See recipe...

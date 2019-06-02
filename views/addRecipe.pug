@@ -1,0 +1,42 @@
+extends layout
+
+block content
+  h2 Input Your Own Recipe
+  div#recipe-carousel.carousel.slide(data-ride='carousel', data-interval='false')
+    form#add-recipe-form(method='POST', action='')
+      div.carousel-item.active
+        label(for='title') Please input a title for your recipe
+        div.input-group.mb-3
+          input#title.form-control(type='text', name='title', placeholder='Recipe Title', aria-label='Recipe Title', aria-descibedby='basic-addon2')
+
+        div.text-center.pt-2
+          a#check-title-button.btn.btn-outline-primary(href='#recipe-carousel', role='button', data-slide='next') Input Ingredients
+          a#cancel-recipe-input.btn.btn-outline-primary(href='/recipes', role='button', data-slide='prev') Cancel
+
+      div.carousel-item
+        div.input-group.mb-3
+          input#ingredient-input.form-control(type='text', placeholder='Input ingredients', aria-label='Input ingredients', aria-describedby="basic-addon2")
+          div.input-group-append
+            button#add-ingredient.btn.btn-outline-secondary(type='button') Add Ingreident
+
+        div#ingredients.container
+          ul#ingredient-list.list-group
+
+        div.text-center.pt-2
+          a.btn.btn-outline-primary(href='#recipe-carousel', role='button', data-slide='next') Input Detailed Instructions
+          a.btn.btn-outline-primary(href='#recipe-carousel', role='button', data-slide='prev') Back
+
+      div.carousel-item
+        div.form-group
+          textarea#instruction.form-control(rows='5', name='instruction')
+        div.text-center.pt-3
+          a.btn.btn-outline-primary(href='#recipe-carousel', role='button', data-slide='next') Next
+          a.btn.btn-outline-primary(href='#recipe-carousel', role='button', data-slide='prev') Back
+
+      div.carousel-item
+        div.custom-file
+          input#recipe-pic-file.custom-file-input(type='file')
+          label.custom-file-label(for='recipe-pic-file') Choose file
+        div.text-center.pt-3
+          button#submit-recipe.btn.btn-outline-primary(type='submit', name='submit-recipe') Submit Recipe
+          a.btn.btn-outline-primary(href='#recipe-carousel', role='button', data-slide='prev') Back

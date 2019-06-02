@@ -1,0 +1,36 @@
+extends layout
+
+block content
+  div(class='dropdown-menu login-menu')
+    form(method='POST', class='px-3 py-3', action='/login')
+      div(class='form-group input-group')
+        div(class='input-group-prepend')
+          span(class='input-group-text input-group-icon')
+            i(class='fas fa-user')
+              
+        // display error or notification if set
+        if (locals.loginerr)
+          input#username.form-control.is-invalid(type='text', 
+            placeholder='Username', name='username')
+        else if (locals.note)
+          input#username.form-control.is-valid(type='text', 
+            placeholder='Username', name='username')
+        else
+          input#username.form-control(type='text', placeholder='Username',
+            name='username')
+        div.valid-feedback #{locals.note}
+        div.invalid-feedback #{locals.loginerr}
+        
+      div(class='form-group input-group')
+        div(class='input-group-prepend')
+          span(class='input-group-text input-group-icon')
+            i(class='fas fa-lock')
+        input#password.form-control(type='password', placeholder='Password',
+          name='password')
+        div.invalid-feedback Wrong password
+      div(class='text-center')
+        button#login(type='submit', class='btn btn-outline-primary',
+          name='login') Login
+    div(class='dropdown-divider')
+    a(class='dropdown-item py-2', href='/register') Don't have an account? Register
+    a(class='dropdown-item py-2', href='/passwordReset') Forgot password?

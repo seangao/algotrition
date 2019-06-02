@@ -1,0 +1,46 @@
+{
+  "name": "algotrition",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "lint": "eslint --ignore-path .gitignore .",
+    "start": "node ./bin/www",
+    "dev": "nodemon ./bin/www",
+    "test": "mocha --recursive",
+    "lintfix": "eslint --ignore-path .gitignore . --fix"
+  },
+  "engines": {
+    "node": "10.x"
+  },
+  "dependencies": {
+    "bcrypt": "^3.0.5",
+    "body-parser": "^1.18.3",
+    "bootstrap": "^4.3.1",
+    "cookie-parser": "~1.4.3",
+    "debug": "~2.6.9",
+    "express": "~4.16.0",
+    "express-session": "^1.15.6",
+    "express-sslify": "^1.2.0",
+    "http-errors": "~1.6.2",
+    "javascript-lp-solver": "^0.4.5",
+    "jquery": "^3.3.1",
+    "lint": "^1.1.2",
+    "morgan": "~1.9.0",
+    "nodemon": "^1.18.10",
+    "pg": "^7.8.0",
+    "pg-promise": "^8.6.4",
+    "popper.js": "^1.14.7",
+    "pug": "^2.0.3",
+    "unirest": "^0.6.0"
+  },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "chromedriver": "^2.46.0",
+    "eslint": "^5.15.1",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-import": "^2.16.0",
+    "mocha": "^6.1.3",
+    "selenium-webdriver": "^4.0.0-alpha.1",
+    "sinon": "^7.2.4"
+  }
+}

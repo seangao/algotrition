@@ -1,0 +1,95 @@
+extends layout
+
+block content
+  if user
+    h4= 'Welcome back to Algotrition '
+      span.text-success=userData.username
+  else
+    h4 Welcome to Algotrition
+  h6= 'Today is ' + date.day + ', ' + date.month + ' ' + date.date + ', ' + date.year
+  br
+  if nextMeal
+    button.text-light.list-group-item.list-group-item-action.bg-dark(type='button', data-toggle='collapse', data-target='#next-meal', role='button')= 'Today\'s ' + nextMeal.name
+    .collapse#next-meal
+      each recipe in nextMeal.recipes
+        div(style='height: 50px; overflow: hidden; background: url('+recipe.image+'); background-repeat: no-repeat; background-size: cover; background-position: center center; background-clip: padding-box;')
+        .d-flex.list-group-item= recipe.name
+        .card-text(id="meal"+recipe.id)
+          .bg-dark
+            .text-light= "Calories: " + recipe.calories
+            .text-light= "Total time: " + recipe.total_time_seconds + "s"
+            .text-light= "Servings: " + recipe.servings
+          ul.list-group
+          each ingredient in recipe.ingredients
+            li.list-group-item.d-flex
+              .text-capitalize.mr-auto= ingredient.name 
+              .text-nowrap= ingredient.amount + ' ' + ingredient.unit
+          if recipe.link
+            li.list-group-item.bg-dark
+              a.text-light(href=recipe.link, target="_blank") See recipe...
+          li.list-group-item.bg-success
+              a.text-light(href="/index?eaten_day="+nextMeal.weekId+"&eaten_meal="+nextMeal.mealId) Next meal
+                |
+                |
+                i.fas.fa-arrow-right
+  if ingredients
+    button.list-group-item.list-group-item-action(type='button', data-toggle='collapse', data-target='#shopping-list', role='button', aria-expanded='false', aria-controls='shopping-list') Show Shopping List
+    div.collapse(id='shopping-list')
+      div.card.card-body
+        ul.list-group
+          each aisle, key in ingredients
+            p.text-secondary= 'Suggested Aisle: ' + key
+            each ingredient in aisle
+              ul.list-group
+                button.list-group-item.d-flex.justify-content-between.align-items-center(type='button', role='button')= ingredient.ingredient_amount + ' ' + ingredient.ingredient_unit + ' ' + ingredient.ingredient_name
+            br
+    a.list-group-item.list-group-item-action(href='/generator', role='button') Create a new meal plan
+
+  else
+    h6 You do not have a saved meal plan yet.
+    a.list-group-item.list-group-item-action(href='/generator', role='button') Create a meal plan
+  if user
+    a.list-group-item.list-group-item-action(href='/profile', role='button') View or Change Your Profile
+    button.list-group-item.list-group-item-action(type='button', data-toggle='collapse', data-target='#tutorial', role='button', aria-expanded='true', aria-controls='tutorial') See Tutorial      
+  else
+    a.list-group-item.list-group-item-action(href='/login', role='button') Log in or Register to save your meal plan
+    button.list-group-item.list-group-item-action(type='button', data-toggle='collapse', data-target='#tutorial', role='button', aria-expanded='true', aria-controls='tutorial') See Tutorial
+  
+  div#tutorial.container.collapse.hide
+    div.card.card-body.tutorial-body
+      .tutorial-container
+        div
+          img(src='/images/choose-specify.svg' alt='Choose Specify' height='300px' class = 'center')
+        div.tutorial-text
+          h2 Choosing Your Nutrients
+          p.
+            Tell us what you want from your food! From the given list of nutrients, 
+            select the ones that you have ranges for. We support a lot of nutrients,
+            but don't let this overwhelm you! We know not everyone has a specific amount
+            of potassium they want to hit. Just select the ones that you want, and 
+            we'll take care of the rest.
+      .tutorial-container
+        div
+          img(src='/images/choose-optimize.svg' alt='Choose Optimize' height='300px' class='center')
+        div.tutorial-text
+          h2 Choose a Parameter to Optimize
+          p.
+            Tell our optomizer what you care about most! Your options are to: minimize cost, 
+            maximize calories, minimize calories, or minimize cooking time. Our generator will 
+            returnt the plan that does that while sticking to your input specifications.
+      .tutorial-container
+        div
+          img(src='/images/enter-param-screen.svg' alt='Param Screen' height='300px' class='center')
+        div.tutorial-text
+          h2 Input Ranges for Your Nutrients
+          p.
+            Tell us what you want! Fill in the information about how you eat, including
+            dietary restrictions (ex. vegan), how many meals you have per day, and how 
+            many days you want us to plan for you. This is also where you enter the 
+            desirable ranges for calories and all the nutrients you selected in the first screen.
+      
+      //- .tutorial-container
+      //-   div
+      //-     icon(class="fas fa-user" style="color: #78A371; font-size: 175pt; text-align: center")
+            
+          

@@ -1,0 +1,223 @@
+body {
+  padding-top: 65px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  background: #ffffff
+}
+
+a {
+  color: #ffffff;
+}
+
+h1 {
+    display: block;
+}
+
+.login-menu {
+  position: static;
+  display: block;
+  width: 100%;
+}
+
+.input-group-icon {
+  width: 46px;
+  display: block;
+  text-align: center;
+}
+
+.nutr-options-append-primary {
+  width: 55px;
+  display: block;
+  text-align: center;
+}
+
+.nutr-options-additional-prepend-primary {
+  width: 98px;
+  display: block;
+  text-align: center;
+}
+
+.nutr-options-additional-append-primary {
+  width: 56px;
+  display: block;
+  text-align: center;
+}
+
+.select-allergens {
+  width: 100%;
+}
+
+/*Experimental stuff for the collapsing menus*/
+.panel-heading .accordion-toggle:after {
+    /* symbol for "opening" panels */
+    font-family: 'Glyphicons Halflings';  /* essential for enabling glyphicon */
+    content: "\e114";    /* adjust as needed, taken from bootstrap.css */
+    float: right;        /* adjust as needed */
+    color: grey;         /* adjust as needed */
+}
+.panel-heading .accordion-toggle.collapsed:after {
+    /* symbol for "collapsed" panels */
+    content: "\e080";    /* adjust as needed, taken from bootstrap.css */
+}
+
+#add-nutr-reqs {
+  display: none;
+}
+
+.text-highlight-disabled {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+button:focus {
+  outline:0;
+}
+
+.profile-header {
+  background-color: #ffffff;
+  border-top-style: none;
+  border-right-style: none;
+  border-left-style: none;
+  border-bottom-style: solid;
+  color: black;
+  padding: 15px 32px;
+  text-align: left;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 6px 0px;
+  cursor: pointer;
+}
+
+.profile-header:hover {
+  background-color: #4CAF50; /* Green */
+  color: white;
+}
+
+.profile-body{
+  background-color: #ffffff;
+  border: none;
+  color: black;
+  padding: 5px 32px;
+  text-align: left;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 6px 0px;
+  cursor: pointer;
+}
+
+.tutorial-body{
+  background-color: #ffffff;
+  border: none;
+  color: black;
+  padding: 0px 0px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 16px;
+  margin: 6px 0px;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.tutorial-text{
+  background-color: #ffffff;
+  border: none;
+  color: black;
+  padding: 20px 30px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 16px;
+  margin: 6px 0px;
+  max-width: 600px;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1 0 100px;
+}
+
+.tutorial-container{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+}
+
+.flexbox {
+  display: flex;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+}
+
+.fav-btn {
+  display:flex;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+}
+
+
+@keyframes favme-anime {
+  0%   {
+    opacity: 1;
+    font-size: ms(0);
+    -webkit-text-stroke-color: transparent;
+  }
+  25%  {
+    opacity:.6;
+    color: #FFF;
+    font-size: ms(-2);
+    -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: #DC3232;
+  }
+  75%  {
+    opacity:.6;
+    color: #FFF;
+    font-size: ms(3);
+    -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: #DC3232;
+  }
+  100% {
+    opacity: 1;
+    font-size: ms(2);
+    -webkit-text-stroke-color: transparent;
+  }
+}
+
+@keyframes favme-hover {
+  from {
+    font-size: ms(3);
+  }
+  80% {
+    font-size: ms(2);
+  }
+}
+
+.favme {
+  display:block;
+  font-size: ms(2);
+  width: auto;
+  height: auto;
+  cursor: pointer;
+  box-shadow: none;
+  transition: all .2s ease;
+  color: #CBCDCE;
+  margin: 0;
+
+  &.active {
+    color: #DC3232;
+  }
+  &:hover {
+    animation: favme-hover .3s infinite alternate;
+  }
+  &.is_animating {
+    animation: favme-anime .3s;
+  }
+}

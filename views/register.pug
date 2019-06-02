@@ -1,0 +1,93 @@
+extends layout
+
+block content
+  div(class='dropdown-menu login-menu')
+    form(method='POST', class='px-3 py-3', action='/register/registerprocess')
+      div(class='form-group input-group')
+        div(class='input-group-prepend')
+          span(class='input-group-text input-group-icon')
+            i(class='fas fa-user')
+
+
+        // display error if registererr set
+        if (locals.registererr)
+          input#username.form-control.is-invalid(type='text', placeholder='Username', name='username')
+        else
+          input#username.form-control(type='text', placeholder='Username',
+          name='username')
+        div.invalid-feedback #{locals.registererr}
+        
+      div(class='form-group input-group')
+        div(class='input-group-prepend')
+          span(class='input-group-text input-group-icon')
+            i(class='fas fa-lock')
+        input#password.form-control(type='password', placeholder='Password',
+          name='password')
+      div(class='form-group input-group')
+        div(class='input-group-prepend')
+          span(class='input-group-text input-group-icon')
+            i(class='fas fa-lock')
+        input#password-confirm.form-control(type='password',
+          placeholder='Confirm password', name='password-confirm')
+      div(class='form-group input-group')
+        div(class='input-group-prepend')
+          span(class='input-group-text input-group-icon')
+            i(class='fas fa-birthday-cake')
+        input#age.form-control(type='number', placeholder='Age',
+          name='age')
+      div(class='form-group input-group')
+        div(class='input-group-prepend')
+          span(class='input-group-text input-group-icon')
+            i(class='fas fa-venus-mars')
+        select#gender(class='custom-select', name='gender')
+          option(selected, disabled) Gender
+          option(value='male') Male
+          option(value='female') Female
+      div(class='form-group input-group')
+        div(class='input-group-prepend')
+          span(class='input-group-text input-group-icon')
+            i(class='fas fa-ruler-vertical')
+        select#feet(class='custom-select', name='ft')
+          option(selected, disabled) ft
+          option(value='0') 0
+          option(value='1') 1
+          option(value='2') 2
+          option(value='3') 3
+          option(value='4') 4
+          option(value='5') 5
+          option(value='6') 6
+          option(value='7') 7
+        div(class='input-group-append input-group-prepend')
+          div(class='input-group-append input-group-prepend')
+            span(class='input-group-text') '
+        select#inches(class='custom-select', name='in')
+          option(selected, disabled) in
+          option(value='0') 0
+          option(value='1') 1
+          option(value='2') 2
+          option(value='3') 3
+          option(value='4') 4
+          option(value='5') 5
+          option(value='6') 6
+          option(value='7') 7
+          option(value='8') 8
+          option(value='9') 9
+          option(value='10') 10
+          option(value='11') 11
+          option(value='12') 12
+        div(class='input-group-append')
+          div(class='input-group-append')
+            span(class='input-group-text') "
+      div(class='form-group input-group')
+        div(class='input-group-prepend')
+          span(class='input-group-text input-group-icon')
+            i(class='fas fa-weight')
+        input#weight.form-control(type='number', placeholder='Weight (lbs)',
+          name='weight')
+      div(class='text-center')
+        a(class='btn btn-outline-primary text-primary' href='/') Back
+        |
+        |
+        button#register(type='submit' class='btn btn-outline-primary',
+          name='register') Register
+        

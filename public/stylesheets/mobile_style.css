@@ -1,0 +1,73 @@
+@media only screen and (max-width: 600px) {
+    body {
+      padding: 10px;
+      font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+    }
+
+    a {
+      color: #00B7FF;
+    }
+
+    h1 {
+        display: block;
+    }
+
+    .login-menu {
+      position: static;
+      display: block;
+      width: 100%;
+    }
+
+    .input-group-icon {
+      width: 40px;
+      display: block;
+      text-align: center;
+    }
+
+    .header_bar {
+      padding: 5px;
+      text-align: left;
+      background-image: url('http://rocomenty.com/wp-content/uploads/2019/02/header_background.jpg');
+      color: white;
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .menu_bar {
+        padding: 5px;
+        width: 100%;
+        height: auto;
+        display: block;
+    }
+
+    #header_logo {
+      max-width: 100%;
+      height: auto;
+    }
+
+    #main_menu {
+      display: none;
+    }
+
+    .dropdown {
+      position: relative;
+      display: inline-block;
+    }
+
+    #mobile_menu {
+      display: none;
+      position: absolute;
+      background-color: #f1f1f1;
+      min-width: 160px;
+      box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+      z-index: 1;
+    }
+
+    #mobile_menu a {
+      color: black;
+      padding: 12px 16px;
+      text-decoration: none;
+      display: block;
+    }
+}

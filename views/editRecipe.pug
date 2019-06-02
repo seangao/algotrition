@@ -1,0 +1,23 @@
+extends layout
+
+block content
+  if recipe
+    form#edit-recipe(method='POST', action='/recipes/saveChange')
+      div.input-group.mb-3
+        input(type='hidden', name='recipe_id', value=recipe.id)
+      div.input-group.mb-3
+        div.input-group-prepend
+          span.input-group-text(id='basic-addon3') Title
+        input#title.form-control(type='text', name='title', placeholder='Recipe Title', value=recipe.title, aria-label='Recipe Title', aria-describedby='basic-addon2')
+      p Ingredients
+      div#ingredients-container.mb-3
+        each ingred in recipe.ingredients
+          div.input-group.mb-3
+            input.form-control(type='text', name='ingredients', placeholder='Ingredient', value=ingred, aria-label='Ingredient', aria-describedby='basic-addon2')
+      div.input-group.mb-3
+        textarea#instruction.form-control(rows='5', name='instruction')= recipe.instructions
+      div.text-center.pt-3
+        button#submit-edit-recipe.btn.btn-outline-primary(type='submit', name='submit-edit-recipe') Save Changes
+        a.btn.btn-outline-primary(href='/recipes', role='button') Cancel
+  else
+    h2= 'No Recipe with recipe id ' + recipe_id + 'is found'

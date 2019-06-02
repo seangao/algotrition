@@ -1,0 +1,119 @@
+extends layout
+
+block content 
+  dig#profile-carousel.carousel.slide(data-ride='carousel', data-interval='false')
+    div.carousel-inner
+      div.carousel-item.active
+        div.text-right.pt-2
+          a#profile-button-next.btn.btn-outline-primary.btn-collapsible(href='#profile-carousel', role='button',
+          data-slide='next') 
+            span.glyphicon.glyphicon-pencil
+            | Edit Profile
+          //- a#profile-animated-button-next.btn.btn-info.btn-sm.btn-collapsible
+          //-   i.fa.fa-cloud-download
+          //-   span Download
+        div.list
+          each category in user
+            button.list-group-item.profile-header.list-group-item-action(type='button', data-toggle='collapse', data-target='#category'+category.id, role='button', aria-expanded='true', aria-controls='general') #{category.name}
+            div.container.collapse.show(id='category'+category.id)
+              div.card.card-body.profile-body
+                each item in category.items
+                  
+                  p(id=item.name)= item.name.charAt(0).toUpperCase() + item.name.slice(1, item.name.length) + ": " + item.value
+
+      div.carousel-item
+        div#edit-form(class='list')
+          form#edit-profile-form(method='POST', class='px-3 py-3', action='/profile/updateprofile')
+            each category in user
+              button.list-group-item.profile-header.list-group-item-action(type='button', data-toggle='collapse', data-target='#category'+category.id+'edit', role='button', aria-expanded='true', aria-controls='general') #{category.name}
+              div.container.collapse.show(id='category'+category.id+'edit')
+                div.card.card-body.profile-body
+                each item in category.items
+                  if item.name === 'height'
+                    div(class='form-group input-group')
+                      div(class='input-group-prepend')
+                        span(class='input-group-text text-capitalize') #{item.name}
+                          //- i(class=item.icon)
+                      select.edit-profile-input(class='custom-select', name='ft')
+                        option(selected, value=item.inch) #{item.feet}
+                        option(value='0') 0
+                        option(value='1') 1
+                        option(value='2') 2
+                        option(value='3') 3
+                        option(value='4') 4
+                        option(value='5') 5
+                        option(value='6') 6
+                        option(value='7') 7
+                      div(class='input-group-append input-group-prepend')
+                        div(class='input-group-append input-group-prepend')
+                          span(class='input-group-text') feet
+                      select.edit-profile-input(class='custom-select', name='in')
+                        option(selected, value=item.inch) #{item.inch}
+                        option(value='0') 0
+                        option(value='1') 1
+                        option(value='2') 2
+                        option(value='3') 3
+                        option(value='4') 4
+                        option(value='5') 5
+                        option(value='6') 6
+                        option(value='7') 7
+                        option(value='8') 8
+                        option(value='9') 9
+                        option(value='10') 10
+                        option(value='11') 11
+                        option(value='12') 12
+                      div(class='input-group-append')
+                        span(class='input-group-text') inches
+                      div(class='input-group-append')
+                        span(class='input-group-text')
+                          i(class=item.icon)
+                  else if item.name === 'gender'
+                    div(class='form-group input-group')
+                      div(class='input-group-prepend')
+                        span(class='input-group-text text-capitalize') #{item.name}
+                          //- i(class=item.icon) 
+                      select.edit-profile-input(class='custom-select', name='gender')
+                        option(value=item.value) #{item.value}
+                        option(value='Male') Male
+                        option(value='Female') Female
+                        option(value='Other') Other
+                      div(class='input-group-append')
+                        span(class='input-group-text')
+                          i(class=item.icon)
+                  else if item.edit
+                    if item.name === 'weight'
+                      div(class='form-group input-group')
+                        div(class='input-group-prepend')
+                          span(class='input-group-text text-capitalize') #{item.name}
+                            //- i(class=item.icon) 
+                        input.form-control.edit-profile-input(type='number', value=item.value.split(' ')[0],
+                          name=item.name)
+                        div(class='input-group-append')
+                          span(class='input-group-text')
+                            i(class=item.icon)
+                    else if item.number
+                      div(class='form-group input-group')
+                        div(class='input-group-prepend')
+                          span(class='input-group-text text-capitalize') #{item.name}
+                            //- i(class=item.icon) 
+                        input.form-control.edit-profile-input(type='number', value=item.value,
+                          name=item.name)
+                        div(class='input-group-append')
+                          span(class='input-group-text')
+                            i(class=item.icon)
+                    else
+                      div(class='form-group input-group')
+                        div(class='input-group-prepend')
+                          span(class='input-group-image input-group-text text-capitalize') #{item.name}
+                            //- i(class=item.icon) 
+                        input.form-control.edit-profile-input(type='text', value=item.value,
+                          name=item.name)
+                        div(class='input-group-append')
+                          span(class='input-group-text')
+                            i(class=item.icon)
+                  else
+                    p= item.name + ": " + item.value
+            div(class='text-center')
+              button#save(type='submit', class='btn btn-outline-primary',
+                name='save', data-slide='next') Save 
+      
