@@ -23,7 +23,7 @@
     "express-sslify": "^1.2.0",
     "http-errors": "~1.6.2",
     "javascript-lp-solver": "^0.4.5",
-    "jquery": "^3.3.1",
+    "jquery": "^3.5.0",
     "lint": "^1.1.2",
     "morgan": "~1.9.0",
     "nodemon": "^1.18.10",
